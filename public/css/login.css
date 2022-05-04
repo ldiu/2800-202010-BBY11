@@ -37,6 +37,7 @@
     grid-column: 1 / span 1;
     display: grid;
     grid-template-rows: 25% 10% 25% 10% 15%;
+    /* grid-template-rows: 25% 10% 25% 1fr 15%; */
     grid-template-columns: 50% 50%;
     height: 50vh;
     background-color: rgba(0, 0, 0, 0.783);
@@ -45,7 +46,7 @@
 
   #emailBox {
     grid-row: 1 / span 1;
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 2;
     width: 85%;
     justify-self: center;
     margin-top: 2rem;
@@ -58,7 +59,7 @@
 
   #passowrdBox {
     grid-row: 3 / span 1;
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 2;
     margin-bottom: 15px;
     width: 85%;
     justify-self: center;
@@ -70,9 +71,25 @@
     color: white;
   }
 
-  #createAccount {
-    color: white;
+  /* #createAccount {
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 2;
   }
+
+  #userName{
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 2;
+    width: 73%;
+    justify-self: center;
+    margin: 1rem;
+    margin-left: 22px;;
+    font-size: 20px;
+    background-color: rgb(196, 196, 196);
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    padding: 1.2em;
+  } */
 
   #signInButton {
     grid-row: 5 / span 1;
