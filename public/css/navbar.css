@@ -46,6 +46,10 @@ nav a {
     float: right;
 }
 
+#logoutButton{
+    float:right;
+}
+
 nav a:hover {
     background-color: grey;
     color: aliceblue;
