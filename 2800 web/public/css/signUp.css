@@ -71,36 +71,12 @@
     color: black;
   }
 
-  #signInButton {
-    grid-row: 5 / span 1;
-    grid-column: 1 / span 1;
-    width: 80%;
-    margin-left: 1.5rem;
-    font-size: 20px;
-    background-color: rgb(94, 155, 169);
-    border: 2px solid white;
-    border-radius: 6px;
-    color: white;
-  }
-
-  #signUpButton {
-    grid-row: 5 / span 1;
-    grid-column: 2 / span 1;
-    width: 80%;
-    margin-left: 1rem;
-    font-size: 20px;
-    background-color: rgb(107, 169, 94);
-    border: 2px solid white;
-    border-radius: 6px;
-    color: white;
-  }
-
   #createButton{
 
     grid-row: 5 / span 1;
     grid-column: 1 / span 2;
-    width: 80%;
-    margin-left: 1rem;
+    width: 86%;
+    margin-left: 1.5rem;
     font-size: 20px;
     background-color: rgb(107, 169, 94);
     border: 2px solid white;
@@ -108,7 +84,6 @@
     color: white;
 
   }
-
 
 }
 
@@ -187,30 +162,6 @@
   }
 
   #createAccount {
-    color: white;
-  }
-
-  #signInButton {
-    grid-row: 5 / span 1;
-    grid-column: 1 / span 1;
-    width: 80%;
-    margin-left: 1.5rem;
-    font-size: 20px;
-    background-color: rgb(94, 155, 169);
-    border: 2px solid white;
-    border-radius: 6px;
-    color: white;
-  }
-
-  #signUpButton {
-    grid-row: 5 / span 1;
-    grid-column: 2 / span 1;
-    width: 80%;
-    margin-left: 1rem;
-    font-size: 20px;
-    background-color: rgb(107, 169, 94);
-    border: 2px solid white;
-    border-radius: 6px;
     color: white;
   }
 
