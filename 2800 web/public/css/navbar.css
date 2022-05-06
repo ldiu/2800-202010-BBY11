@@ -2,7 +2,11 @@
     font-family: 'Montserrat';
     src: url(Montserrat-Regular.ttf);
 } */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+*{
+  font-family: 'Montserrat', sans-serif;
+}
 nav {
     background-color: black;
     display: inline-block;
