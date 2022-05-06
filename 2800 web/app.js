@@ -59,13 +59,21 @@ const admin4 = new Users({
   admin: true
 });
 
-// Users.insertMany([admin1, admin2, admin3, admin4], function(err){
-// if(err){
-//   console.log(err);
-// } else {
-//   console.log("saved successfully");
-// }
-// });
+Users.insertMany([admin1, admin2, admin3, admin4], function(err){
+if(err){
+  console.log(err);
+} else {
+  console.log("saved successfully");
+}
+});
+
+Users.insertMany("/data.json", function(err){
+if(err){
+  console.log(err);
+} else {
+  console.log("saved successfully");
+}
+});
 
 
 app.get("/", function (req, res) {
