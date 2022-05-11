@@ -5,6 +5,8 @@ const request = require("request");
 const mongo = require("mongodb");
 const mongoose = require("mongoose");
 const { JSDOM } = require('jsdom');
+const assert = require("assert");
+const router = express.Router();
 const fs = require("fs");
 const port = 8000;
 
@@ -20,9 +22,9 @@ app.use(session({
   saveUninitialized: true
 }));
 
-const url = "mongodb://localhost:27017/";
+const url = "mongodb://localhost:27017/BBY_11_user";
 
-mongoose.connect(url + "BBY_11_user", { useNewUrlParser: true });
+mongoose.connect(url, { useNewUrlParser: true });
 //usersDB
 //BBY_11_user
 
@@ -142,15 +144,29 @@ app.get("/data", function (req, res) {
     if (err) {
       console.log("the error: " + err);
     } else {
-      let t = users.forEach(function (user) {
-        let str = "<table>";
-        res.write(str += "<tr><td>email: " + user.email + "</tr></td><tr><td>name: " + user.name + "</tr></td></table>");
+     let userData = [];
+     mongo.connect(url, function(err, db){
+      assert.equal(null, err);
+      let currentData = db.collection("BBY_11_user").find({email:{}, name:{}});
+      currentData.forEach(function(doc, err){
+        assert.equal(null, err);
+        userData.push(doc);
+      }, function(){
+        db.close();
+        res.sendFile();
       });
-      document.querySelector("#data").appendChild(t);
+     });
     }
   });
 
 });
+
+/**
+   let t = users.forEach(function (user) {
+        let str = "<table>";
+        res.write(str += "<tr><td>email: " + user.email + "</tr></td><tr><td>name: " + user.name + "</tr></td></table>");
+      });
+ */
 
 //------- app.post -------//
 
@@ -173,10 +189,19 @@ app.post("/adminDash.html", function (req, res) {
       console.log("the error: " + err);
       res.status(500).send();
     } else {
-      users.forEach(function (user) {
-        let str = "<table>";
-        res.write(str += "<tr><td>email: " + user.email + "</tr></td><tr><td>name: " + user.name + "</tr></td></table>");
-      });
+    
+      // let userData = [];
+      // mongo.connect(url, function(err, db){
+      //  assert.equal(null, err);
+      //  let currentData = db.collection("BBY_11_user").find({email:{}, name:{}});
+      //  currentData.forEach(function(doc, err){
+      //    assert.equal(null, err);
+      //    userData.push(doc);
+      //  }, function(){
+      //    db.close();
+      //    res.sendFile(__dirname + "/adminDash.html", {tableInfo: userData});
+      //  });
+      // });
 
       // res.sendFile(__dirname + "/data.html");
     }
