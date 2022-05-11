@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (min-width: 0px) and (max-width: 445px) {
+
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+  }
+
+  #container1{
+    display: grid;
+    grid-template-rows: 10% 1fr 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #navbar{
+    grid-row: 1 / span 1;
+  }
+
+  #section{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 94% 1fr;
+    height: 80vh;
+  }
+
+  #container2{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display: grid;
+    grid-template-rows: 15% 70% 15%;
+    grid-template-columns: 100%;
+    grid-gap: .3rem;
+    height: 80vh;
+    width: 95%;
+    max-width: 410px;
+    min-width: 280px;
+  }
+
+  #solutionContainer{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+  }
+
+  #solutionBox{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    font-size: 20px;
+    margin-left: 2%; 
+    text-align: center;
+    background-color: black;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 17px;
+    max-width:92%;
+    color:white;
+  }
+
+  #buttonContainer{
+    display:grid;
+    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-columns: 33% 33% 33%;
+    grid-gap: .5rem;
+  }
+
+  #button1{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+    /* background-color: rgba(79, 79, 79, 0.819);
+    color: white; */
+
+  }
+
+  #button2{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #button3{
+    grid-row: 1 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #button4{
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #button5{
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #button6{
+    grid-row: 2 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #plus{
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #minus{
+    grid-row: 3 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 50px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #multiply{
+    grid-row: 3 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #divide{
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #openBracket{
+    grid-row: 4 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #closeBracket{
+    grid-row: 4 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  } 
+
+  #submitContainer{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+  }
+
+  #enterButton{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    font-size: 20px;
+    margin-left: 2%; 
+    text-align: center;
+    background-color: rgba(90, 90, 90, 0.819);
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 17px;
+    max-width:94%;
+    color:white;
+  }
+
+  #logoutButton{
+    background-color: black;
+    color:white;
+    font-size: 23px;
+    border: 1px solid black;
+  }
+
+}
+
+@media (min-width: 446px) {
+
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+  }
+
+  #container1{
+    display: grid;
+    grid-template-rows: 10% 1fr 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #navbar{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+  }
+
+  #section{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 410px 1fr;
+  }
+
+  #container2{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display: grid;
+    grid-template-rows: 15% 70% 15%;
+    grid-template-columns: 100%;
+    /* grid-gap: .3rem; */
+    height: 85vh;
+    width: 95%;
+    max-width: 410px;
+    min-width: 409px;
+  }
+
+  #solutionContainer{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+  }
+
+  #solutionBox{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    /* margin: 1rem; */
+    font-size: 20px;
+    text-align: center;
+    background-color: black;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 12px;
+    max-width:90%;
+  }
+
+  #buttonContainer{
+    display:grid;
+    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-columns: 33% 33% 33%;
+    /* grid-gap: .5rem; */
+  }
+
+  #button1{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+    /* background-color: rgba(79, 79, 79, 0.819);
+    color: white; */
+
+  }
+
+  #button2{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #button3{
+    grid-row: 1 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #button4{
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #button5{
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #button6{
+    grid-row: 2 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 25px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+  #plus{
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #minus{
+    grid-row: 3 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 50px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #multiply{
+    grid-row: 3 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #divide{
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #openBracket{
+    grid-row: 4 / span 1;
+    grid-column: 2 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #closeBracket{
+    grid-row: 4 / span 1;
+    grid-column: 3 / span 1;
+    margin: 1rem;
+    font-size: 30px;
+    background-color: black;
+    color: white;
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  } 
+
+  #submitContainer{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+  }
+
+  #enterButton{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    font-size: 20px;
+    margin-left: 2%; 
+    text-align: center;
+    background-color: rgba(90, 90, 90, 0.819);
+    border: 2px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 19px;
+    max-width:91%;
+    color:white;
+  }
+
+  #logoutButton{
+    background-color: black;
+    color:white;
+    font-size: 23px;
+    border: 1px solid black;
+  }
+
+}
