@@ -2,12 +2,15 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const request = require("request");
+const mongo = require("mongodb");
 const mongoose = require("mongoose");
-const port = 3000;
+const { JSDOM } = require('jsdom');
+const fs = require("fs");
+const port = 8000;
 
 const app = express();
 
-app.set("view engine", "html");
+// app.set("view engine", "html");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,7 +20,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
-mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
+const url = "mongodb://localhost:27017/";
+
+mongoose.connect(url + "BBY_11_user", { useNewUrlParser: true });
+//usersDB
+//BBY_11_user
 
 const usersSchema = {
   email: {
@@ -27,6 +34,14 @@ const usersSchema = {
   password: {
     type: String,
     required: [true, "enter your password"]
+  },
+  name: {
+    type: String,
+    // required: [true, "enter your name"]
+  },
+  lastName: {
+    type: String,
+    // required: [true, "enter your last name"]
   },
   admin: {
     type: Boolean,
@@ -39,53 +54,64 @@ const Users = new mongoose.model("Users", usersSchema);
 const admin1 = new Users({
   email: "eliyahabibi@gmail.com",
   password: 123,
+  name: "iliya",
+  lastName: "habibi",
   admin: true
 });
 
 const admin2 = new Users({
   email: "michaela@gmail.com",
   password: 123,
+  name: "Michaela",
+  lastName: "Ashlee",
   admin: true
 });
 
 const admin3 = new Users({
   email: "liana@gmail.com",
   password: 123,
+  name: "Liana",
+  lastName: "Diu",
   admin: true
 });
 const admin4 = new Users({
   email: "colin@gmail.com",
   password: 123,
+  name: "Colin",
+  lastName: "Lam",
   admin: true
 });
 
-Users.insertMany([admin1, admin2, admin3, admin4], function(err){
-if(err){
-  console.log(err);
-} else {
-  console.log("saved successfully");
-}
-});
+// Users.insertMany([admin1, admin2, admin3, admin4], function(err){
+// if(err){
+//   console.log(err);
+// } else {
+//   console.log("saved successfully");
+// }
+// });
 
-Users.insertMany("/data.json", function(err){
-if(err){
-  console.log(err);
-} else {
-  console.log("saved successfully");
-}
-});
+// Users.insertMany("/data.json", function(err){
+// if(err){
+//   console.log(err);
+// } else {
+//   console.log("saved successfully");
+// }
+// });
 
+
+//------- app.get -------//
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/adminDash.html", function (req, res) {
-  res.sendFile(__dirname + "/adminDash.html");
-});
-
 app.get("/login.html", function (req, res) {
-  res.sendFile(__dirname + "/login.html");
+  if (req.session.users) {
+    res.redirect(__dirname + "/index2.html");
+  }
+  else {
+    res.sendFile(__dirname + "/login.html");
+  }
 });
 
 app.get("/signUp.html", function (req, res) {
@@ -93,7 +119,12 @@ app.get("/signUp.html", function (req, res) {
 });
 
 app.get("/adminDash.html", function (req, res) {
-  res.sendFile(__dirname + "/adminDash.html");
+  if (req.session.users) {
+    res.sendFile(__dirname + "/adminDash.html");
+  }
+  else {
+    res.redirect("/login.html");
+  }
 });
 
 app.get("/index2.html", (req, res) => {
@@ -105,21 +136,49 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
+app.get("/data", function (req, res) {
+  res.sendFile(__dirname + "/data.html");
+  Users.find(function (err, users) {
+    if (err) {
+      console.log("the error: " + err);
+    } else {
+      let t = users.forEach(function (user) {
+        let str = "<table>";
+        res.write(str += "<tr><td>email: " + user.email + "</tr></td><tr><td>name: " + user.name + "</tr></td></table>");
+      });
+      document.querySelector("#data").appendChild(t);
+    }
+  });
+
+});
+
+//------- app.post -------//
+
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.post("/", function (req, res) {
-  req.session.destroy();
-  res.redirect(__dirname + "/");
+app.post("data", function (req, res) {
+
 });
 
+// app.post("/", function (req, res) {
+//   req.session.destroy();
+//   res.redirect(__dirname + "/");
+// });
+
 app.post("/adminDash.html", function (req, res) {
-  Users.find(function(err, users){
-    if(err){
-      console.log(err);
+  Users.find({}, function (err, users) {
+    if (err) {
+      console.log("the error: " + err);
+      res.status(500).send();
     } else {
-      res.send(users);
+      users.forEach(function (user) {
+        let str = "<table>";
+        res.write(str += "<tr><td>email: " + user.email + "</tr></td><tr><td>name: " + user.name + "</tr></td></table>");
+      });
+
+      // res.sendFile(__dirname + "/data.html");
     }
   });
 });
@@ -128,7 +187,9 @@ app.post("/signUp.html", function (req, res) {
   const newUser = new Users({
     email: req.body.emailBox,
     password: req.body.password,
-    isAdmin : false
+    name: req.body.name,
+    lastName: req.body.lastName,
+    isAdmin: false
   });
 
   newUser.save(function (err) {
@@ -151,15 +212,27 @@ app.post("/login.html", function (req, res) {
       console.log(err);
     } else {
       if (foundUser && foundUser.admin === false) {
-         if (foundUser.password === password) {
+        if (foundUser.password === password) {
           req.session.user = foundUser;
           res.sendFile(__dirname + "/index2.html");
+        } else {
+          document.getElementById("container3").addEventListener("submit", function (e) {
+            if (foundUser.password != password) {
+              e.preventDefault();
+              document.getElementById("container2").innerText = "your password or email is wrong!";
+            }
+          });
         }
-      } 
-      if(foundUser && foundUser.admin === true){
+
+      }
+      if (foundUser && foundUser.admin === true) {
         if (foundUser.password === password && foundUser.admin != isAdmin) {
           req.session.users = foundUser;
           res.sendFile(__dirname + "/adminDash.html");
+        }
+        if (foundUser.password != password && foundUser.admin != isAdmin) {
+          res.send("incorrect email or password!");
+          res.redirect("/login.html");
         }
       }
     }
