@@ -134,22 +134,16 @@ app.get("/userProfilePage.html", function (req, res) {
 
 });
 
-app.post("/userProfilePage.html", function (req, res){
+app.post("/userProfilePage.html", function (req, resp){
 
-  const input = new Users({
-    email: req.body.email,
-    password: req.body.password,
-    isAdmin: false
-  });
+    const res = Users.updateOne({email: req.session.email}, {email:
+    req.body.email, password: req.body.password});
 
-  input.save(function (err) {
-    if (err) {
-      console.log(err);
+    if(res.modifiedCount === 1){
+      resp.sendFile(__dirname + "/userProfilePage.html");
     } else {
-      res.sendFile(__dirname + "/userProfilePage.html");
+      console.log("error");
     }
-  });
-
 });
 
 // const newEmail = req.body.email;
@@ -159,6 +153,20 @@ app.post("/userProfilePage.html", function (req, res){
 // Users.update({password: req.session.password}, {$set : {email: newPassword}})
 
 // res.sendFile(__dirname + "/userProfilePage.html");
+
+  // const input = new Users({
+  //   email: req.body.email,
+  //   password: req.body.password,
+  //   isAdmin: false
+  // });
+
+  // input.save(function (err) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.sendFile(__dirname + "/userProfilePage.html");
+  //   }
+  // });
 
 
 
