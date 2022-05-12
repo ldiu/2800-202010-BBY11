@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>24</title>
+  <link href="css/login.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbar.css">
+</head>
+
+<body>
+  <div id="container1">
+    <div id="navbar">
+      <nav>
+        <div id="dropdown">
+          <a href="" id="dropdownButton">Menu</a>
+          <div id="menu">
+            <a href="">Leaderboard</a>
+            <a href="">About</a>
+            <a href="">Contact</a>
+          </div>
+        </div>
+        <a href="/index.html" id="logo">24</a>
+      </nav>
+    </div>
+    <div id="section">
+      <div id="container2"> 
+
+        <form id="container3" action="/login.html" method="POST">
+          <label for="emailBox">Enter you email</label>
+          <input id="emailBox" placeholder="Enter you email" type="email" name="emailBox">
+          <label for="passowrdBox">Enter your password</label>
+          <input id="passowrdBox" placeholder="Enter your password" type="password" name="password">
+          <div id="createAccount"></div>
+          
+          <button type="submit" class="btn" id="signInButton">Sign In</button>
+          <a id="signUpButton" href="/signUp.html" role="button">Sign Up</a>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <!-- <script src="navbar.js"> </script> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+
+</html>
