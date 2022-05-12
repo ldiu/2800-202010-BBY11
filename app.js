@@ -17,7 +17,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
-mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
 
 const usersSchema = {
   email: {
