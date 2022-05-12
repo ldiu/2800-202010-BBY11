@@ -169,4 +169,6 @@ app.post("/login.html", function (req, res) {
 
 app.listen(port, function () {
   console.log("server started on port " + port);
+  let x = IS_HEROKU == 1 ? "remotely" : "locally";
+  console.log("database conected " + x);
 });
