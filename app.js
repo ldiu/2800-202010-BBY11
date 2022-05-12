@@ -8,7 +8,7 @@ const req = require("express/lib/request");
 const jsdom = require("jsdom");
 const { ConnectionClosedEvent } = require("mongodb");
 const { JSDOM } = jsdom;
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -78,6 +78,12 @@ const admin4 = new Users({
 //   } else {
 //     console.log("saved successfully");
 //   }
+// Users.insertMany([admin1, admin2, admin3, admin4], function(err){
+// if(err){
+//   console.log(err);
+// } else {
+//   console.log("saved successfully");
+// }
 // });
 
 
@@ -165,8 +171,8 @@ app.post("/", function (req, res) {
 });
 
 app.post("/adminDash.html", function (req, res) {
-  Users.find(function (err, users) {
-    if (err) {
+  Users.find(function(err, users){
+    if(err){
       console.log(err);
     } else {
       res.send(users);
@@ -178,7 +184,7 @@ app.post("/signUp.html", function (req, res) {
   const newUser = new Users({
     email: req.body.emailBox,
     password: req.body.password,
-    isAdmin: false
+    isAdmin : false
   });
 
   newUser.save(function (err) {
