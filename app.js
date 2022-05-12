@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const req = require("express/lib/request");
 const jsdom = require("jsdom");
+const { ConnectionClosedEvent } = require("mongodb");
 const { JSDOM } = jsdom;
 const port = 3000;
 
@@ -38,7 +39,7 @@ const usersSchema = {
   }
 };
 
-const Users = new mongoose.model("Users", usersSchema);
+const Users = new mongoose.model("users", usersSchema);
 
 const admin1 = new Users({
   email: "eliyahabibi@gmail.com",
@@ -109,10 +110,6 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
-// app.get("/userProfilePage.html", function (req, res) {
-//   res.sendFile(__dirname + "/userProfilePage.html");
-// });
-
 app.get("/userProfilePage.html", function (req, res) {
 
   if (req.session.loggedIn) {
@@ -122,7 +119,7 @@ app.get("/userProfilePage.html", function (req, res) {
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
-    
+
     changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
     changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
 
@@ -134,41 +131,29 @@ app.get("/userProfilePage.html", function (req, res) {
 
 });
 
-app.post("/userProfilePage.html", function (req, resp){
+app.post("/userProfilePage.html", function (req, resp) {
 
-    const res = Users.updateOne({email: req.session.email}, {email:
-    req.body.email, password: req.body.password});
+  console.log(req.session);
+  console.log(req.body);
 
-    if(res.modifiedCount === 1){
-      resp.sendFile(__dirname + "/userProfilePage.html");
-    } else {
-      console.log("error");
-    }
+  const currentUser = Users.updateOne({ email: req.session.email }, { $set: {
+    email:req.body.email, password: req.body.password }},
+    
+    function(err, data){
+      if (err){
+        console.log("Error " + err);
+        
+      }else{
+        console.log("Data "+ data);
+        req.session.email = req.body.email;
+        req.session.password = req.body.password;
+        resp.redirect( "/userProfilePage.html");
+
+      }
+    })
+    
 });
-
-// const newEmail = req.body.email;
-// const newPassword = req.body.password;
-
-// Users.update({email: req.session.email}, {$set : {email: newEmail}})
-// Users.update({password: req.session.password}, {$set : {email: newPassword}})
-
-// res.sendFile(__dirname + "/userProfilePage.html");
-
-  // const input = new Users({
-  //   email: req.body.email,
-  //   password: req.body.password,
-  //   isAdmin: false
-  // });
-
-  // input.save(function (err) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.sendFile(__dirname + "/userProfilePage.html");
-  //   }
-  // });
-
-
+ 
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
