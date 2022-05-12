@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>24</title>
+  <!-- <link href="css/index.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/userProfilePage.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div id="navbar">
+    <nav>
+      <div id="dropdown">
+        <a href="" id="dropdownButton">Menu</a>
+        <div id="menu">
+          <a href="">Leaderboard</a>
+          <a href="">About</a>
+          <a href="">Contact</a>
+        </div>
+      </div>
+      <form action="/" method="POST">
+        <a href="/index2.html" id="logo">24</a>
+        <button id="logoutButton" type="submit">Log Out</button>
+      </form>
+    </nav>
+  </div>
+  <figure>
+    <img>
+  </figure>
+  <!-- <form> -->
+    <fieldset id="personalInfoFields" disabled>
+      <form id="buttonForm" action="/userProfilePage.html" method="POST">
+        <label for="userFirstName"></label>
+        <input id="userFirstName" type="text" value="" required name="userFirstName">
+        <label for="userLastName"></label>
+        <input id="userLastName" type="text" value="" required name="userLastName">
+        <label for="userEmail"></label>
+        <input id="userEmail" type="email" value="" required name="email">
+        <label for="userPassword"></label>
+        <input id="userPassword" type="password" value="" required name="password">
+        
+        <button type="submit" id="saveButton">Save</button>
+        <!-- <a id="button" href="/index2.html" role="button">Save</a> -->
+      </form>
+    </fieldset>
+    <form>
+      <button type="button" id="editButton" onclick="edit()">Edit</button>
+    </form>
+  <!-- </form> -->
+  <div id="email"></div>
+  <div id="password"></div>
+  <!-- <script src="navbar.js"></script> -->
+  <script src="js/userProfilePage.js"></script>
+</body>
