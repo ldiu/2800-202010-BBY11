@@ -1,3 +1,4 @@
+// add the thing**
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -5,14 +6,16 @@ const request = require("request");
 const mongo = require("mongodb");
 const mongoose = require("mongoose");
 const { JSDOM } = require('jsdom');
+const jsdom = require("jsdom");
 const assert = require("assert");
-const router = express.Router();
 const fs = require("fs");
+const { ConnectionClosedEvent } = require("mongodb");
+const { resolveSoa } = require("dns");
 const port = 8000;
 
 const app = express();
 
-// app.set("view engine", "html");
+app.set("view engine", "html");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -108,12 +111,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/login.html", function (req, res) {
-  if (req.session.users) {
-    res.redirect(__dirname + "/index2.html");
-  }
-  else {
-    res.sendFile(__dirname + "/login.html");
-  }
+  res.sendFile(__dirname + "/login.html");
 });
 
 app.get("/signUp.html", function (req, res) {
@@ -138,28 +136,28 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
-app.get("/data", function (req, res) {
-  res.sendFile(__dirname + "/data.html");
-  Users.find(function (err, users) {
-    if (err) {
-      console.log("the error: " + err);
-    } else {
-     let userData = [];
-     mongo.connect(url, function(err, db){
-      assert.equal(null, err);
-      let currentData = db.collection("BBY_11_user").find({email:{}, name:{}});
-      currentData.forEach(function(doc, err){
-        assert.equal(null, err);
-        userData.push(doc);
-      }, function(){
-        db.close();
-        res.sendFile();
-      });
-     });
-    }
-  });
+// app.get("/data", function (req, res) {
+//   res.sendFile(__dirname + "/data.html");
+//   Users.find(function (err, users) {
+//     if (err) {
+//       console.log("the error: " + err);
+//     } else {
+//      let userData = [];
+//      mongo.connect(url, function(err, db){
+//       assert.equal(null, err);
+//       let currentData = db.collection("BBY_11_user").find({email:{}, name:{}});
+//       currentData.forEach(function(doc, err){
+//         assert.equal(null, err);
+//         userData.push(doc);
+//       }, function(){
+//         db.close();
+//         res.sendFile();
+//       });
+//      });
+//     }
+//   });
 
-});
+// });
 
 /**
    let t = users.forEach(function (user) {
@@ -174,38 +172,62 @@ app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.post("data", function (req, res) {
 
+app.post("/", function (req, res) {
+  req.session.destroy();
+  res.redirect(__dirname + "/");
 });
 
-// app.post("/", function (req, res) {
-//   req.session.destroy();
-//   res.redirect(__dirname + "/");
-// });
-
 app.post("/adminDash.html", function (req, res) {
-  Users.find({}, function (err, users) {
-    if (err) {
-      console.log("the error: " + err);
-      res.status(500).send();
-    } else {
-    
-      // let userData = [];
-      // mongo.connect(url, function(err, db){
-      //  assert.equal(null, err);
-      //  let currentData = db.collection("BBY_11_user").find({email:{}, name:{}});
-      //  currentData.forEach(function(doc, err){
-      //    assert.equal(null, err);
-      //    userData.push(doc);
-      //  }, function(){
-      //    db.close();
-      //    res.sendFile(__dirname + "/adminDash.html", {tableInfo: userData});
-      //  });
-      // });
+  if (req.session.loggedIn) {
 
-      // res.sendFile(__dirname + "/data.html");
-    }
-  });
+    Users.find({}, function (err, users) {
+      console.log("find()");
+      if (err) {
+        console.log("the error: " + err);
+        res.status(500).send();
+      } else {
+
+        let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
+        let changeToJSDOM = new JSDOM(dbInfo);
+
+        let str = "<table>";
+
+        let t = users.forEach(function (user) {
+          str += "<tr><td>email: " + user.email + "</tr></td><tr><td>name: " + user.name + "</tr></td>";
+
+        });
+        str += "</table>";
+        changeToJSDOM.window.document.getElementById("tableInfo").innerHTML = str;
+
+        res.write(changeToJSDOM.serialize());
+      }
+    });
+
+    const username = req.body.dashEmail;
+    Users.findOne({ email: username }, function (err, foundUser) {
+      console.log("findONE()");
+      if (err) {
+        console.log(err);
+      } else {
+        if (foundUser) {
+          let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
+
+          let str = "<table>";
+          str += "<tr><td>email: " + foundUser.email + "</tr></td><tr><td>name: " + foundUser.name + "</tr></td>";
+          str += "</table>";
+
+          changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
+
+          res.write(changeToJSDOM.serialize());
+          
+        }
+      }
+    });
+  } else {
+    res.redirect("/login.html");
+  }
 });
 
 app.post("/signUp.html", function (req, res) {
@@ -239,26 +261,22 @@ app.post("/login.html", function (req, res) {
       if (foundUser && foundUser.admin === false) {
         if (foundUser.password === password) {
           req.session.user = foundUser;
+          req.session.loggedIn = true;
+          req.session.email = username;
+          req.session.password = password;
           res.sendFile(__dirname + "/index2.html");
-        } else {
-          document.getElementById("container3").addEventListener("submit", function (e) {
-            if (foundUser.password != password) {
-              e.preventDefault();
-              document.getElementById("container2").innerText = "your password or email is wrong!";
-            }
-          });
         }
 
       }
       if (foundUser && foundUser.admin === true) {
         if (foundUser.password === password && foundUser.admin != isAdmin) {
           req.session.users = foundUser;
+          req.session.loggedIn = true;
+          req.session.email = username;
+          req.session.password = password;
           res.sendFile(__dirname + "/adminDash.html");
         }
-        if (foundUser.password != password && foundUser.admin != isAdmin) {
-          res.send("incorrect email or password!");
-          res.redirect("/login.html");
-        }
+
       }
     }
   });
