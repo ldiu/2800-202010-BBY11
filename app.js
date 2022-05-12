@@ -21,8 +21,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
-MongoClient.connect(uri)
-// mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
+if (IS_HEROKU){
+  MongoClient.connect(uri);
+} else {
+  mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
+}
 
 const usersSchema = {
   email: {
