@@ -14,7 +14,8 @@ function insertRNG(){
     RNG.push(number);
     console.log(RNG);
     for(let i = 0; i < 6; i++){
-    document.getElementById("number" + (i+1)).innerHTML = RNG[i];
+    document.getElementById("button" + (i+1)).value = RNG[i];
     console.log(RNG[i])
     }
 }
+insertRNG();
