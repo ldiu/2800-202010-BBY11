@@ -109,10 +109,10 @@ app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-// app.post("/", function (req, res) {
-//   req.session.destroy();
-//   res.redirect(__dirname + "/");
-// });
+app.post("/", function (req, res) {
+  req.session.destroy();
+  res.redirect(__dirname + "/");
+});
 
 app.post("/adminDash.html", function (req, res) {
   Users.find(function(err, users){
