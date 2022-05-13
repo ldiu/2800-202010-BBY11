@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "627462822372f31a165c622f",
+    "email": "1@2.com",
+    "password": "123",
+    "admin": false,
+    "__v": 0
+  },
+  {
+    "_id": "62746dcbb5c6841b577a2a68",
+    "email": "2@3.com",
+    "password": "123",
+    "admin": false,
+    "__v": 0
+  },
+  {
+    "_id": "62746e2239638350fe89d5bf",
+    "email": "he@tt.com",
+    "password": "123",
+    "admin": false,
+    "__v": 0
+  },
+  {
+    "_id": "62746e8bca2f60029822e0ce",
+    "email": "gg@gg.com",
+    "password": "123",
+    "admin": false,
+    "__v": 0
+  },
+  {
+    "_id": "6274ab31926bd8714661581d",
+    "email": "d@d.com",
+    "password": "123",
+    "admin": false,
+    "__v": 0
+  }
+  ]

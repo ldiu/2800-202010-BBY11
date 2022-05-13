@@ -1,13 +1,21 @@
+// add the thing**
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const request = require("request");
+const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
-const port = process.env.PORT || 3000;
+const { JSDOM } = require('jsdom');
+const jsdom = require("jsdom");
+const assert = require("assert");
+const fs = require("fs");
+const { ConnectionClosedEvent } = require("mongodb");
+const { resolveSoa } = require("dns");
+const port = process.env.PORT || 8000;
 const uri = process.env.MONGODB_URI;
-const { MongoClient } = require('mongodb');
 let dbConnection;
 const IS_HEROKU = process.env.IS_HEROKU || false;
+const url = "mongodb://localhost:27017/COMP2800";
 
 const app = express();
 
@@ -21,10 +29,10 @@ app.use(session({
   saveUninitialized: true
 }));
 
-if (IS_HEROKU){
+if (IS_HEROKU) {
   MongoClient.connect(uri);
 } else {
-  mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
+  mongoose.connect(url, { useNewUrlParser: true });
 }
 
 const usersSchema = {
@@ -36,38 +44,62 @@ const usersSchema = {
     type: String,
     required: [true, "enter your password"]
   },
+  name: {
+    type: String,
+    // required: [true, "enter your name"]
+  },
+  lastName: {
+    type: String,
+    // required: [true, "enter your last name"]
+  },
   admin: {
     type: Boolean,
     default: false
   }
 };
 
-const Users = new mongoose.model("Users", usersSchema);
+const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
-const admin1 = new Users({
+const admin1 = new BBY_11_user({
   email: "eliyahabibi@gmail.com",
   password: 123,
+  name: "iliya",
+  lastName: "habibi",
   admin: true
 });
 
-const admin2 = new Users({
+const admin2 = new BBY_11_user({
   email: "michaela@gmail.com",
   password: 123,
+  name: "Michaela",
+  lastName: "Ashlee",
   admin: true
 });
 
-const admin3 = new Users({
+const admin3 = new BBY_11_user({
   email: "liana@gmail.com",
   password: 123,
+  name: "Liana",
+  lastName: "Diu",
   admin: true
 });
-const admin4 = new Users({
+const admin4 = new BBY_11_user({
   email: "colin@gmail.com",
   password: 123,
+  name: "Colin",
+  lastName: "Lam",
   admin: true
 });
 
-// Users.insertMany([admin1, admin2, admin3, admin4], function(err){
+// BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function(err){
+// if(err){
+//   console.log(err);
+// } else {
+//   console.log("saved successfully");
+// }
+// });
+
+// BBY_11_user.insertMany("/data.json", function(err){
 // if(err){
 //   console.log(err);
 // } else {
@@ -76,12 +108,10 @@ const admin4 = new Users({
 // });
 
 
+//------- app.get -------//
+
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
-});
-
-app.get("/adminDash.html", function (req, res) {
-  res.sendFile(__dirname + "/adminDash.html");
 });
 
 app.get("/login.html", function (req, res) {
@@ -93,7 +123,21 @@ app.get("/signUp.html", function (req, res) {
 });
 
 app.get("/adminDash.html", function (req, res) {
-  res.sendFile(__dirname + "/adminDash.html");
+  if (req.session.users) {
+    res.sendFile(__dirname + "/adminDash.html");
+  }
+  else {
+    res.redirect("/login.html");
+  }
+});
+
+app.get("/search.html", function (req, res) {
+  if (req.session.users) {
+    res.sendFile(__dirname + "/search.html");
+  }
+  else {
+    res.redirect("/login.html");
+  }
 });
 
 app.get("/index2.html", (req, res) => {
@@ -105,6 +149,10 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
+
+//------- app.post -------//
+
+
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
@@ -115,20 +163,95 @@ app.post("/", function (req, res) {
 });
 
 app.post("/adminDash.html", function (req, res) {
-  Users.find(function(err, users){
-    if(err){
-      console.log(err);
-    } else {
-      res.send(users);
-    }
-  });
+  if (req.session.loggedIn) {
+
+    BBY_11_user.find({}, function (err, users) {
+      console.log("find()");
+      if (err) {
+        console.log("the error: " + err);
+        res.status(500).send();
+      } else {
+        let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
+        let changeToJSDOM = new JSDOM(dbInfo);
+
+        let str = "<table>";
+        let t = users.forEach(function (user) {
+          str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
+            "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
+        });
+        str += "</table>";
+
+        changeToJSDOM.window.document.getElementById("tableInfo").innerHTML = str;
+
+        res.send(changeToJSDOM.serialize());
+      }
+    });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+app.post("/search.html", function (req, res) {
+  const dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+  const changeToJSDOM = new JSDOM(dbInfo);
+  if (req.session.loggedIn) {
+    // const username = 
+    BBY_11_user.findOneAndUpdate({ email: req.body.dashEmail },
+      { $set: { email: req.body.email, password: req.body.password, name: req.body.fName, lastName: req.body.lName } },
+      function (err, foundUser) {
+
+        if (err) {
+          console.log(err);
+        } else {
+          if (foundUser) {
+
+            let str = "<table>";
+            str += "<tr><td>email: " + foundUser.email + "</td></tr><tr><td>name: " + foundUser.name + "</tr></td>" +
+              "<tr><td>lastName: " + foundUser.lastName + "</tr></td><tr><td>isAdmin: " + foundUser.admin + "</tr></td><tr><td><br></td></tr>";
+            str += "</table>";
+
+            changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
+
+            res.send(changeToJSDOM.serialize());
+
+          }
+        }
+      });
+
+    // username.save(function(err){
+    //   if(err){
+    //     console.log(err);
+    //   } else {
+    //     res.redirect("/search.html");
+    //   }
+    // });
+
+    // await BBY_11_user.updateOne({
+    //   email: BBY_11_user.email,
+    //   password: BBY_11_user.password,
+    //   name: BBY_11_user.name,
+    //   lastName: BBY_11_user.lastName
+    // }, {
+    //   email: req.body.email,
+    //   password: req.body.password,
+    //   name: req.body.fName,
+    //   lastName: req.body.fName
+    // });
+
+    // mongoose.connection.close();
+
+  } else {
+    res.redirect("/login.html");
+  }
 });
 
 app.post("/signUp.html", function (req, res) {
-  const newUser = new Users({
+  const newUser = new BBY_11_user({
     email: req.body.emailBox,
     password: req.body.password,
-    isAdmin : false
+    name: req.body.name,
+    lastName: req.body.lastName,
+    isAdmin: false
   });
 
   newUser.save(function (err) {
@@ -144,23 +267,31 @@ app.post("/signUp.html", function (req, res) {
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
   const password = req.body.password;
-  const isAdmin = Users.admin;
+  const isAdmin = BBY_11_user.admin;
 
-  Users.findOne({ email: username }, function (err, foundUser) {
+  BBY_11_user.findOne({ email: username }, function (err, foundUser) {
     if (err) {
       console.log(err);
     } else {
       if (foundUser && foundUser.admin === false) {
-         if (foundUser.password === password) {
+        if (foundUser.password === password) {
           req.session.user = foundUser;
+          req.session.loggedIn = true;
+          req.session.email = username;
+          req.session.password = password;
           res.sendFile(__dirname + "/index2.html");
         }
-      } 
-      if(foundUser && foundUser.admin === true){
+
+      }
+      if (foundUser && foundUser.admin === true) {
         if (foundUser.password === password && foundUser.admin != isAdmin) {
           req.session.users = foundUser;
+          req.session.loggedIn = true;
+          req.session.email = username;
+          req.session.password = password;
           res.sendFile(__dirname + "/adminDash.html");
         }
+
       }
     }
   });

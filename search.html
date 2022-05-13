@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Searching for users</title>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/adminDash.css">
+</head>
+
+<body>
+  <div id="container1">
+    <div id="navbar">
+      <nav>
+        <div id="dropdown">
+          <a href="" id="dropdownButton">Menu</a>
+          <div id="menu">
+            <a href="">Leaderboard</a>
+            <a href="">About</a>
+            <a href="">Contact</a>
+          </div>
+        </div>
+        <form action="/" method="POST">
+          <a href="/index2.html" id="logo">24</a>
+          <button id="logoutButton" type="submit">Log Out</button>
+        </form>
+      </nav>
+    </div>
+    <div id="container2">
+      <div id="search">
+        <form id="searchSection" action="/search.html" method="POST">
+          <input id="searchBar" type="email" placeholder=" Search" name="dashEmail">
+          <button type="submit" id="searchUsers">Search</button>
+          <!-- </form> -->
+          <div id="searchUser"></div>
+
+          <div id="data">
+            <!-- <form id="updateSection" action="/search.html" method="POST"> -->
+            <input id="emailValue" type="email" placeholder="Email" name="email">
+            <input id="passValue" type="password" placeholder="Password" name="password">
+            <input id="nameValue" type="text" placeholder="First Name" name="fName">
+            <input id="newValue" type="text" placeholder="Last Name" name="lName">
+            <button id="save" type="submit">Save</button>
+            <!-- <button type="submit" id="delete">Delete User</button> -->
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <script src="navbar.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+
+</html>

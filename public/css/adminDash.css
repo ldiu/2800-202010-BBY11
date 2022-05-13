@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
 @media (min-width: 0px) and (max-width: 445px) {
 
   body {
     margin: 0px;
     padding: 0px;
     background-color: black;
+    color: white;
   }
 
   #container1{
@@ -77,6 +84,13 @@
     margin-right: 10%;
   }
 
+  #logoutButton{
+    background-color: black;
+    color:white;
+    font-size: 23px;
+    border: 1px solid black;
+  }
+
 }
 
 @media (min-width: 446px) {
@@ -85,6 +99,7 @@
     margin: 0px;
     padding: 0px;
     background-color: black;
+    color: white;
 
   }
 
@@ -151,6 +166,13 @@
     margin-bottom: 10rem;
     margin-left: 1.2rem;
     text-align: center;
+  }
+
+  #logoutButton{
+    background-color: black;
+    color:white;
+    font-size: 25px;
+    border: 1px solid black;
   }
 
 }
