@@ -172,7 +172,8 @@ app.post("/adminDash.html", function (req, res) {
 
         let str = "<table>";
         let t = users.forEach(function (user) {
-          str += "<tr><td>email: " + user.email + "</tr></td><tr><td>name: " + user.name + "</tr></td>";
+          str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" + 
+          "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
         });
         str += "</table>";
 
@@ -200,9 +201,9 @@ app.post("/search.html", function (req, res) {
         } else {
           if (foundUser) {
 
-
             let str = "<table>";
-            str += "<tr><td>email: " + foundUser.email + "</tr></td><tr><td>name: " + foundUser.name + "</tr></td>";
+            str += "<tr><td>email: " + foundUser.email + "</td></tr><tr><td>name: " + foundUser.name + "</tr></td>" + 
+          "<tr><td>lastName: " + foundUser.lastName + "</tr></td><tr><td>isAdmin: " + foundUser.admin + "</tr></td><tr><td><br></td></tr>";
             str += "</table>";
 
             changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
