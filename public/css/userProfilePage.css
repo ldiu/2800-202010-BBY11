@@ -6,8 +6,344 @@
 
 @media (min-width: 0px) and (max-width: 445px) {
 
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+  }
+
+  #container1{
+    display: grid;
+    grid-template-rows: 10% 1fr 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #navbar{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+  }
+
+  #container2{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 5% 1fr 5%;
+  }
+
+  #container3{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display:grid;
+    grid-template-rows: 7% 40% 10% 30% 10%;
+    grid-template-columns: 100%;
+    grid-gap: .5rem;
+    height: 85vh;
+  
+  }
+
+  #welcome{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    color: white;
+    font-size: 12px;
+    
+  }
+
+  #imageContainer{
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+  }
+
+  #profileImage{
+    max-width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center; 
+    border-radius: 10px;
+  }
+
+  #imageUpload{
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+  }
+
+  #findImage{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    margin-top: 1.5rem;
+    color: white;
+  }
+
+  #uploadButton{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 90%;
+    margin-left: .7rem;
+    background-color: rgb(120, 195, 120);
+    color: white;
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
+  #userFields{
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 1;
+    border-radius: 6px;
+    border: .5px solid grey;
+  }
+
+  #buttonForm{
+    display: grid;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-template-columns: 50% 50%;
+    grid-gap: .2rem;
+    height: 21vh;
+    margin-right: .4rem;
+  }
+
+  #userFirstName{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 2;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #userLastName{
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 2;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #userEmail{
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 2;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #userPassword{
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 1;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #saveButton{
+    grid-column: 1 / span 2;
+    grid-row: 5 / span 1;
+    background-color: rgb(120, 195, 120);
+    color: white;
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
+  #edit{
+    grid-row: 5 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+  }
+
+  #editButton{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    background-color: rgb(90, 145, 180);
+    color: white;
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
 }
 
 @media (min-width: 446px) {
+
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+  }
+
+  #container1{
+    display: grid;
+    grid-template-rows: 10% 1fr 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #navbar{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+  }
+
+  #container2{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 500px 1fr;
+  }
+
+  #container3{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display:grid;
+    grid-template-rows: 10% 47% 10% 20% 10%;
+    grid-template-columns: 100%;
+    height: 85vh;
+  
+  }
+
+  #welcome{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    color: white
+    
+  }
+
+  #imageContainer{
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+  }
+
+  #profileImage{
+    max-width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: center; 
+    border-radius: 10px;
+  }
+
+  #imageUpload{
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+  }
+
+  #findImage{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    margin-top: 1.5rem;
+    color: white;
+  }
+
+  #uploadButton{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgb(120, 195, 120);
+    color: white;
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
+  #userFields{
+    grid-row: 4 / span 1;
+    grid-column: 1 / span 1;
+    border-radius: 6px;
+    border: .5px solid grey;
+  }
+
+  #buttonForm{
+    display: grid;
+    grid-template-rows: 33% 33% 33%;
+    grid-template-columns: 50% 50%;
+    height: 12vh;
+    grid-gap: .5rem;
+    margin-right: .4rem;
+  }
+
+  #userFirstName{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+  }
+
+  #userLastName{
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #userEmail{
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #userPassword{
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(90, 90, 90, 0.819);
+    border-radius: 6px;
+
+  }
+
+  #saveButton{
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    background-color: rgb(120, 195, 120);
+    color: white;
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
+  #edit{
+    grid-row: 5 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+  }
+
+  #editButton{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    background-color: rgb(90, 145, 180);
+    color: white;
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
+  
   
 }
