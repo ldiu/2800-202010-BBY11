@@ -18,11 +18,11 @@ const multer = require("multer");
 //Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
 const imageStore = multer.diskStorage({
   destination: function (req, file, callback) {
-      callback(null, "./public/img") //do not store pdf and images on database...
+      callback(null, "./public/img") 
   },
-  filename: function(req, file, callback) { //pre-pended my-app-
+  filename: function(req, file, callback) { 
       callback(null, file.originalname.split('/').pop().trim());
-  } // destination and a callback and a file name and a callback. 
+  }  
 });
 
 const imageLoader = multer({ storage: imageStore });
@@ -33,11 +33,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
   secret: "password",
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }));
 
-mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/COMP2800", { useNewUrlParser: true });
 
 const usersSchema = {
   email: {
@@ -48,51 +48,50 @@ const usersSchema = {
     type: String,
     required: [true, "enter your password"]
   },
+  name: {
+    type: String,
+    required: [true, "enter your name"]
+  },
+  lastName: {
+    type: String,
+    required: [true, "enter your last name"]
+  },
+  imagePath: {
+    type: String
+  },
   admin: {
     type: Boolean,
     default: false
   }
 };
 
-const Users = new mongoose.model("users", usersSchema);
+const BBY_11_user = new mongoose.model("bby_11_user", usersSchema);
 
-var imageSchema = new mongoose.Schema({
-  image: {
-    data: Buffer,
-    contentType: String
-  },
-  email: {
-    type: String,
-    required: [true, "enter your email"]
-  },
-});
 
-const images = new mongoose.model("BBY_11_images", imageSchema);
-
-const admin1 = new Users({
+const admin1 = new BBY_11_user({
   email: "eliyahabibi@gmail.com",
   password: 123,
   admin: true
 });
 
-const admin2 = new Users({
+const admin2 = new BBY_11_user({
   email: "michaela@gmail.com",
   password: 123,
   admin: true
 });
 
-const admin3 = new Users({
+const admin3 = new BBY_11_user({
   email: "liana@gmail.com",
   password: 123,
   admin: true
 });
-const admin4 = new Users({
+const admin4 = new BBY_11_user({
   email: "colin@gmail.com",
   password: 123,
   admin: true
 });
 
-// Users.insertMany([admin1, admin2, admin3, admin4], function (err) {
+// BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function (err) {
 //   if (err) {
 //     console.log(err);
 //   } else {
@@ -100,13 +99,13 @@ const admin4 = new Users({
 //   }
 // });
 
-// Users.insertMany("/data.json", function (err) {
+// BBY_11_user.insertMany("/data.json", function (err) {
 //   if (err) {
 //     console.log(err);
 //   } else {
 //     console.log("saved successfully");
 //   }
-// Users.insertMany([admin1, admin2, admin3, admin4], function(err){
+// BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function(err){
 // if(err){
 //   console.log(err);
 // } else {
@@ -149,13 +148,20 @@ app.get("/userProfilePage.html", function (req, res) {
 
   if (req.session.loggedIn) {
 
+    // console.log(images.findOne({email: req.session.email}));
+
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
     
-    changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.email + "</h2>";
+    changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
+    changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
+    changeToJSDOM.window.document.getElementById("userLastName").setAttribute("value", req.session.lastName);
     changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
     changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
+    changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
+
+
 
     res.send(changeToJSDOM.serialize());
 
@@ -167,8 +173,8 @@ app.get("/userProfilePage.html", function (req, res) {
 
 app.post("/userProfilePage.html", function (req, resp) {
 
-  const currentUser = Users.updateOne({ email: req.session.email }, { $set: {
-    email:req.body.email, password: req.body.password }},
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
+    name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password }},
     
     function(err, data){
       if (err){
@@ -178,6 +184,8 @@ app.post("/userProfilePage.html", function (req, resp) {
         console.log("Data "+ data);
         req.session.email = req.body.email;
         req.session.password = req.body.password;
+        req.session.name = req.body.userFirstName;
+        req.session.lastName = req.body.userLastName;
         resp.redirect( "/userProfilePage.html");
 
       }
@@ -187,23 +195,22 @@ app.post("/userProfilePage.html", function (req, resp) {
 
 
 app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
-  const imageObject = {
-      userImage: {
-          data: fs.readFileSync(__dirname + "/public/img/" + req.file.filename),
-          contentType: "image"
+  
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
+    imagePath: "img/" + req.file.filename}},
+    
+    function(err, data){
+      if (err){
+        console.log("Error " + err);
+        
+      }else{
+        console.log("Data "+ data);
+        req.session.imagePath = "img/" + req.file.filename;
+        res.redirect( "/userProfilePage.html");
+
       }
-  }
-  const newImage = new images({
-      image: imageObject.userImage,
-      email: req.session.email
-  });
-  newImage.save(function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.sendFile(__dirname + "/index2.html");
-    }
-  });
+    })
+    
 });
  
 
@@ -217,7 +224,7 @@ app.post("/", function (req, res) {
 });
 
 app.post("/adminDash.html", function (req, res) {
-  Users.find(function(err, users){
+  BBY_11_user.find(function(err, users){
     if(err){
       console.log(err);
     } else {
@@ -227,9 +234,12 @@ app.post("/adminDash.html", function (req, res) {
 });
 
 app.post("/signUp.html", function (req, res) {
-  const newUser = new Users({
+  const newUser = new BBY_11_user({
     email: req.body.emailBox,
     password: req.body.password,
+    name: req.body.firstName,
+    lastName: req.body.lastName,
+    imagePath: "img/johndoe.png",
     isAdmin : false
   });
 
@@ -246,9 +256,10 @@ app.post("/signUp.html", function (req, res) {
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
   const password = req.body.password;
-  const isAdmin = Users.admin;
+  // const firstName = req.body.name;
+  const isAdmin = BBY_11_user.admin;
 
-  Users.findOne({ email: username }, function (err, foundUser) {
+  BBY_11_user.findOne({ email: username }, function (err, foundUser) {
     if (err) {
       console.log(err);
     } else {
@@ -258,6 +269,10 @@ app.post("/login.html", function (req, res) {
           req.session.loggedIn = true;
           req.session.email = username;
           req.session.password = password;
+          req.session.name = foundUser.name;
+          req.session.lastName = foundUser.lastName;
+          req.session.imagePath = foundUser.imagePath;
+    
           res.sendFile(__dirname + "/index2.html");
         }
       }
