@@ -12,6 +12,21 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+//from arrons notes
+const multer = require("multer");
+
+//Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
+const imageStore = multer.diskStorage({
+  destination: function (req, file, callback) {
+      callback(null, "./public/img") //do not store pdf and images on database...
+  },
+  filename: function(req, file, callback) { //pre-pended my-app-
+      callback(null, file.originalname.split('/').pop().trim());
+  } // destination and a callback and a file name and a callback. 
+});
+
+const imageLoader = multer({ storage: imageStore });
+
 app.set("view engine", "html");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -40,6 +55,19 @@ const usersSchema = {
 };
 
 const Users = new mongoose.model("users", usersSchema);
+
+var imageSchema = new mongoose.Schema({
+  image: {
+    data: Buffer,
+    contentType: String
+  },
+  email: {
+    type: String,
+    required: [true, "enter your email"]
+  },
+});
+
+const images = new mongoose.model("BBY_11_images", imageSchema);
 
 const admin1 = new Users({
   email: "eliyahabibi@gmail.com",
@@ -116,16 +144,16 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
+//The following code follows 1537 course instructor's sessions example.
 app.get("/userProfilePage.html", function (req, res) {
 
   if (req.session.loggedIn) {
 
-    console.log(req.session.user);
-
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
-
+    
+    changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.email + "</h2>";
     changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
     changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
 
@@ -138,9 +166,6 @@ app.get("/userProfilePage.html", function (req, res) {
 });
 
 app.post("/userProfilePage.html", function (req, resp) {
-
-  console.log(req.session);
-  console.log(req.body);
 
   const currentUser = Users.updateOne({ email: req.session.email }, { $set: {
     email:req.body.email, password: req.body.password }},
@@ -158,6 +183,27 @@ app.post("/userProfilePage.html", function (req, resp) {
       }
     })
     
+});
+
+
+app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
+  const imageObject = {
+      userImage: {
+          data: fs.readFileSync(__dirname + "/public/img/" + req.file.filename),
+          contentType: "image"
+      }
+  }
+  const newImage = new images({
+      image: imageObject.userImage,
+      email: req.session.email
+  });
+  newImage.save(function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.sendFile(__dirname + "/index2.html");
+    }
+  });
 });
  
 

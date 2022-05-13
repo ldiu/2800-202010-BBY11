@@ -1,13 +1,10 @@
 
+//The following code follows a demo represented by the instructor's in 1800 course Projects. 
 function edit() {
   //Allows us to edit the form fields where the element is in personalInfo.html.
-  document.getElementById('personalInfoFields').disabled = false;
+  document.getElementById("userFields").disabled = false;
 }
 
-// function save() {
-
-//   document.getElementById('personalInfoFields').disabled = true;
-// }
 
 
 

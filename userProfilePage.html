@@ -30,28 +30,30 @@
       </form>
     </nav>
   </div>
-  <figure>
-    <img>
-  </figure>
-  <!-- <form> -->
-    <fieldset id="personalInfoFields" disabled>
-      <form id="buttonForm" action="/userProfilePage.html" method="POST">
-        <!-- <label for="userFirstName"></label> -->
-        <!-- <input id="userFirstName" type="text" value="" required name="userFirstName"> -->
-        <!-- <label for="userLastName"></label> -->
-        <!-- <input id="userLastName" type="text" value="" required name="userLastName"> -->
-        <label for="userEmail"></label>
-        <input id="userEmail" type="email" value="" required name="email">
-        <label for="userPassword"></label>
-        <input id="userPassword" type="password" value="" required name="password">
-        
-        <button type="submit" id="saveButton">Save</button>
-        <!-- <a id="button" href="/index2.html" role="button">Save</a> -->
-      </form>
-    </fieldset>
-    <form>
-      <button type="button" id="editButton" onclick="edit()">Edit</button>
+  <div id="welcome"></div>
+  <form action="/userProfileImage" enctype="multipart/form-data" method="POST">
+    <input id="findImage" type="file" name="imageToUpload"/>
+    <input id="uploadButton" type="submit" value="Upload New Image"/>
+  </form>
+
+  <fieldset id="userFields" disabled>
+    <form id="buttonForm" action="/userProfilePage.html" method="POST">
+      <!-- <label for="userFirstName"></label> -->
+      <!-- <input id="userFirstName" type="text" value="" required name="userFirstName"> -->
+      <!-- <label for="userLastName"></label> -->
+      <!-- <input id="userLastName" type="text" value="" required name="userLastName"> -->
+      <label for="userEmail"></label>
+      <input id="userEmail" type="email" value="" required name="email">
+      <label for="userPassword"></label>
+      <input id="userPassword" type="password" value="" required name="password">
+
+      <button type="submit" id="saveButton">Save</button>
+      <!-- <a id="button" href="/index2.html" role="button">Save</a> -->
     </form>
+  </fieldset>
+  <form>
+    <button type="button" id="editButton" onclick="edit()">Edit</button>
+  </form>
   <!-- </form> -->
   <div id="email"></div>
   <div id="password"></div>
