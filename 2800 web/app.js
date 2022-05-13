@@ -26,7 +26,6 @@ app.use(session({
 }));
 
 const url = "mongodb://localhost:27017/COMP2800";
-
 mongoose.connect(url, { useNewUrlParser: true });
 //usersDB
 //BBY_11_user
