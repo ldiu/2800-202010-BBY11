@@ -88,6 +88,9 @@
     color: white;
     justify-items: center;
     margin-left: 8rem;
+    background-color: rgb(107, 169, 94);
+    border-radius: 6px;
+    border: 2px solid white;
   }
 
   #logoutButton{
@@ -118,9 +121,20 @@
 
   #container2{
     display: grid;
-    grid-template-rows: 20% 60% 20%;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+    grid-template-columns: 43% 40% 17%;
   }
+
+  #showAll{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #searchPage{
+    grid-column: 3;
+    grid-row: 1;
+  }
+
 
   #search{
     grid-row: 2 / span 1;
@@ -163,6 +177,7 @@
   }
 
   #showDB{
+    width: 90%;
     grid-row: 2 / span 1;
     grid-column: 1 / span 2;
     font-size: 20px;
@@ -172,6 +187,16 @@
     margin-bottom: 10rem;
     margin-left: 1.2rem;
     text-align: center;
+  }
+
+  #searchingPage{
+    color: rgb(0, 0, 0);
+    justify-items: center;
+    margin-left: 3rem;
+    width: 90%;
+    background-color: rgb(107, 169, 94);
+    border-radius: 6px;
+    border: 2px solid white;
   }
 
   #logoutButton{
