@@ -16,8 +16,24 @@ const uri = process.env.MONGODB_URI;
 let dbConnection;
 const IS_HEROKU = process.env.IS_HEROKU || false;
 const url = "mongodb://localhost:27017/COMP2800";
+const req = require("express/lib/request");
 
 const app = express();
+
+//from arrons notes
+const multer = require("multer");
+
+//Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
+const imageStore = multer.diskStorage({
+  destination: function (req, file, callback) {
+      callback(null, "./public/img") 
+  },
+  filename: function(req, file, callback) { 
+      callback(null, file.originalname.split('/').pop().trim());
+  }  
+});
+
+const imageLoader = multer({ storage: imageStore });
 
 app.set("view engine", "html");
 app.use(express.static("public"));
@@ -25,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
   secret: "password",
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }));
 
@@ -46,11 +62,14 @@ const usersSchema = {
   },
   name: {
     type: String,
-    // required: [true, "enter your name"]
+    required: [true, "enter your name"]
   },
   lastName: {
     type: String,
-    // required: [true, "enter your last name"]
+    required: [true, "enter your last name"]
+  },
+  imagePath: {
+    type: String
   },
   admin: {
     type: Boolean,
@@ -149,9 +168,76 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
+//The following code follows 1537 course instructor's sessions example.
+app.get("/userProfilePage.html", function (req, res) {
 
-//------- app.post -------//
+  if (req.session.loggedIn) {
 
+    // console.log(images.findOne({email: req.session.email}));
+
+
+    let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
+    let changeToJSDOM = new JSDOM(userProfilePage);
+    
+    changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
+    changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
+    changeToJSDOM.window.document.getElementById("userLastName").setAttribute("value", req.session.lastName);
+    changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
+    changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
+    changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
+
+
+
+    res.send(changeToJSDOM.serialize());
+
+  } else {
+    res.redirect("/login.html");
+  }
+
+});
+
+app.post("/userProfilePage.html", function (req, resp) {
+
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
+    name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password }},
+    
+    function(err, data){
+      if (err){
+        console.log("Error " + err);
+        
+      }else{
+        console.log("Data "+ data);
+        req.session.email = req.body.email;
+        req.session.password = req.body.password;
+        req.session.name = req.body.userFirstName;
+        req.session.lastName = req.body.userLastName;
+        resp.redirect( "/userProfilePage.html");
+
+      }
+    })
+    
+});
+
+
+app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
+  
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
+    imagePath: "img/" + req.file.filename}},
+    
+    function(err, data){
+      if (err){
+        console.log("Error " + err);
+        
+      }else{
+        console.log("Data "+ data);
+        req.session.imagePath = "img/" + req.file.filename;
+        res.redirect( "/userProfilePage.html");
+
+      }
+    })
+    
+});
+ 
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -249,9 +335,10 @@ app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
     email: req.body.emailBox,
     password: req.body.password,
-    name: req.body.name,
+    name: req.body.firstName,
     lastName: req.body.lastName,
-    isAdmin: false
+    imagePath: "img/johndoe.png",
+    isAdmin : false
   });
 
   newUser.save(function (err) {
@@ -279,9 +366,12 @@ app.post("/login.html", function (req, res) {
           req.session.loggedIn = true;
           req.session.email = username;
           req.session.password = password;
+          req.session.name = foundUser.name;
+          req.session.lastName = foundUser.lastName;
+          req.session.imagePath = foundUser.imagePath;
+    
           res.sendFile(__dirname + "/index2.html");
         }
-
       }
       if (foundUser && foundUser.admin === true) {
         if (foundUser.password === password && foundUser.admin != isAdmin) {

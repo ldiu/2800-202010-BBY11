@@ -7,7 +7,10 @@
     src: url(Montserrat-Regular.ttf);
 } */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+<<<<<<< HEAD
 >>>>>>>> IH-TEST:public/css/navbar.css
+=======
+>>>>>>> MA_CRUD_user_info
 
 *{
   font-family: 'Montserrat', sans-serif;
@@ -64,6 +67,7 @@ nav a:hover {
     color: aliceblue;
 }
 
+<<<<<<< HEAD
 #footer {
 
     bottom: 0;
@@ -75,3 +79,11 @@ nav a:hover {
     vertical-align: middle;
     padding-top: 1%;
 }
+=======
+#logoutButton{
+    background-color: black;
+    color:white;
+    font-size: 23px;
+    border: 1px solid black;
+  }
+>>>>>>> MA_CRUD_user_info
