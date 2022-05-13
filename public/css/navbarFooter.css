@@ -1,13 +1,6 @@
-@font-face {
-    font-family: 'Montserrat';
-<<<<<<<< HEAD:public/css/navbarFooter.css
-    src: url(../fonts/Montserrat-Regular.ttf);
-}
-========
-    src: url(Montserrat-Regular.ttf);
-} */
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
->>>>>>>> IH-TEST:public/css/navbar.css
+
 
 *{
   font-family: 'Montserrat', sans-serif;
