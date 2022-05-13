@@ -1,3 +1,5 @@
+"use strict";
+
 function loadFooter(){
     $('#footer').load('public/text/footer.html');
 }

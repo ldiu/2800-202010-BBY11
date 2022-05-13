@@ -1,4 +1,5 @@
-// add the thing**
+"use strict";
+
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -79,52 +80,13 @@ const usersSchema = {
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
-const admin1 = new BBY_11_user({
-  email: "eliyahabibi@gmail.com",
-  password: 123,
-  name: "iliya",
-  lastName: "habibi",
-  admin: true
+BBY_11_user.insertMany("/data.json", function(err){
+if(err){
+  console.log(err);
+} else {
+  console.log("saved successfully");
+}
 });
-
-const admin2 = new BBY_11_user({
-  email: "michaela@gmail.com",
-  password: 123,
-  name: "Michaela",
-  lastName: "Ashlee",
-  admin: true
-});
-
-const admin3 = new BBY_11_user({
-  email: "liana@gmail.com",
-  password: 123,
-  name: "Liana",
-  lastName: "Diu",
-  admin: true
-});
-const admin4 = new BBY_11_user({
-  email: "colin@gmail.com",
-  password: 123,
-  name: "Colin",
-  lastName: "Lam",
-  admin: true
-});
-
-// BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function(err){
-// if(err){
-//   console.log(err);
-// } else {
-//   console.log("saved successfully");
-// }
-// });
-
-// BBY_11_user.insertMany("/data.json", function(err){
-// if(err){
-//   console.log(err);
-// } else {
-//   console.log("saved successfully");
-// }
-// });
 
 
 //------- app.get -------//
@@ -172,9 +134,6 @@ app.get("/index2.html", (req, res) => {
 app.get("/userProfilePage.html", function (req, res) {
 
   if (req.session.loggedIn) {
-
-    // console.log(images.findOne({email: req.session.email}));
-
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
@@ -243,10 +202,10 @@ app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-// app.post("/", function (req, res) {
-//   req.session.destroy();
-//   res.redirect(__dirname + "/");
-// });
+app.post("/", function (req, res) {
+  req.session.destroy();
+  res.redirect(__dirname + "/");
+});
 
 app.post("/adminDash.html", function (req, res) {
   if (req.session.loggedIn) {
@@ -303,28 +262,6 @@ app.post("/search.html", function (req, res) {
           }
         }
       });
-
-    // username.save(function(err){
-    //   if(err){
-    //     console.log(err);
-    //   } else {
-    //     res.redirect("/search.html");
-    //   }
-    // });
-
-    // await BBY_11_user.updateOne({
-    //   email: BBY_11_user.email,
-    //   password: BBY_11_user.password,
-    //   name: BBY_11_user.name,
-    //   lastName: BBY_11_user.lastName
-    // }, {
-    //   email: req.body.email,
-    //   password: req.body.password,
-    //   name: req.body.fName,
-    //   lastName: req.body.fName
-    // });
-
-    // mongoose.connection.close();
 
   } else {
     res.redirect("/login.html");

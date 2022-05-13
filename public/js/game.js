@@ -1,3 +1,5 @@
+"use strict";
+
 //creates an array of randomly generated numbers and populates it
 function insertRNG(){
     var RNG = [];

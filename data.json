@@ -1,37 +1,88 @@
 [
   {
     "_id": "627462822372f31a165c622f",
-    "email": "1@2.com",
+    "email": "michael@gmail.com",
     "password": "123",
+    "name": "Michael",
+    "lastName": "Jordan",
+    "imagePath": "img/johndoe.png",
     "admin": false,
     "__v": 0
   },
   {
     "_id": "62746dcbb5c6841b577a2a68",
-    "email": "2@3.com",
+    "email": "Larry@gmail.com",
     "password": "123",
+    "name": "Larry",
+    "lastName": "Bird",
+    "imagePath": "img/johndoe.png",
     "admin": false,
     "__v": 0
   },
   {
     "_id": "62746e2239638350fe89d5bf",
-    "email": "he@tt.com",
+    "email": "elton@gmail.com",
     "password": "123",
+    "name": "Elton",
+    "lastName": "John",
+    "imagePath": "img/johndoe.png",
     "admin": false,
     "__v": 0
   },
   {
     "_id": "62746e8bca2f60029822e0ce",
-    "email": "gg@gg.com",
+    "email": "steve@gmailcom",
     "password": "123",
+    "name": "Steve",
+    "lastName": "Nash",
+    "imagePath": "img/johndoe.png",
     "admin": false,
     "__v": 0
   },
   {
     "_id": "6274ab31926bd8714661581d",
-    "email": "d@d.com",
+    "email": "tim@gmail.com",
     "password": "123",
+    "name": "Tim",
+    "lastName": "Duncan",
+    "imagePath": "img/johndoe.png",
     "admin": false,
     "__v": 0
+  },
+  {
+    "_id": "627edfba43c7287097fe2792",
+    "email": "michaela@gmail.com",
+    "password": "123",
+    "name": "Michaela",
+    "lastName": "Ashlee",
+    "imagePath": "img/johndoe.png",
+    "admin": true
+  },
+  {
+    "_id": "627ee0c043c7287097fe2793",
+    "email": "eliyahabibi@gmail.com",
+    "password": 123,
+    "name": "iliya",
+    "lastName": "habibi",
+    "imagePath": "img/johndoe.png",
+    "admin": true
+  },
+  {
+    "_id": "627ee0f643c7287097fe2794",
+    "email": "liana@gmail.com",
+    "password": 123,
+    "name": "Liana",
+    "lastName": "Diu",
+    "imagePath": "img/johndoe.png",
+    "admin": true
+  },
+  {
+    "_id": "627ee10343c7287097fe2795",
+    "email": "colin@gmail.com",
+    "password": 123,
+    "name": "Colin",
+    "lastName": "Lam",
+    "imagePath": "img/johndoe.png",
+    "admin": true
   }
   ]
