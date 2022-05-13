@@ -231,7 +231,7 @@
   }
 
   #logoutButton{
-    background-color: black;
+    background-color: rgba(76, 76, 76, 0.437);
     color:white;
     font-size: 23px;
     border: 1px solid black;
@@ -464,7 +464,7 @@
   }
 
   #logoutButton{
-    background-color: black;
+    background-color: rgba(76, 76, 76, 0.437);
     color:white;
     font-size: 23px;
     border: 1px solid black;
