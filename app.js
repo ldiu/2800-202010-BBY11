@@ -4,6 +4,10 @@ const bodyParser = require("body-parser");
 const request = require("request");
 const mongoose = require("mongoose");
 const port = process.env.PORT || 3000;
+const uri = process.env.MONGODB_URI;
+const { MongoClient } = require('mongodb');
+let dbConnection;
+const IS_HEROKU = process.env.IS_HEROKU || false;
 
 const app = express();
 
@@ -17,7 +21,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
-mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
+MongoClient.connect(uri)
+// mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
 
 const usersSchema = {
   email: {
