@@ -17,7 +17,6 @@ const uri = process.env.MONGODB_URI;
 let dbConnection;
 const IS_HEROKU = process.env.IS_HEROKU || false;
 const url = "mongodb://localhost:27017/COMP2800";
-const req = require("express/lib/request");
 
 const app = express();
 

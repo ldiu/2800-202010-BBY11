@@ -59,7 +59,7 @@
     grid-column: 1 / span 1;
     width: 90%;
     font-size: 20px;
-    background-color: rgb(107, 169, 94);
+    background-color: rgb(255, 119, 0);
     border: 2px solid white;
     border-radius: 6px;
     color: white;
@@ -69,7 +69,73 @@
     margin-right: 10%;
   }
 
-  #showDB{
+  #newVal1{
+    grid-column: 1;
+    grid-row: 1;
+    width: 90%;
+    height: 50%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+  #newVal2{
+    grid-column: 1;
+    grid-row: 2;
+    width: 90%;
+    height: 50%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+  #newVal3{
+    grid-column: 1;
+    grid-row: 3;
+    width: 90%;
+    height: 50%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+  #newVal4{
+    grid-column: 1;
+    grid-row: 4;
+    width: 90%;
+    height: 70%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+
+  .save{
+    color: white;
+    justify-items: center;
+    background-color: rgb(107, 169, 94);
+    border-radius: 6px;
+    border: 2px solid white;
+    width: 40%;
+  }
+
+  #showDB{ 
    
     width: 90%;
     font-size: 20px;
@@ -121,8 +187,29 @@
 
   #container2{
     display: grid;
+    grid-template-columns: 40% 44% 16%;
     grid-template-rows: 33.33% 33.33% 33.33%;
+  }
+
+  #content{
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
     grid-template-columns: 43% 40% 17%;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+  }
+
+  #search{
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  #data{
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+    grid-template-columns: 100%;
   }
 
   #showAll{
@@ -137,8 +224,8 @@
 
 
   #search{
-    grid-row: 2 / span 1;
-    grid-column: 2 / span 1;
+    grid-column: 2;
+    grid-row: 1;
   }
 
   #adminDash{
@@ -150,8 +237,8 @@
   }
 
   #searchBar{
-    grid-row: 1 / span 1;
-    grid-column: 1 / span 1;
+    grid-column: 1;
+    grid-row: 1;
     background-color: rgb(196, 196, 196);
     border: 2px solid white;
     border-radius: 6px;
@@ -163,11 +250,81 @@
 
   }
 
+  #newVal1{
+    grid-column: 1;
+    grid-row: 1;
+    width: 90%;
+    height: 50%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+  #newVal2{
+    grid-column: 1;
+    grid-row: 2;
+    width: 90%;
+    height: 50%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+  #newVal3{
+    grid-column: 1;
+    grid-row: 3;
+    width: 90%;
+    height: 50%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+  #newVal4{
+    grid-column: 1;
+    grid-row: 4;
+    width: 90%;
+    height: 70%;
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+    justify-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+  }
+
+  .save{
+    color: white;
+    justify-items: center;
+    background-color: rgb(107, 169, 94);
+    border-radius: 6px;
+    border: 2px solid white;
+    width: 40%;
+    margin-left: 3%;
+    margin-top: 5%;
+    width: 60%;
+    height: 60%;
+  }
+
   #searchUsers{
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
     font-size: 20px;
-    background-color: rgb(107, 169, 94);
+    background-color: rgb(255, 119, 0);
     border: 2px solid white;
     border-radius: 6px;
     color: white;
