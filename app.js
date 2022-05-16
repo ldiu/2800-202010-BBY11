@@ -62,11 +62,11 @@ const usersSchema = {
   },
   name: {
     type: String,
-    required: [true, "enter your name"]
+    // required: [true, "enter your name"]
   },
   lastName: {
     type: String,
-    required: [true, "enter your last name"]
+    // required: [true, "enter your last name"]
   },
   imagePath: {
     type: String
@@ -79,13 +79,53 @@ const usersSchema = {
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
-BBY_11_user.insertMany("/data.json", function(err){
-if(err){
-  console.log(err);
-} else {
-  console.log("saved successfully");
-}
+
+const admin1 = new BBY_11_user({
+  email: "eliyahabibi@gmail.com",
+  password: 123,
+  name: "iliya",
+  lastName: "habibi",
+  admin: true
 });
+
+const admin2 = new BBY_11_user({
+  email: "michaela@gmail.com",
+  password: 123,
+  name: "Michaela",
+  lastName: "Ashlee",
+  admin: true
+});
+
+const admin3 = new BBY_11_user({
+  email: "liana@gmail.com",
+  password: 123,
+  name: "Liana",
+  lastName: "Diu",
+  admin: true
+});
+const admin4 = new BBY_11_user({
+  email: "colin@gmail.com",
+  password: 123,
+  name: "Colin",
+  lastName: "Lam",
+  admin: true
+});
+
+// BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function(err){
+// if(err){
+//   console.log(err);
+// } else {
+//   console.log("saved successfully");
+// }
+// });
+
+// BBY_11_user.insertMany("/data.json", function(err){
+// if(err){
+//   console.log(err);
+// } else {
+//   console.log("saved successfully");
+// }
+// });
 
 
 //------- app.get -------//
