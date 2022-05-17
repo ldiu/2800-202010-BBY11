@@ -28,30 +28,36 @@
       </nav>
     </div>
     <div id="container2">
-      <!-- <div id="container3"> -->
       <div id="content">
-        <form id="searchSection" action="/search.html" method="POST">
-          <div id="search">
+        <div id="search">
+          <form id="searchSection" action="/search.html" method="POST">
             <input id="searchBar" type="email" placeholder=" Search" name="dashEmail">
             <button type="submit" id="searchUsers">Search</button>
-            <!-- </form> -->
-            <div id="searchUser"></div>
-          </div>
+          </form>
+          <div id="searchUser"></div>
+          <div id="updateInfo"></div>
+        </div>
 
-          <div id="data">
-            <!-- <form id="updateSection" action="/search.html" method="POST"> -->
-            <input id="newVal1" type="email" placeholder="Email" name="email">
-            <input id="newVal2" type="password" placeholder="Password" name="password">
-            <input id="newVal3" type="text" placeholder="First Name" name="fName">
-            <input id="newVal4" type="text" placeholder="Last Name" name="lName">
+        <div id="data">
+          <!-- enctype="multipart/form-data" -->
+
+          <form id="updateSection" action="/search.html" method="POST">
+            <label for="newVal1"></label>
+            <input id="newVal1" type="email" value="" placeholder="Email" name="upEmail">
+            <label for="newVal2"></label>
+            <input id="newVal2" type="password" value="" placeholder="Password" name="upPassword">
+            <label for="newVal3"></label>
+            <input id="newVal3" type="text" value="" placeholder="First Name" name="fName">
+            <label for="newVal4"></label>
+            <input id="newVal4" type="text" value="" placeholder="Last Name" name="lName">
             <button class="save" type="submit">Save</button>
             <!-- <button type="submit" id="delete">Delete User</button> -->
-          </div>
-        </form>
-        
+          </form>
+
+        </div>
+
       </div>
     </div>
-    <!-- </div> -->
   </div>
   <script src="navbar.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
