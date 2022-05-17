@@ -45,11 +45,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
-if (IS_HEROKU) {
-  MongoClient.connect(uri);
-} else {
-  mongoose.connect(url, { useNewUrlParser: true });
-}
+// if (IS_HEROKU) {
+//   MongoClient.connect(uri);
+// } else {
+//   mongoose.connect(url, { useNewUrlParser: true });
+// }
 
 const usersSchema = {
   email: {

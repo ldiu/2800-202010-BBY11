@@ -4,6 +4,11 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+#solutionLine{
+  justify-self: center;
+  align-self: center;
+}
+
 @media (min-width: 0px) and (max-width: 445px) {
 
   body {
