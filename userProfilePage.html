@@ -63,20 +63,16 @@
       </div>
       <div id="container4">
         Create a Post:
-        <form id="userPosts" action="/userPost" method="POST">
-          <form>
-            <label for="textForPost"></label>
-            <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost"
-              value="Enter text">Enter Text</textarea>
-            <input id="date" type="date">
-            <input id="time" type="time">
-          </form>
-          <form id=imageUpload action="/userProfileImage" enctype="multipart/form-data" method="POST">
-            <label for="findImage" class="findImageStyle"> Choose Image
-              <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image" /></label>
-            <input id="uploadButton" type="submit" value="Upload New Image" />
-          </form>
+
+        <form >
+          <label for="textForPost"></label>
+          <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost"
+            value="Enter text">Enter Text</textarea>
+          <!-- <label for="findImg" class="findImgStyle"> Choose Image -->
+          <input id="findImg" type="file" size="60" name="imageToUpload" value="Choose Image" accept="img/png, image/gif, image/jpeg" multiple="multiple"></label>
+          <input id="uploadImageButton" type="submit" value="Upload New Image" />
         </form>
+
         <div id="timeline">
           Time Line:
         </div>

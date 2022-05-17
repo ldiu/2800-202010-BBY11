@@ -4,7 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const request = require("request");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const { JSDOM } = require('jsdom');
 const jsdom = require("jsdom");
@@ -71,6 +71,23 @@ const usersSchema = {
   imagePath: {
     type: String
   },
+  
+  timeline: [{
+    text: {
+      type: String
+    },
+    date: {
+      type: Date
+    },
+    images: [{
+      name:{
+        type: String
+      },
+      path: {
+        type: String
+      }
+    }]
+  }],
   admin: {
     type: Boolean,
     default: false
@@ -184,7 +201,8 @@ app.get("/userProfilePage.html", function (req, res) {
     changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
     changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
 
-
+    // let usr = BBY_11_user.find({});
+    // console.log("the user based on the id in the session", usr);
 
     res.send(changeToJSDOM.serialize());
 
@@ -336,8 +354,10 @@ app.post("/login.html", function (req, res) {
     if (err) {
       console.log(err);
     } else {
+      // console.log("found THE user", foundUser);
       if (foundUser && foundUser.admin === false) {
         if (foundUser.password === password) {
+          // req.session.user_id = foundUser._id;
           req.session.user = foundUser;
           req.session.loggedIn = true;
           req.session.email = username;
@@ -345,7 +365,7 @@ app.post("/login.html", function (req, res) {
           req.session.name = foundUser.name;
           req.session.lastName = foundUser.lastName;
           req.session.imagePath = foundUser.imagePath;
-    
+          
           res.sendFile(__dirname + "/index2.html");
         }
       }
