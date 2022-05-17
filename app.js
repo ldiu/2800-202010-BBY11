@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 if (IS_HEROKU){
-  MongoClient.connect(uri);
+  mongoose.connect(uri);
 } else {
   mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true });
 }
