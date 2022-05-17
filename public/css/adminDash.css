@@ -251,7 +251,7 @@
     width: 70%;
   }
 
-  #newVal1{
+  .newVal1{
     grid-column: 1;
     grid-row: 1;
     width: 90%;
@@ -265,7 +265,7 @@
     margin-bottom: 2%;
     margin-right: 2%;
   }
-  #newVal2{
+  .newVal2{
     grid-column: 1;
     grid-row: 2;
     width: 90%;
@@ -279,7 +279,7 @@
     margin-bottom: 2%;
     margin-right: 2%;
   }
-  #newVal3{
+  .newVal3{
     grid-column: 1;
     grid-row: 3;
     width: 90%;
@@ -293,7 +293,7 @@
     margin-bottom: 2%;
     margin-right: 2%;
   }
-  #newVal4{
+  .newVal4{
     grid-column: 1;
     grid-row: 4;
     width: 90%;

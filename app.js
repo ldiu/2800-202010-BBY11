@@ -153,6 +153,12 @@ app.get("/adminDash.html", function (req, res) {
 
 app.get("/search.html", function (req, res) {
   if (req.session.users) {
+    // let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
+    // let changeToJSDOM = new JSDOM(userProfilePage);
+    // changeToJSDOM.window.document.getElementById("newVal1").setAttribute("value", req.session.name);
+    // changeToJSDOM.window.document.getElementById("newVal2").setAttribute("value", req.session.email);
+    // changeToJSDOM.window.document.getElementById("newVal3").setAttribute("value", req.session.password);
+    // changeToJSDOM.window.document.getElementById("newVal4").setAttribute("value", req.session.lastName);
     res.sendFile(__dirname + "/search.html");
   }
   else {
@@ -199,11 +205,8 @@ app.get("/userProfilePage.html", function (req, res) {
 app.post("/userProfilePage.html", function (req, resp) {
 
   BBY_11_user.updateOne({ email: req.session.email }, {
-    $set: {
-      name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password
-    }
+    $set: { name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password }
   },
-
     function (err, data) {
       if (err) {
         console.log("Error " + err);
@@ -285,13 +288,17 @@ app.post("/adminDash.html", function (req, res) {
 
 //---- searching ----//
 
+var id;
+
 app.post("/search.html", function (req, res) {
+
   if (req.session.loggedIn) {
     BBY_11_user.find({ email: req.body.dashEmail }, function (err, users) {
       if (err) {
         console.log("the error: " + err);
         res.status(500).send();
       } else {
+        var lol = req.body.dashEmail;
         let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
         let changeToJSDOM = new JSDOM(dbInfo);
 
@@ -304,7 +311,13 @@ app.post("/search.html", function (req, res) {
 
         changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
         res.send(changeToJSDOM.serialize());
-        console.log("user is printed");
+        console.log("user printed");
+
+        req.session.searchUser = req.body.dashEmail;
+        req.session.save();
+
+        id = req.session.searchUser;
+        console.log(id);
       }
     });
   } else {
@@ -314,67 +327,71 @@ app.post("/search.html", function (req, res) {
 
 //---- updating ----//
 
-app.post("/search.html", function (req, res) {
+app.post("/update", function (req, res) {
   if (req.session.loggedIn) {
-    BBY_11_user.findOneAndUpdate({ email: req.body.dashEmail },
+    BBY_11_user.updateOne({ email: req.session.searchUser },
       { $set: { email: req.body.upEmail, password: req.body.upPassword, name: req.body.fName, lastName: req.body.lName } },
       function (err, users) {
         if (err) {
-          // throw err;
           console.log("there is an error");
           console.log(err);
         } else {
           console.log("email updated");
-          BBY_11_user.close();
+          res.redirect("/search.html");
         }
       });
-
   } else {
     res.redirect("/login.html");
   }
 });
 
-app.post("/search.html", function (req, res) {
-  const dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
-  const changeToJSDOM = new JSDOM(dbInfo);
+app.post("/delete", function (req, res) {
   if (req.session.loggedIn) {
-
-
+    BBY_11_user.deleteOne({ email: req.session.searchUser }, function (err, users) {
+      if (err) {
+        console.log("there is an error");
+        console.log(err);
+      } else {
+        console.log("user deleted");
+        res.redirect("/search.html");
+      }
+    });
   } else {
     res.redirect("/login.html");
   }
 });
 
-// app.post("/search.html", function (req, res) {
-//   const dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
-//   const changeToJSDOM = new JSDOM(dbInfo);
-//   if (req.session.loggedIn) {
-//     BBY_11_user.findOneAndUpdate({ email: req.body.dashEmail },
-//       { $set: { email: req.body.email, password: req.body.password, name: req.body.fName, lastName: req.body.lName } },
-//       function (err, foundUser) {
+app.post("/add", function (req, res) {
+  if (req.session.loggedIn) {
+    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname },
+      function (err, users) {
+        if (err) {
+          console.log("there is an error");
+          console.log(err);
+        } else {
+          let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
+          if (changeToJSDOM.window.document.getElementById("newVal5").checked) {
+            admin: true;
+            console.log("admin user added");
+            res.redirect("/search.html");
+          } else if (changeToJSDOM.window.document.getElementById("newVal5").checked != true) {
+            admin: false;
+            console.log("normal user added");
+            res.redirect("/search.html");
+          } else {
+            admin: false;
+            console.log("normal user added");
+            res.redirect("/search.html");
+          }
+        }
+      });
+  } else {
+    res.redirect("/login.html");
+  }
+});
 
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           if (foundUser) {
 
-//             let str = "<table>";
-//             str += "<tr><td>email: " + foundUser.email + "</td></tr><tr><td>name: " + foundUser.name + "</tr></td>" +
-//               "<tr><td>lastName: " + foundUser.lastName + "</tr></td><tr><td>isAdmin: " + foundUser.admin + "</tr></td><tr><td><br></td></tr>";
-//             str += "</table>";
-
-//             changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
-
-//             res.send(changeToJSDOM.serialize());
-
-//           }
-//         }
-//       });
-
-//   } else {
-//     res.redirect("/login.html");
-//   }
-// });
 
 app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
@@ -383,7 +400,7 @@ app.post("/signUp.html", function (req, res) {
     name: req.body.firstName,
     lastName: req.body.lastName,
     imagePath: "img/johndoe.png",
-    isAdmin: false
+    admin: false
   });
 
   newUser.save(function (err) {
