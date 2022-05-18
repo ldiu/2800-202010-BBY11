@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>24</title>
+  <link href="css/signUp.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbarFooter.css">
+</head>
+
+<body>
+  <div id="container1">
+    <div id="navbar">
+      <nav>
+        <div id="dropdown" onclick="displayDropdown()">
+          <a id="dropdownButton" onclick="displayDropdown()" href="">Menu</a>
+          <div id="menu">
+            <a class="menuItem" href="">Leaderboard</a>
+            <a class="menuItem" href="">About</a>
+            <a class="menuItem" href="">Contact</a>
+          </div>
+        </div>
+        <a href="/index.html" id="logo">24</a> 
+      </nav>
+    </div>
+    <div id="section">
+      <div id="container2">
+
+        <form id="container3" action="/signUp.html" method="POST">
+          <label for="emailBox"></label>
+          <input id="emailBox" type="email" placeholder=" Enter your Email" required="required" name="emailBox">
+          <label for="passowrdBox"></label>
+          <input id="passowrdBox" type="password" placeholder=" Enter your Password" required="required" name="password">
+          <input id="firstNameBox" type="text" placeholder=" Enter your first name" required="required" name="firstName">
+          <input id="lastNameBox" type="text" placeholder=" Enter your last name" required="required" name="lastName">
+          <button type="submit" id="createButton">Create Account</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/footer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (min-width: 0px) and (max-width: 445px) {
+
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-image: url("../img/math2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+  }
+
+  #container1 {
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #section {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 5% 1fr 5%;
+  }
+
+  #container2 {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-columns: 100%;
+    height: 80vh;
+  }
+
+  #container3 {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 17% 2% 17% 2% 17% 2% 17% 2% 15%;
+    height: 50vh;
+    background-color: rgba(0, 0, 0, 0.783);
+    border-radius: 6px;;
+  }
+
+  #container3L {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 33.33% 33.33% 9% 20.33% 4%;
+    height: 35vh;
+    background-color: rgba(0, 0, 0, 0.783);
+    border-radius: 6px;;
+  }
+
+  #emailBox {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 1;
+    width: 85%;
+    justify-self: center;
+    margin-top: 2rem;
+    background-color: #F2F2F2;
+    border: 2px solid #F2F2F2;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+  }
+
+  #passowrdBox {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    margin-bottom: 15px;
+    width: 85%;
+    justify-self: center;
+    margin: 1rem;
+    font-size: 20px;
+    background-color: #F2F2F2;
+    border: 2px solid #F2F2F2;
+    border-radius: 6px;
+    color: black;
+  }
+
+
+  #signInButton {
+    grid-column: 1;
+    grid-row: 4 ;
+    width: 80%;
+    margin-left: 1.5rem;
+    font-size: 20px;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+  }
+
+  #signUpButton {
+    grid-column: 2;
+    grid-row: 4;
+    width: 80%;
+    margin-left: .3rem;
+    font-size: 20px;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+    text-indent: .8cm;
+    text-decoration-line: none;
+    padding-top: 10%;
+    padding-left: 2%;
+  }
+
+}
+
+@media (min-width: 446px) {
+
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-image: url("../img/math2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  #container1 {
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #section {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 410px 1fr;
+  }
+
+  #container2 {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display: grid;
+    grid-template-rows: 10% 1fr 10%;
+    grid-template-columns: 100%;
+    height: 80vh;
+    max-width: 410px;
+    min-width: 409px;
+  }
+
+  #container3L {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-rows: 25% 10% 25% 10% 15%;
+    grid-template-columns: 50% 50%;
+    height: 50vh;
+    background-color: rgba(0, 0, 0, 0.783);
+    border-radius: 6px;;
+    
+  }
+
+  #emailBox {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 3;
+    width: 85%;
+    justify-self: center;
+    margin-top: 2rem;
+    background-color: #F2F2F2;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+  }
+
+  #passowrdBox {
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 3;
+    margin-bottom: 15px;
+    width: 85%;
+    justify-self: center;
+    margin: 1rem;
+    font-size: 20px;
+    background-color: #F2F2F2;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: black;
+  }
+
+  #createAccount {
+    color: white;
+  }
+
+  #signInButton {
+    grid-row: 5 / span 1;
+    grid-column: 1 / span 1;
+    width: 80%;
+    margin-left: 1.5rem;
+    font-size: 20px;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+  }
+
+  #signUpButton {
+    grid-row: 5 / span 1;
+    grid-column: 2 / span 1;
+    width: 80%;
+    margin-left: 1rem;
+    font-size: 20px;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+    text-indent: 1cm;
+    text-decoration-line: none;
+    padding-top: 7.8%;
+    padding-left: 2%;
+  }
+
+  .btn{
+    grid-row: 5 / span 1;
+    grid-column: 2 / span 1;
+    width: 80%;
+    margin-left: 1rem;
+    font-size: 20px;
+    background-color: rgb(107, 169, 94);
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+    text-align: center;
+  }
+
+}
