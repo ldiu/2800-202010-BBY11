@@ -10,15 +10,13 @@ async function submitNewPost(data) { //call is going to await this function has 
       console.log("Response object", responseObject);
       let parsedJSON = await responseObject.json();
       window.location.replace("/userProfilePage.html");
-      // console.log("From the server", parsedJSON);
-      // let newValues = JSON.stringify(parsedJSON);
-      // document.getElementById("insert").innerHTML = newValues;
+     
   } catch(error) {
       console.log(error);
   }
 }
 
-document.getElementById("submitPost").addEventListener("click", function(e){
+document.getElementById("submitPost").addEventListener("click", function(e) {
   let textOfPost = document.getElementById("textForPost").value; 
   let imageForPost = document.getElementById("findImg").value; //this value is a string that represents the path to the selected file(s)
 
@@ -27,7 +25,11 @@ document.getElementById("submitPost").addEventListener("click", function(e){
     date: Date(),
     images: [{
         name:"image1",
-        path:document.getElementById("findImg").value
+        path: document.getElementById("findImg").value
     }]
   })
 });
+
+ // console.log("From the server", parsedJSON);
+      // let newValues = JSON.stringify(parsedJSON);
+      // document.getElementById("insert").innerHTML = newValues;

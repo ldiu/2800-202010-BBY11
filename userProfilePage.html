@@ -64,13 +64,13 @@
       <div id="container4">
         Create a Post:
 
-        <form >
+        <form enctype="multipart/form-data">
           <label for="textForPost"></label>
           <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost"
             value="Enter text">Enter Text</textarea>
           <!-- <label for="findImg" class="findImgStyle"> Choose Image -->
-          <input id="findImg" type="file" size="60" name="imageToUpload" value="Choose Image" accept="img/png, image/gif, image/jpeg" multiple="multiple"></label>
-          <input id="uploadImageButton" type="submit" value="Upload New Image" />
+          <input id="findImg" type="file" size="60" name="myImages" value="Choose Image" accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
+          <!-- <input id="uploadImageButton" type="submit" value="Upload New Image" /> -->
           <input id="submitPost" type="submit" value="Submit"/>
         </form>
 
@@ -81,5 +81,6 @@
     </div>
   </div>
   <!-- <script src="navbar.js"></script> -->
+  <script src="js/client.js"></script>
   <script src="js/userProfilePage.js"></script>
 </body>
