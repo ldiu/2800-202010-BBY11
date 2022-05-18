@@ -46,7 +46,7 @@ app.use(session({
 }));
 
 if (IS_HEROKU) {
-  MongoClient.connect(uri);
+  mongoose.connect(uri);
 } else {
   mongoose.connect(url, { useNewUrlParser: true });
 }
@@ -414,6 +414,21 @@ app.post("/login.html", function (req, res) {
     }
   });
 });
+
+app.post('/getPosts', function (req, res) {
+  const divElement = document.createElement('div');
+  // let doc = 
+BBY_11_user.findOne({email: req.session.email }, function(err, user) {
+  if(err) {
+    console.log(err);
+  } else {
+    let doc = divElement.append(user.name);
+  }
+})
+  
+getElementById('timeline').appendChild(doc);
+  res.send(doc);
+})
 
 
 app.listen(port, function () {
