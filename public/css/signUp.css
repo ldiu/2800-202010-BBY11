@@ -119,10 +119,10 @@
     margin-bottom: 1rem;
     margin-top: .2rem;
     font-size: 20px;
-    background-color: rgb(107, 169, 94);
-    border: 2px solid white;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    color: white;
+    color: #CDBE78;
   }
 
 }
@@ -241,9 +241,9 @@
     margin-left: 1.7rem;
     margin-bottom: 1rem;
     font-size: 20px;
-    background-color: rgb(107, 169, 94);
-    border: 2px solid white;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    color: white;
+    color: #CDBE78;
   }
 }

@@ -9,8 +9,8 @@
   body {
     margin: 0px;
     padding: 0px;
-    background-color: black;
-    color: white;
+    background-color: #383838;
+    color: #CDBE78;
   }
 
   #container1 {
@@ -54,8 +54,8 @@
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
     margin-right: 9%;
-    background-color: rgb(196, 196, 196);
-    border: 2px solid white;
+    background-color: #F2F2F2;
+    border: 2px solid #383838;
     border-radius: 6px;
     font-size: 20px;
     color: black;
@@ -67,10 +67,10 @@
     grid-column: 1 / span 1;
     width: 90%;
     font-size: 20px;
-    background-color: rgb(255, 119, 0);
-    border: 2px solid white;
+    background-color: #066163;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    color: white;
+    color: #CDBE78;
     justify-self: center;
     margin-top: 1.5rem;
     margin-bottom: 3rem;
@@ -83,7 +83,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -98,7 +98,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -113,7 +113,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -128,7 +128,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -138,11 +138,11 @@
   }
 
   .save {
-    color: white;
+    color: #CDBE78;
     justify-items: center;
-    background-color: rgb(107, 169, 94);
+    background-color: #0b2d2e;
     border-radius: 6px;
-    border: 2px solid white;
+    border: 2px solid #CDBE78;
     width: 40%;
   }
 
@@ -183,7 +183,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -198,7 +198,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -213,7 +213,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -228,7 +228,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -243,7 +243,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -258,7 +258,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -267,11 +267,11 @@
   }
 
   .add {
-    color: white;
+    color: #CDBE78;
     justify-items: center;
-    background-color: rgb(107, 169, 94);
+    background-color: #0b2d2e;
     border-radius: 6px;
-    border: 2px solid white;
+    border: 2px solid #CDBE78;
     width: 40%;
     margin-left: 3%;
     margin-top: 5%;
@@ -288,10 +288,10 @@
 
   #delete {
     font-size: 20px;
-    background-color: rgb(255, 30, 0);
-    border: 2px solid white;
+    background-color: rgb(124, 14, 0);
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    color: white;
+    color: #CDBE78;
     text-align: center;
     margin-top: 100%;
     width: 100%;
@@ -303,10 +303,10 @@
 
     width: 90%;
     font-size: 20px;
-    background-color: rgb(94, 155, 169);
-    border: 2px solid white;
+    background-color: #066163;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    color: white;
+    color: #CDBE78;
     justify-self: center;
     margin-bottom: 3rem;
     margin-top: 3rem;
@@ -315,19 +315,19 @@
   }
 
   #searchingPage {
-    color: white;
+    color: #CDBE78;
     justify-items: center;
     margin-left: 8rem;
-    background-color: rgb(107, 169, 94);
+    background-color: #066163;
     border-radius: 6px;
-    border: 2px solid white;
+    border: 2px solid #CDBE78;
   }
 
   #logoutButton {
-    background-color: rgba(76, 76, 76, 0.437);
-    color: white;
+    background-color: #066163;
+    color: #CDBE78;
     font-size: 23px;
-    border: 1px solid black;
+    border:#066163;
   }
 
 }
@@ -337,8 +337,8 @@
   body {
     margin: 0px;
     padding: 0px;
-    background-color: black;
-    color: white;
+    background-color: #383838;
+    color: #CDBE78;
 
   }
 
@@ -417,7 +417,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -432,7 +432,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -447,7 +447,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -462,7 +462,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -477,7 +477,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -492,7 +492,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -501,11 +501,11 @@
   }
 
   .add {
-    color: white;
+    color: #CDBE78;
     justify-items: center;
-    background-color: rgb(107, 169, 94);
+    background-color: #0b2d2e;
     border-radius: 6px;
-    border: 2px solid white;
+    border: 2px solid #CDBE78;
     width: 40%;
     margin-left: 3%;
     margin-top: 5%;
@@ -524,8 +524,8 @@
   #searchBar {
     grid-column: 1;
     grid-row: 1;
-    background-color: rgb(196, 196, 196);
-    border: 2px solid white;
+    background-color: #F2F2F2;
+    border: 2px solid #383838;
     border-radius: 6px;
     font-size: 20px;
     color: black;
@@ -542,7 +542,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -557,7 +557,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -572,7 +572,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -587,7 +587,7 @@
     width: 90%;
     height: 50%;
     font-size: 20px;
-    border: 2px solid white;
+    border: 2px solid #383838;
     border-radius: 6px;
     color: black;
     justify-self: center;
@@ -597,11 +597,11 @@
   }
 
   .save {
-    color: white;
+    color: #CDBE78;
     justify-items: center;
-    background-color: rgb(107, 169, 94);
+    background-color: #0b2d2e;
     border-radius: 6px;
-    border: 2px solid white;
+    border: 2px solid #CDBE78;
     width: 40%;
     margin-left: 3%;
     margin-top: 5%;
@@ -613,10 +613,10 @@
     grid-row: 1;
     grid-column: 2;
     font-size: 20px;
-    background-color: rgb(255, 119, 0);
-    border: 2px solid white;
+    background-color: #066163;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    color: white;
+    color: #CDBE78;
     margin-top: 50%;
     text-align: center;
     width: 70%;
@@ -632,10 +632,10 @@
 
   #delete {
     font-size: 20px;
-    background-color: rgb(255, 30, 0);
-    border: 2px solid white;
+    background-color: rgb(124, 14, 0);
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    color: white;
+    color: #CDBE78;
     text-align: center;
     margin-top: -15%;
     width: 70%;
@@ -644,11 +644,12 @@
 
   #showDB {
     width: 90%;
-    grid-row: 2 / span 1;
-    grid-column: 1 / span 2;
+    grid-row: 1;
+    grid-column: 1;
     font-size: 20px;
-    background-color: rgb(94, 155, 169);
-    border: 2px solid white;
+    background-color: #0b2d2e;
+    color: #CDBE78;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
     margin-bottom: 10rem;
     margin-left: 1.2rem;
@@ -656,20 +657,23 @@
   }
 
   #searchingPage {
-    color: rgb(0, 0, 0);
+    display: grid;
+    grid-column: 3;
+    grid-row: 1;
     justify-items: center;
     margin-left: 3rem;
-    width: 90%;
-    background-color: rgb(107, 169, 94);
+    width: 60%;
+    background-color: #0b2d2e;
     border-radius: 6px;
-    border: 2px solid white;
+    border: 2px solid #CDBE78;
+    color: #CDBE78;
   }
 
   #logoutButton {
-    background-color: rgba(76, 76, 76, 0.437);
-    color: white;
+    background-color: #066163;
+    color: #CDBE78;
     font-size: 25px;
-    border: 1px solid black;
+    border: #066163;
   }
 
 }
