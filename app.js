@@ -253,6 +253,37 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
     })
     
 });
+
+//Here, still need to figure out the command to insert into an embedded array. 
+app.post('/createNewPost', function (req, res) {
+
+  res.setHeader("Content-Type", "application/json");
+
+  //change this to account for embedded timeline array. 
+  const insertNewPost = BBY_11_user.insertMany({ email: req.session.email }, { $set: {
+    name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password }},
+    
+    function(err, data){
+      if (err){
+        console.log("Error " + err);
+        
+      }else{
+        //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
+        console.log("Data "+ data);
+        req.session.email = req.body.email;
+        req.session.password = req.body.password;
+        req.session.name = req.body.userFirstName;
+        req.session.lastName = req.body.userLastName;
+        res.redirect( "/userProfilePage.html");
+
+      }
+    })
+
+      //res.send({ msg: "what the user sent: " + req.body.name + " " + req.body.email });
+  res.send({ "name:" : req.body.name,
+  "email:" : req.body.email});
+    
+});
  
 
 app.post("/", function (req, res) {
