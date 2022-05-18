@@ -35,11 +35,11 @@
       <div id="container3">
         <div id="welcome"></div>
         <div id="imageContainer">
-          <img id="profileImage" src="img/johndoe.png">
+          <img id="profileImage" src="img/johndoe.png" alt="">
         </div>
-        <form id=imageUpload action="/userProfileImage" enctype="multipart/form-data" method="POST">
+        <form id="imageUpload" action="/userProfileImage" enctype="multipart/form-data" method="POST">
           <label for="findImage" class="findImageStyle"> Choose Image
-          <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image"/></label>
+            <input id="findImage" type="file" size="60" name="imageToUpload"></label>
           <input id="uploadButton" type="submit" value="Upload New Image" />
         </form>
         <fieldset id="userFields" disabled>
@@ -65,3 +65,5 @@
   <!-- <script src="navbar.js"></script> -->
   <script src="js/userProfilePage.js"></script>
 </body>
+
+</html>

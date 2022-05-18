@@ -28,32 +28,65 @@
       </nav>
     </div>
     <div id="container2">
-      <!-- <div id="container3"> -->
       <div id="content">
-        <form id="searchSection" action="/search.html" method="POST">
-          <div id="search">
+
+
+        <div class="search">
+          <form id="searchSection" action="/search.html" method="POST">
             <input id="searchBar" type="email" placeholder=" Search" name="dashEmail">
             <button type="submit" id="searchUsers">Search</button>
-            <!-- </form> -->
-            <div id="searchUser"></div>
+          </form>
+
+          <div id="deleting">
+            <form id="deleteSection" action="/delete" method="POST">
+              <button type="submit" id="delete">Delete User</button>
+            </form>
           </div>
 
-          <div id="data">
-            <!-- <form id="updateSection" action="/search.html" method="POST"> -->
-            <input id="newVal1" type="email" placeholder="Email" name="email">
-            <input id="newVal2" type="password" placeholder="Password" name="password">
-            <input id="newVal3" type="text" placeholder="First Name" name="fName">
-            <input id="newVal4" type="text" placeholder="Last Name" name="lName">
+          <div id="searchUser"></div>
+          <div id="updateInfo"></div>
+        </div>
+
+
+
+        <div id="data">
+          <span>Update User:</span>
+          <form id="updateSection" action="/update" method="POST">
+            <input class="newVal1" type="email" value="" placeholder="Email" name="upEmail" required="required">
+            <input class="newVal2" type="password" value="" placeholder="Password" name="upPassword"
+              required="required">
+            <input class="newVal3" type="text" value="" placeholder="First Name" name="fName" required="required">
+            <input class="newVal4" type="text" value="" placeholder="Last Name" name="lName" required="required">
             <button class="save" type="submit">Save</button>
-            <!-- <button type="submit" id="delete">Delete User</button> -->
-          </div>
-        </form>
-        
+          </form>
+        </div>
+
+        <div id="adding">
+          <span>Add User:</span>
+          <form id="addSection" action="/add" method="POST">
+            <input class="email" type="email" value="" placeholder="Email" name="adEmail" required="required">
+            <input class="pass" type="password" value="" placeholder="Password" name="adPassword" required="required">
+            <input class="name" type="text" value="" placeholder="First Name" name="adFname" required="required">
+            <input class="lname" type="text" value="" placeholder="Last Name" name="adLname" required="required">
+            <br>
+            <input id="Val5" type="checkbox" value="" name="Admin">
+            <label for="Val5">is Admin</label>
+            <input id="Val6" type="checkbox" value="" name="Admin">
+            <label for="Val5">not Admin</label>
+            <button class="add" type="submit">add</button>
+
+          </form>
+        </div>
+
+        <!-- <div id="deleting">
+          <form id="deleteSection" action="/delete" method="POST">
+            <button type="submit" id="delete">Delete User</button>
+          </form>
+        </div> -->
+
       </div>
     </div>
-    <!-- </div> -->
   </div>
-  <script src="navbar.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 
