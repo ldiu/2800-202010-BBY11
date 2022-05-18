@@ -46,7 +46,7 @@ app.use(session({
 }));
 
 if (IS_HEROKU) {
-  MongoClient.connect(uri);
+  mongoose.connect(uri);
 } else {
   mongoose.connect(url, { useNewUrlParser: true });
 }
@@ -345,6 +345,8 @@ app.post("/update", function (req, res) {
   }
 });
 
+//---- deleting ---//
+
 app.post("/delete", function (req, res) {
   if (req.session.loggedIn) {
     BBY_11_user.deleteOne({ email: req.session.searchUser }, function (err, users) {
@@ -360,6 +362,8 @@ app.post("/delete", function (req, res) {
     res.redirect("/login.html");
   }
 });
+
+//---- adding ----//
 
 app.post("/add", function (req, res) {
   if (req.session.loggedIn) {
