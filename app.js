@@ -153,12 +153,6 @@ app.get("/adminDash.html", function (req, res) {
 
 app.get("/search.html", function (req, res) {
   if (req.session.users) {
-    // let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
-    // let changeToJSDOM = new JSDOM(userProfilePage);
-    // changeToJSDOM.window.document.getElementById("newVal1").setAttribute("value", req.session.name);
-    // changeToJSDOM.window.document.getElementById("newVal2").setAttribute("value", req.session.email);
-    // changeToJSDOM.window.document.getElementById("newVal3").setAttribute("value", req.session.password);
-    // changeToJSDOM.window.document.getElementById("newVal4").setAttribute("value", req.session.lastName);
     res.sendFile(__dirname + "/search.html");
   }
   else {
