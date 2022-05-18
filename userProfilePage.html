@@ -6,9 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>24</title>
 
-  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/navbarFooter.css">
   <link rel="stylesheet" href="css/userProfilePage.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 
@@ -19,9 +18,9 @@
         <div id="dropdown">
           <a href="" id="dropdownButton">Menu</a>
           <div id="menu">
-            <a href="">Leaderboard</a>
-            <a href="">About</a>
-            <a href="">Contact</a>
+            <a class="menuItem" href="">Leaderboard</a>
+            <a class="menuItem" href="">About</a>
+            <a class="menuItem" href="">Contact</a>
             <a href="/index2.html">Back</a>
           </div>
         </div>
@@ -35,11 +34,11 @@
       <div id="container3">
         <div id="welcome"></div>
         <div id="imageContainer">
-          <img id="profileImage" src="img/johndoe.png">
+          <img id="profileImage" src="img/johndoe.png" alt="">
         </div>
-        <form id=imageUpload action="/userProfileImage" enctype="multipart/form-data" method="POST">
+        <form id="imageUpload" action="/userProfileImage" enctype="multipart/form-data" method="POST">
           <label for="findImage" class="findImageStyle"> Choose Image
-          <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image"/></label>
+            <input id="findImage" type="file" size="60" name="imageToUpload"></label>
           <input id="uploadButton" type="submit" value="Upload New Image" />
         </form>
         <fieldset id="userFields" disabled>
@@ -62,6 +61,8 @@
       </div>
     </div>
   </div>
-  <!-- <script src="navbar.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="js/userProfilePage.js"></script>
 </body>
+
+</html>

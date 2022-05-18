@@ -6,7 +6,7 @@
   font-family: 'Montserrat', sans-serif;
 }
 nav {
-    background-color:  rgba(76, 76, 76, 0.437);
+    background-color:  #066163;
     display: inline-block;
     width: 100%;
     font-size: x-large;
@@ -18,7 +18,7 @@ nav a {
     display: inline-block;
     padding: 4pt;
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: #CDBE78;
 }
 
 #dropdown {
@@ -41,7 +41,7 @@ nav a {
 }
 
 #logo:hover {
-    background-color: black;
+    background-color: #0b2d2e;
 }
 
 #loginButton {
@@ -52,9 +52,14 @@ nav a {
     float:right;
 }
 
+#logoutButton:hover {
+  background-color: #0b2d2e;
+  color: #CDBE78;
+}
+
 nav a:hover {
-    background-color: grey;
-    color: aliceblue;
+    background-color: #0b2d2e;
+    color: #CDBE78;
 }
 
 #footer {
@@ -62,8 +67,8 @@ nav a:hover {
     bottom: 0;
     width: 100%;
     height: 50px;
-    background-color: rgba(54, 54, 54, 0.437);
-    color:rgb(173, 173, 173);
+    background-color: #066163;
+    color:#CDBE78;
     text-align: center;
     vertical-align: middle;
     padding-top: 1%;
