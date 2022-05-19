@@ -19,6 +19,9 @@ const IS_HEROKU = process.env.IS_HEROKU || false;
 const url = "mongodb://localhost:27017/COMP2800";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false}));
 
 //from arrons notes
 const multer = require("multer");
@@ -37,7 +40,6 @@ const imageLoader = multer({ storage: imageStore });
 
 app.set("view engine", "html");
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
   secret: "password",
@@ -256,39 +258,37 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
 });
 
 //Here, still need to figure out the command to insert into an embedded array. 
-app.post("/createNewPost", imageLoader.array("files"), function (req, res) {
+app.post("/createNewPost",  imageLoader.single("imageToUpload"), function (req, res) {
+   
 
-  // res.setHeader("Content-Type", "application/json");
-  
-  for(let i = 0; i < req.files.length; i++) {
-  // req.files[i].filename = req.files[i].originalname;
+  res.setHeader("Content-Type", "application/json");
+  console.log(req.body);
+  console.log(req.body.text);
+  console.log(req.body.date);
+  let images = req.body.images;
+  for (let i = 0; i < images.length; i++){
+    console.log(images[i].name);
+    console.log(images[i].path);
 
   
   //change this to account for embedded timeline array. Remember we wanted the path 
-  const insertNewPost = BBY_11_user.updateOne({ email: req.session.user.email }, { $set: {
-    timeline: [{ text: req.body.textForPost, date: Date(), images: [{ name: req.files[i].filename, path: "img/" + req.files[i].filename }]}]}},
+     BBY_11_user.updateOne({ email: req.session.user.email }, { $set: {
+     timeline: [{ text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }]}]}},
 
-    function(err, data){
-      if (err){
-        console.log("Error " + err);
+     function(err, data){
+       if (err){
+         console.log("Error " + err);
         
       }else{
         //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
         console.log("Data " + data);
         console.log(Date());
-        console.log("Text inserted " + req.body.textForPost);
-        req.session.user.timeline.text = req.body.textForPost;
-        req.session.user.timeline.date = Date();
-        req.session.user.timeline.images = "img/" + req.files[i].filename;
+        console.log("Text inserted " + req.body.text);
         req.session.save(function (err){});
+        // res.send(req.session.user.timeline);
         res.redirect( "/userProfilePage.html");
 
-      }
-    })}});
-
-      //res.send({ msg: "what the user sent: " + req.body.name + " " + req.body.email });
-  // res.send({ "name:" : req.body.name,
-  // "email:" : req.body.email});
+      }})}});
  
 
 app.post("/", function (req, res) {

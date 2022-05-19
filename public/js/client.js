@@ -30,39 +30,42 @@
 //     );
 // }
 
-// async function submitNewPost(data) { //call is going to await this function has a call that will return promises and there will be an await on that promise. The code has to complete before line 46 happens. 
-//   try {
-//       let responseObject = await fetch("/createNewPost", { //replaces xml http request (the fecth part does)
-//           method: 'POST',
-//           headers: { "Accept": 'application/json',
-//                      "Content-Type": 'application/json'
-//           },
-//           body: JSON.stringify(data)
-//       });
-//       console.log("Response object", responseObject);
-//       let parsedJSON = await responseObject.json();
-//       console.log("Data was sent");
-//       window.location.replace("/userProfilePage.html");
+async function submitNewPost(data) { //call is going to await this function has a call that will return promises and there will be an await on that promise. The code has to complete before line 46 happens. 
+     console.log(data);
+     try {
+      let responseObject = await fetch("/createNewPost", { //replaces xml http request (the fecth part does)
+          method: 'POST',
+          headers: { "Accept": 'application/json',
+                     "Content-Type": 'application/json'
+          },
+          body: JSON.stringify(data)
+         
+      });
+      console.log("Response object", responseObject);
+      let parsedJSON = await responseObject.json();
+      console.log("From the server", parsedJSON);
      
-//   } catch(error) {
-//       console.log(error);
-//   }
-// }
+  } catch(error) {
+      console.log(error);
+  }
+}
 
-// document.getElementById("submitPost").addEventListener("click", function(e) {
-//   let textOfPost = document.getElementById("textForPost").value; 
-//   let imageForPost = document.getElementById("findImg").value; //this value is a string that represents the path to the selected file(s)
+document.getElementById("submitPost").addEventListener("click", function(e) {
+  let textOfPost = document.getElementById("textForPost").value; 
+  let imageForPost = document.getElementById("findImg").value; //this value is a string that represents the path to the selected file(s)
+  console.log(imageForPost);
 
-//   submitNewPost({
-//     text: document.getElementById("textForPost").value,
-//     date: Date(),
-//     images: [{
-//         name:"image1",
-//         path: document.getElementById("findImg").value
-//     }]
-//   })
-//   console.log("Data was sent");
-// });
+//   const = document.getElementById("findImg");
+  submitNewPost({
+    text: document.getElementById("textForPost").value,
+    date: Date(),
+    images: [{
+        name: document.getElementById("findImg").files[0].name,
+        path: document.getElementById("findImg").files[0].name
+    }]
+  })
+  console.log("Data was sent");
+});
 
  // console.log("From the server", parsedJSON);
       // let newValues = JSON.stringify(parsedJSON);
