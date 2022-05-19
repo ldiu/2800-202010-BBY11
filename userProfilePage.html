@@ -38,13 +38,14 @@
         <div id="imageContainer">
           <img id="profileImage" src="img/johndoe.png">
         </div>
-        <form id=imageUpload action="/userProfileImage" enctype="multipart/form-data" method="POST">
-          <label for="findImage" class="findImageStyle"> Choose Image
-            <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image" /></label>
-          <input id="uploadButton" type="submit" value="Upload New Image" />
-        </form>
+        <!-- <form id=imageUpload action="/userProfileImage" enctype="multipart/form-data" method="POST"> -->
+          <!-- <label for="findImage" class="findImageStyle"> Choose Image -->
+            <!-- <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image" /></label> -->
+          <!-- <input id="uploadButton" type="submit" value="Upload New Image" /> -->
         <fieldset id="userFields" disabled>
-          <form id="buttonForm" action="/userProfilePage.html" method="POST">
+          <form id="buttonForm" action="/userProfilePage" enctype="multipart/form-data" method="POST">
+            <label for="findImage" class="findImageStyle"> Choose Image
+            <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image"/></label>
             <label for="userFirstName"></label>
             <input id="userFirstName" type="text" value="" required name="userFirstName">
             <label for="userLastName"></label>

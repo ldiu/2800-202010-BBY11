@@ -213,10 +213,10 @@ app.get("/userProfilePage.html", function (req, res) {
 
 });
 
-app.post("/userProfilePage.html", function (req, resp) {
+app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req, res) {
 
   const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
-    name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password }},
+    name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename}},
     
     function(err, data){
       if (err){
@@ -228,8 +228,8 @@ app.post("/userProfilePage.html", function (req, resp) {
         req.session.password = req.body.password;
         req.session.name = req.body.userFirstName;
         req.session.lastName = req.body.userLastName;
-        resp.redirect( "/userProfilePage.html");
-
+        req.session.imagePath = "img/" + req.file.filename;
+        res.redirect( "/userProfilePage.html");
       }
     })
     
