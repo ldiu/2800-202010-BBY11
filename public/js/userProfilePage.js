@@ -27,7 +27,7 @@ async function loadTimeline() {
         headerDivElement.className = "postheader";
         headerDivElement.innerHTML = timelinePosts[i].date;
         headerDivElement.appendChild(editButton);
-        let timelineImages = timelinePosts[i].image;
+        let timelineImages = timelinePosts[i].images;
 
 
         //Create Image Section adapted from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_slideshow
