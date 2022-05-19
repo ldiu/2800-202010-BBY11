@@ -26,11 +26,11 @@ const multer = require("multer");
 //Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
 const imageStore = multer.diskStorage({
   destination: function (req, file, callback) {
-      callback(null, "./public/img") 
+    callback(null, "./public/img")
   },
-  filename: function(req, file, callback) { 
-      callback(null, file.originalname.split('/').pop().trim());
-  }  
+  filename: function (req, file, callback) {
+    callback(null, file.originalname.split('/').pop().trim());
+  }
 });
 
 const imageLoader = multer({ storage: imageStore });
@@ -71,7 +71,7 @@ const usersSchema = {
   imagePath: {
     type: String
   },
-  
+
   timeline: [{
     text: {
       type: String
@@ -80,7 +80,7 @@ const usersSchema = {
       type: Date
     },
     images: [{
-      name:{
+      name: {
         type: String
       },
       path: {
@@ -193,7 +193,7 @@ app.get("/userProfilePage.html", function (req, res) {
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
-    
+
     changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
     changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
     changeToJSDOM.window.document.getElementById("userLastName").setAttribute("value", req.session.lastName);
@@ -214,44 +214,50 @@ app.get("/userProfilePage.html", function (req, res) {
 
 app.post("/userProfilePage.html", function (req, resp) {
 
-  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
-    name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password }},
-    
-    function(err, data){
-      if (err){
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
+    $set: {
+      name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password
+    }
+  },
+
+    function (err, data) {
+      if (err) {
         console.log("Error " + err);
-        
-      }else{
-        console.log("Data "+ data);
+
+      } else {
+        console.log("Data " + data);
         req.session.email = req.body.email;
         req.session.password = req.body.password;
         req.session.name = req.body.userFirstName;
         req.session.lastName = req.body.userLastName;
-        resp.redirect( "/userProfilePage.html");
+        resp.redirect("/userProfilePage.html");
 
       }
     })
-    
+
 });
 
 
 app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
-  
-  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
-    imagePath: "img/" + req.file.filename}},
-    
-    function(err, data){
-      if (err){
+
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
+    $set: {
+      imagePath: "img/" + req.file.filename
+    }
+  },
+
+    function (err, data) {
+      if (err) {
         console.log("Error " + err);
-        
-      }else{
-        console.log("Data "+ data);
+
+      } else {
+        console.log("Data " + data);
         req.session.imagePath = "img/" + req.file.filename;
-        res.redirect( "/userProfilePage.html");
+        res.redirect("/userProfilePage.html");
 
       }
     })
-    
+
 });
 
 //Here, still need to figure out the command to insert into an embedded array. 
@@ -260,30 +266,35 @@ app.post('/createNewPost', imageLoader.array("myImages"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
 
   //change this to account for embedded timeline array. Remember we wanted the path 
-  const insertNewPost = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
-    timeline: [{ text: req.body.textForPost, images: [{ name: "james", path: "img/" }]}]}},
+  const insertNewPost = BBY_11_user.updateOne({ email: req.session.email }, {
+    $set: {
+      timeline: [{ text: req.body.textForPost, images: [{ name: "james", path: "img/" }] }]
+    }
+  },
 
-    function(err, data){
-      if (err){
+    function (err, data) {
+      if (err) {
         console.log("Error " + err);
-        
-      }else{
+
+      } else {
         //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
         console.log("Data " + data);
         req.session.timeline.text = req.body.textForPost;
         req.session.timeline.images = "img/";
-        req.session.save(function (err){});
-        res.redirect( "/userProfilePage.html");
+        req.session.save(function (err) { });
+        res.redirect("/userProfilePage.html");
 
       }
     })
 
-      //res.send({ msg: "what the user sent: " + req.body.name + " " + req.body.email });
-  res.send({ "name:" : req.body.name,
-  "email:" : req.body.email});
-    
+  //res.send({ msg: "what the user sent: " + req.body.name + " " + req.body.email });
+  res.send({
+    "name:": req.body.name,
+    "email:": req.body.email
+  });
+
 });
- 
+
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -362,7 +373,7 @@ app.post("/signUp.html", function (req, res) {
     name: req.body.firstName,
     lastName: req.body.lastName,
     imagePath: "img/johndoe.png",
-    isAdmin : false
+    isAdmin: false
   });
 
   newUser.save(function (err) {
@@ -395,9 +406,9 @@ app.post("/login.html", function (req, res) {
           req.session.name = foundUser.name;
           req.session.lastName = foundUser.lastName;
           req.session.imagePath = foundUser.imagePath;
-          req.session.timeline.text = foundUser.timeline.text;
-          req.session.timeline.images = foundUser.timeline.images;
-          
+          // req.session.timeline.text = foundUser.timeline.text;
+          // req.session.timeline.images = foundUser.timeline.images;
+
           res.sendFile(__dirname + "/index2.html");
         }
       }
@@ -415,17 +426,18 @@ app.post("/login.html", function (req, res) {
   });
 });
 
-app.post('/getTimelinePosts', function (req, res) {
-BBY_11_user.findOne({email: req.session.email }, function(err, user) {
-  if(err) {
-    console.log(err);
-  } else {
-   res.send(user.timeline);
-  }
-})
-  
-document.getElementById('timeline').appendChild(doc);
-  res.send(doc);
+app.get('/getTimelinePosts', function (req, res) {
+  console.log("Debug");
+  BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(user.timeline);
+    }
+  })
+
+  // document.getElementById('timeline').appendChild(doc);
+  //res.send(doc);
 });
 
 

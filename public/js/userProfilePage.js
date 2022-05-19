@@ -11,7 +11,7 @@ async function loadTimeline() {
     let posts = await fetch("/getTimelinePosts", {
       method: 'GET'
     });
-    if (posts.status === 200) {
+    // if (posts.status === 200) {
       let timelinePosts = await posts.json();
 
 
@@ -55,10 +55,10 @@ async function loadTimeline() {
         userPosts.append(post);
       }
       document.getElementById("timeline").appendChild(userPosts);
-    } else {
-      console.log(posts.status);
-      console.log(posts.statusText);
-    }
+    //  else {
+    //   console.log(posts.status);
+    //   console.log(posts.statusText);
+    // }
   } catch (error) {
     console.log(error);
     document.getElementById("timeline").innerHTML = "There are no posts to display.";
