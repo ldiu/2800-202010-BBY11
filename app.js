@@ -200,6 +200,7 @@ app.get("/userProfilePage.html", function (req, res) {
     changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
     changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
     changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
+    // changeToJSDOM.window.document.getElementById("timeline").innerHTML = req.session.user.timeline.text;
 
     // let usr = BBY_11_user.find({});
     // console.log("the user based on the id in the session", usr);
@@ -255,13 +256,17 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
 });
 
 //Here, still need to figure out the command to insert into an embedded array. 
-app.post('/createNewPost', imageLoader.array("myImages"), function (req, res) {
+app.post("/createNewPost", imageLoader.array("files"), function (req, res) {
 
-  res.setHeader("Content-Type", "application/json");
+  // res.setHeader("Content-Type", "application/json");
+  
+  for(let i = 0; i < req.files.length; i++) {
+  // req.files[i].filename = req.files[i].originalname;
 
+  
   //change this to account for embedded timeline array. Remember we wanted the path 
-  const insertNewPost = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
-    timeline: [{ text: req.body.textForPost, images: [{ name: "james", path: "img/" }]}]}},
+  const insertNewPost = BBY_11_user.updateOne({ email: req.session.user.email }, { $set: {
+    timeline: [{ text: req.body.textForPost, date: Date(), images: [{ name: req.files[i].filename, path: "img/" + req.files[i].filename }]}]}},
 
     function(err, data){
       if (err){
@@ -270,19 +275,20 @@ app.post('/createNewPost', imageLoader.array("myImages"), function (req, res) {
       }else{
         //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
         console.log("Data " + data);
-        req.session.timeline.text = req.body.textForPost;
-        req.session.timeline.images = "img/";
+        console.log(Date());
+        console.log("Text inserted " + req.body.textForPost);
+        req.session.user.timeline.text = req.body.textForPost;
+        req.session.user.timeline.date = Date();
+        req.session.user.timeline.images = "img/" + req.files[i].filename;
         req.session.save(function (err){});
         res.redirect( "/userProfilePage.html");
 
       }
-    })
+    })}});
 
       //res.send({ msg: "what the user sent: " + req.body.name + " " + req.body.email });
-  res.send({ "name:" : req.body.name,
-  "email:" : req.body.email});
-    
-});
+  // res.send({ "name:" : req.body.name,
+  // "email:" : req.body.email});
  
 
 app.post("/", function (req, res) {
@@ -395,9 +401,8 @@ app.post("/login.html", function (req, res) {
           req.session.name = foundUser.name;
           req.session.lastName = foundUser.lastName;
           req.session.imagePath = foundUser.imagePath;
-          req.session.timeline.text = foundUser.timeline.text;
-          req.session.timeline.images = foundUser.timeline.images;
-          
+          // req.session.timeline.text = foundUser.timeline.text;
+          // req.session.timeline.images = foundUser.timeline.images;
           res.sendFile(__dirname + "/index2.html");
         }
       }

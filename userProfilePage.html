@@ -64,18 +64,19 @@
       <div id="container4">
         Create a Post:
 
-        <form enctype="multipart/form-data">
-          <label for="textForPost"></label>
-          <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost"
-            value="Enter text">Enter Text</textarea>
+        <form id="postForm" action="/createNewPost" method="POST" enctype="multipart/form-data">
+          <!-- <label for="textForPost"></label> -->
+          <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost" value="Enter text">Enter text</textarea>
           <!-- <label for="findImg" class="findImgStyle"> Choose Image -->
-          <input id="findImg" type="file" size="60" name="myImages" value="Choose Image" accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
+          <br>
+          <input id="findImg" type="file" size="60" name="files" value="Choose Image" accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
           <!-- <input id="uploadImageButton" type="submit" value="Upload New Image" /> -->
-          <input id="submitPost" type="submit" value="Submit"/>
+          <button id="submitPost" type="submit" value="Submit">Submit</button>
         </form>
-
+        <!-- action="/createNewPost" method="POST" enctype="multipart/form-data" -->
         <div id="timeline">
           Time Line:
+          <img id ="timelineImages" src="/img.johndoe.png">
         </div>
       </div>
     </div>
