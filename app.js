@@ -257,9 +257,20 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
     
 });
 
+app.post('/upload-images', imageLoader.array("files"), function (req, res) {
+
+  //console.log(req.body);
+  console.log(req.files);
+
+  for(let i = 0; i < req.files.length; i++) {
+      req.files[i].filename = req.files[i].originalname;
+  } //this is what you would use to list the files and display them in the html. Shows three new images that you uploaded. 
+
+});
+
 //Here, still need to figure out the command to insert into an embedded array. 
-app.post("/createNewPost",  imageLoader.single("imageToUpload"), function (req, res) {
-   
+app.post("/createNewPost",  imageLoader.single("fileImage"), function (req, res) {
+
 
   res.setHeader("Content-Type", "application/json");
   console.log(req.body);
@@ -272,8 +283,8 @@ app.post("/createNewPost",  imageLoader.single("imageToUpload"), function (req, 
 
   
   //change this to account for embedded timeline array. Remember we wanted the path 
-     BBY_11_user.updateOne({ email: req.session.user.email }, { $set: {
-     timeline: [{ text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }]}]}},
+     BBY_11_user.updateOne({ email: req.session.user.email }, { $push: {
+     timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }]}}},
 
      function(err, data){
        if (err){
@@ -284,6 +295,7 @@ app.post("/createNewPost",  imageLoader.single("imageToUpload"), function (req, 
         console.log("Data " + data);
         console.log(Date());
         console.log("Text inserted " + req.body.text);
+        req.session.user.timeline.images = req.body.images;
         req.session.save(function (err){});
         // res.send(req.session.user.timeline);
         res.redirect( "/userProfilePage.html");
