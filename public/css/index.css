@@ -4,6 +4,11 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+#solutionLine{
+  justify-self: center;
+  align-self: center;
+}
+
 @media (min-width: 0px) and (max-width: 445px) {
 
   body {
@@ -225,6 +230,20 @@
     margin-left: 17px;
     max-width: 94%;
     color: #CDBE78;
+  }
+
+  #logoutButton {
+    background-color: #066163;
+    color: #CDBE78;
+    font-size: 23px;
+    border: #066163;
+  }
+
+  #logoutButton{
+    background-color: rgba(76, 76, 76, 0.437);
+    color:white;
+    font-size: 23px;
+    border: 1px solid black;
   }
 
   #logoutButton {
@@ -460,6 +479,20 @@
     margin-left: 19px;
     max-width: 91%;
     color: #CDBE78;
+  }
+
+  #logoutButton {
+    background-color: #066163;
+    color: #CDBE78;
+    font-size: 23px;
+    border: #066163;
+  }
+
+  #logoutButton{
+    background-color: rgba(76, 76, 76, 0.437);
+    color:white;
+    font-size: 23px;
+    border: 1px solid black;
   }
 
   #logoutButton {

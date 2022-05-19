@@ -176,6 +176,7 @@ app.get("/userProfilePage.html", function (req, res) {
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
+    
 
     changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
     changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
@@ -429,7 +430,6 @@ app.post("/login.html", function (req, res) {
           req.session.name = foundUser.name;
           req.session.lastName = foundUser.lastName;
           req.session.imagePath = foundUser.imagePath;
-
           res.sendFile(__dirname + "/index2.html");
         }
       }
