@@ -415,20 +415,18 @@ app.post("/login.html", function (req, res) {
   });
 });
 
-app.post('/getPosts', function (req, res) {
-  const divElement = document.createElement('div');
-  // let doc = 
+app.post('/getTimelinePosts', function (req, res) {
 BBY_11_user.findOne({email: req.session.email }, function(err, user) {
   if(err) {
     console.log(err);
   } else {
-    let doc = divElement.append(user.name);
+   res.send(user.timeline);
   }
 })
   
-getElementById('timeline').appendChild(doc);
+document.getElementById('timeline').appendChild(doc);
   res.send(doc);
-})
+});
 
 
 app.listen(port, function () {
