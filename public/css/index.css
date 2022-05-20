@@ -9,6 +9,19 @@
   align-self: center;
 }
 
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) rotate(0deg);}
+  25% { transform: translateX(2px) rotate(2deg);}
+  50% { transform: translateX(-2px) rotate(0eg); }
+  75% { transform: translateX(2px) rotate(-2deg);}
+  100% { transform: translateX(0) rotate(0deg);}
+}
+
+.apply-shake{
+  animation-name: horizontal-shaking;
+  animation-duration: 0.18s;
+}
+
 @media (min-width: 0px) and (max-width: 445px) {
 
   body {
@@ -83,7 +96,7 @@
     margin: 1rem;
     font-size: 25px;
     background-color: #2C3333;
-    color: white;
+    color: #CDBE78;
     border: 2px solid #CDBE78;
     border-radius: 6px;
   }
@@ -213,12 +226,28 @@
   #submitContainer {
     display: grid;
     grid-template-rows: 100%;
-    grid-template-columns: 100%;
+    grid-template-columns: 66% 34%;
   }
 
   #enterButton {
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
+    font-size: 20px;
+    margin-left: 2%;
+    text-align: center;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 17px;
+    max-width: 94%;
+    color: #CDBE78;
+  }
+
+  #clearButton {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
     font-size: 20px;
     margin-left: 2%;
     text-align: center;
