@@ -1,10 +1,12 @@
-@font-face {
-    font-family: 'Montserrat';
-    src: url(../fonts/Montserrat-Regular.ttf);
-}
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
 nav {
-    background-color:  rgba(76, 76, 76, 0.437);
+    background-color:  #066163;
     display: inline-block;
     width: 100%;
     font-size: x-large;
@@ -16,7 +18,7 @@ nav a {
     display: inline-block;
     padding: 4pt;
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: #CDBE78;
 }
 
 #dropdown {
@@ -39,7 +41,7 @@ nav a {
 }
 
 #logo:hover {
-    background-color: black;
+    background-color: #0b2d2e;
 }
 
 #loginButton {
@@ -48,21 +50,32 @@ nav a {
 
 #logoutButton{
     float:right;
+    background-color: #066163;
+    color: #CDBE78;
+    font-size: 23px;
+    border: #066163;
+}
+
+#logoutButton:hover {
+  background-color: #0b2d2e;
+  color: #CDBE78;
 }
 
 nav a:hover {
-    background-color: grey;
-    color: aliceblue;
+    background-color: #0b2d2e;
+    color: #CDBE78;
 }
 
 #footer {
-
     bottom: 0;
     width: 100%;
     height: 50px;
-    background-color: rgba(54, 54, 54, 0.437);
-    color:rgb(173, 173, 173);
+    background-color: #066163;
+    color:#CDBE78;
     text-align: center;
     vertical-align: middle;
     padding-top: 1%;
+    margin-top: 7%;
 }
+
+
