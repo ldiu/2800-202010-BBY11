@@ -190,7 +190,11 @@ app.get("/index2.html", (req, res) => {
 
 //The following code follows 1537 course instructor's sessions example.
 app.get("/userProfilePage.html", function (req, res) {
-
+  
+  let timelineList = req.session.user.timeline;
+  
+  console.log(req.session.user.timeline);
+  
   if (req.session.loggedIn) {
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
@@ -273,6 +277,7 @@ app.post("/createNewPost",  imageLoader.single("fileImage"), function (req, res)
 
 
   res.setHeader("Content-Type", "application/json");
+  console.log(req.session.user._id);
   console.log(req.body);
   console.log(req.body.text);
   console.log(req.body.date);
@@ -405,7 +410,6 @@ app.post("/login.html", function (req, res) {
       // console.log("found THE user", foundUser);
       if (foundUser && foundUser.admin === false) {
         if (foundUser.password === password) {
-          // req.session.user_id = foundUser._id;
           req.session.user = foundUser;
           req.session.loggedIn = true;
           req.session.email = username;
