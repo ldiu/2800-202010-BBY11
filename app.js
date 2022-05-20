@@ -23,6 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
 //from arrons notes
 const multer = require("multer");
 
@@ -37,6 +38,7 @@ const imageStore = multer.diskStorage({
 });
 
 const imageLoader = multer({ storage: imageStore });
+
 
 app.set("view engine", "html");
 app.use(express.static("public"));

@@ -12,7 +12,7 @@
 @keyframes horizontal-shaking {
   0% { transform: translateX(0) rotate(0deg);}
   25% { transform: translateX(2px) rotate(2deg);}
-  50% { transform: translateX(-2px) rotate(0eg); }
+  50% { transform: translateX(-2px) rotate(0deg);}
   75% { transform: translateX(2px) rotate(-2deg);}
   100% { transform: translateX(0) rotate(0deg);}
 }
@@ -268,20 +268,6 @@
     border: #066163;
   }
 
-  #logoutButton{
-    background-color: rgba(76, 76, 76, 0.437);
-    color:white;
-    font-size: 23px;
-    border: 1px solid black;
-  }
-
-  #logoutButton {
-    background-color: #066163;
-    color: #CDBE78;
-    font-size: 23px;
-    border: #066163;
-  }
-
 }
 
 @media (min-width: 446px) {
@@ -517,18 +503,18 @@
     border: #066163;
   }
 
-  #logoutButton{
-    background-color: rgba(76, 76, 76, 0.437);
-    color:white;
-    font-size: 23px;
-    border: 1px solid black;
-  }
-
-  #logoutButton {
-    background-color: #066163;
+  #clearButton{
+    font-size: 20px;
+    margin-left: 2%;
+    text-align: center;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 17px;
+    max-width: 94%;
     color: #CDBE78;
-    font-size: 23px;
-    border: #066163;
   }
 
 }
