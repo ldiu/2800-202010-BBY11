@@ -38,7 +38,6 @@
     grid-template-columns: 100%;
     grid-gap: .5rem;
     height: 85vh;
-  
   }
 
   #welcome{
@@ -104,33 +103,6 @@
     text-align: center;
   }
 
-  #uploadButton{
-    grid-row: 1 / span 1;
-    grid-column: 2 / span 1;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background-color: #0b2d2e;
-    color: #CDBE78;
-    border: 1px solid #CDBE78;
-    border-radius: 6px;
-    margin-left: .5rem;
-  }
-
-  #userFields{
-    grid-row: 4 / span 1;
-    grid-column: 1 / span 1;
-    border-radius: 6px;
-    border: .5px solid #CDBE78;
-  }
-
-  #buttonForm{
-    display: grid;
-    grid-template-rows: 20% 20% 20% 20% 20%;
-    grid-template-columns: 50% 50%;
-    grid-gap: .2rem;
-    height: 21vh;
-    margin-right: .4rem;
-  }
 
   #userFirstName{
     grid-row: 2 / span 1;
@@ -163,7 +135,7 @@
 
   #userPassword{
     grid-column: 1 / span 2;
-    grid-row: 4 / span 1;
+    grid-row: 5 / span 1;
     background-color: #F2F2F2;
     color: black;
     border: 1px solid #2C3333;
@@ -173,7 +145,7 @@
 
   #saveButton{
     grid-column: 1 / span 2;
-    grid-row: 5 / span 1;
+    grid-row: 6 / span 1;
     background-color: #0b2d2e;
     color: #CDBE78;
     border: 1px solid #CDBE78;
@@ -222,7 +194,7 @@
 
 @media (min-width: 651px) {
 
-  body {
+   body {
     margin: 0px;
     padding: 0px;
     background-color: #2C3333;
@@ -245,8 +217,8 @@
     grid-template-rows: 800px 1fr;
     grid-template-columns: 1fr 40% 1fr;
   }
-
-  #container3{
+  
+  #container3 {
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
     display:grid;
@@ -256,7 +228,7 @@
     max-width: 600px;
     min-width: 450px;
   }
-
+  
   #welcome{
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
@@ -278,7 +250,7 @@
     grid-column: 1 / span 1;
 
   }
-
+  
   #profileImage{
     width: 90%;
     height: 90%;
@@ -287,7 +259,7 @@
     padding: 1rem;
     border: 3px solid #CDBE78;
   }
-  
+ 
   #userFields{
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
@@ -297,6 +269,7 @@
     min-width:90%;
   }
 
+    
   #buttonForm{
     display: grid;
     grid-template-rows: 25% 25% 25% 25%;
@@ -306,6 +279,7 @@
     margin-right: .4rem;
   }
 
+    
   #findImage{
     display:none;
   }
@@ -318,38 +292,9 @@
     background-color: #0b2d2e;
     border-radius: 6px;
     text-align: center;
-  }
+  } 
 
-  #uploadButton{
-    grid-row: 1 / span 1;
-    grid-column: 2 / span 1;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background-color: #0b2d2e;
-    color: #CDBE78;
-    border: 1px solid #CDBE78;
-    border-radius: 6px;
-    margin-left: .5rem;
-    
-  }
-
-  #userFields{
-    grid-row: 4 / span 1;
-    grid-column: 1 / span 1;
-    border-radius: 6px;
-    border: .5px solid #CDBE78;
-  }
-
-  #buttonForm{
-    display: grid;
-    grid-template-rows: 33% 33% 33%;
-    grid-template-columns: 50% 50%;
-    height: 12vh;
-    grid-gap: .5rem;
-    margin-right: .4rem;
-  }
-
-  #userFirstName{
+   #userFirstName{
     grid-row: 2 / span 1;
     grid-column: 1 / span 1;
     background-color: #F2F2F2;
@@ -357,7 +302,7 @@
     border: 1px solid #2C3333;
     border-radius: 6px;
   }
-
+ 
   #userLastName{
     grid-row: 2 / span 1;
     grid-column: 2 / span 1;
@@ -366,7 +311,7 @@
     border: 1px solid #2C3333;
     border-radius: 6px;
   }
-
+  
   #userEmail{
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
@@ -375,20 +320,20 @@
     border: 1px solid #2C3333;
     border-radius: 6px;
   }
-
+  
   #userPassword{
     grid-column: 2 / span 1;
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
     background-color: #F2F2F2;
     color: black;
     border: 1px solid #2C3333;
     border-radius: 6px;
 
   }
-
+  
   #saveButton{
     grid-column: 1 / span 1;
-    grid-row: 3 / span 1;
+    grid-row: 4 / span 1;
     background-color: #0b2d2e;
     color: #CDBE78;
     border: 1px solid #CDBE78;
@@ -414,6 +359,12 @@
     color: #CDBE78;
     border: 2px solid #CDBE78;
     border-radius: 6px;
+  } 
+
+  #container4{
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    padding-left: 20px;
   }
 
   #logoutButton{

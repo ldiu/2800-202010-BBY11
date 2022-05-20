@@ -211,7 +211,7 @@ app.get("/userProfilePage.html", function (req, res) {
 
 });
 
-app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req, res) {
+app.post("/userProfilePage.html", imageLoader.single("imageToUpload"), function (req, res) {
 
   const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
     $set: {
@@ -234,40 +234,6 @@ app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req,
     })
 
 });
-
-app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
-
-  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
-    $set: {
-      imagePath: "img/" + req.file.filename
-    }
-  },
-
-    function (err, data) {
-      if (err) {
-        console.log("Error " + err);
-
-      } else {
-        console.log("Data " + data);
-        req.session.imagePath = "img/" + req.file.filename;
-        res.redirect("/userProfilePage.html");
-
-  BBY_11_user.updateOne({ email: req.session.email }, {
-    $set: {
-      imagePath: "img/" + req.file.filename
-    }
-  },
-    function (err, data) {
-      if (err) {
-        console.log("Error " + err);
-      } else {
-        console.log("Data " + data);
-        req.session.imagePath = "img/" + req.file.filename;
-        res.redirect("/userProfilePage.html");
-      }
-    })
-
-}})});
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
 app.post('/saveImage', imageLoader.array("files"), function (req, res) {
