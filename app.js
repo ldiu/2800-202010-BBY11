@@ -227,16 +227,13 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
       imagePath: "img/" + req.file.filename
     }
   },
-
     function (err, data) {
       if (err) {
         console.log("Error " + err);
-
       } else {
         console.log("Data " + data);
         req.session.imagePath = "img/" + req.file.filename;
         res.redirect("/userProfilePage.html");
-
       }
     })
 
