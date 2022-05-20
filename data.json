@@ -84,5 +84,77 @@
     "lastName": "Lam",
     "imagePath": "img/johndoe.png",
     "admin": true
+  },
+  {
+    "_id": "6287f07890de89f4c7c8b286",
+    "email": "steph@gmail.com",
+    "password": 123,
+    "name": "Steph",
+    "lastName": "Curry",
+    "imagePath": "img/johndoe.png",
+    "admin": false,
+    "timeline": [
+      {
+        "text": "I love basketball",
+        "date": "2022-05-20T19:50:00.000Z",
+        "images": [
+          {
+            "name": "swish.png",
+            "path": "img/swish.png",
+            "_id": "6287f0e890de89f4c7c8b28b"
+          }
+        ],
+        "_id":"6287f0e890de89f4c7c8b28a"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "6287f1d5c7176a491d10018f",
+    "email": "greg@gmail.com",
+    "password": 123,
+    "name": "Gregory",
+    "lastName": "Smith",
+    "imagePath": "img/johndoe.png",
+    "admin": false,
+    "timeline": [
+      {
+        "text": "I'm a big fan of Steph Curry!",
+        "date": "2022-05-20T19:54:42.000Z",
+        "images": [
+          {
+            "name": "steph.png",
+            "path": "img/steph.png",
+            "_id": "6287f202c7176a491d100194"
+          }
+        ],
+        "_id": "6287f202c7176a491d100193"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": "6287f28b46f17dcca6185acf",
+    "email": "luna@gmail.com",
+    "password": 123,
+    "name": "Luna",
+    "lastName": "Goodall",
+    "imagePath": "img/johndoe.png",
+    "admin": false,
+    "timeline": [
+      {
+        "text": "I'm feeling happy today!",
+        "date": "2022-05-20T19:57:46.000Z",
+        "images": [
+          {
+            "name": "happy.png",
+            "path": "img/happy.png",
+            "_id": "6287f2ba46f17dcca6185ad4"
+          }
+        ],
+        "_id": "6287f2ba46f17dcca6185ad3"
+      }
+    ],
+    "__v": 0
   }
-  ]
+]
