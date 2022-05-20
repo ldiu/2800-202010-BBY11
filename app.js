@@ -182,7 +182,7 @@ app.get("/search.html", function (req, res) {
 
 app.get("/index2.html", (req, res) => {
   if (req.session.users) {
-    req.session.users.save();
+    // req.session.users.save();
     res.sendFile(__dirname + "/index2.html");
   }
   else {
