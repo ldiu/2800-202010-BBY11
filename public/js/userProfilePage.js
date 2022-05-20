@@ -11,7 +11,7 @@ async function loadTimeline() {
     let posts = await fetch("/getTimelinePosts", {
       method: 'GET'
     });
-    
+
     let timelinePosts = await posts.json();
 
     let userPosts = document.createElement('div');
@@ -28,12 +28,11 @@ async function loadTimeline() {
       // create edit button to show form for update
       let editButton = document.createElement('button');
       editButton.addEventListener("click", editPost);
-      editButton.innerHTML = 	"&#9998";
+      editButton.innerHTML = "&#9998";
+      editButton.style.float = "right";
       editButton.id = timelinePosts[i]._id;
       headerDivElement.className = "postheader";
-      
-      console.log(typeof timelinePosts[i].date)
-      
+
       headerDivElement.innerHTML = timelinePosts[i].date;
       headerDivElement.appendChild(editButton);
       let timelineImages = timelinePosts[i].images;
@@ -81,11 +80,11 @@ function exitEdit() {
 
 
 //Submit function after editing a post. Code follows similar outline to "fetch-example" from 2537 course.
-async function submitEditPost(data) { 
+async function submitEditPost(data) {
   console.log("this is " + data);
   try {
     console.log("submitEditPost was called");
-    let responseObject = await fetch("/editOldPost", { 
+    let responseObject = await fetch("/editOldPost", {
       method: 'POST',
       headers: {
         "Accept": 'application/json',
@@ -118,17 +117,17 @@ document.getElementById("editPost").addEventListener("click", function (e) {
       _id: postHeaderElement.getAttribute("data-id")
     })
   } else {
-  
-  submitEditPost({
-    text: document.getElementById("newTextInput").value,
-    date: Date(),
-    images: [{
-      name: document.getElementById("newImg").files[0].name,
-      path: document.getElementById("newImg").files[0].name
-    }],
-    _id: postHeaderElement.getAttribute("data-id")
-  })
-}
+
+    submitEditPost({
+      text: document.getElementById("newTextInput").value,
+      date: Date(),
+      images: [{
+        name: document.getElementById("newImg").files[0].name,
+        path: document.getElementById("newImg").files[0].name
+      }],
+      _id: postHeaderElement.getAttribute("data-id")
+    })
+  }
   console.log("Data was sent");
 });
 
@@ -138,31 +137,31 @@ form.addEventListener("submit", findImages);
 
 function findImages(e) {
 
-    const myImages = document.querySelector('#newImg');
-    const newData = new FormData();
+  const myImages = document.querySelector('#newImg');
+  const newData = new FormData();
 
-    for (let index = 0; index < myImages.files.length; index++) {
-        
-        newData.append("files", myImages.files[index]);
-    }
-    const methodBody = { 
-        method: 'POST',
-        body: newData, 
-     
-    };
+  for (let index = 0; index < myImages.files.length; index++) {
 
-    fetch("/saveImagePath", methodBody
-    ).then(function (res) {
-        console.log(res);
-    }).catch(function (error) { ("Error message is:", error) }
-    );
+    newData.append("files", myImages.files[index]);
+  }
+  const methodBody = {
+    method: 'POST',
+    body: newData,
+
+  };
+
+  fetch("/saveImagePath", methodBody
+  ).then(function (res) {
+    console.log(res);
+  }).catch(function (error) { ("Error message is:", error) }
+  );
 }
 
-async function deletePost(data) {  
+async function deletePost(data) {
   console.log("this is " + data);
   try {
     console.log("deletePost was called");
-    let responseObject = await fetch("/deleteOldPost", { 
+    let responseObject = await fetch("/deleteOldPost", {
       method: 'POST',
       headers: {
         "Accept": 'application/json',
@@ -177,9 +176,9 @@ async function deletePost(data) {
 
 document.getElementById("deletePost").addEventListener("click", function (e) {
   let postHeaderElement = document.getElementById("postEditHeader");
-    deletePost({
-      _id: postHeaderElement.getAttribute("data-id")
-    })
+  deletePost({
+    _id: postHeaderElement.getAttribute("data-id")
+  })
   console.log("Data was sent");
 });
 

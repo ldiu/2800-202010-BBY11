@@ -1,56 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 #postEdit {
-display: none;
-position:fixed;
-padding: 15px;
-z-index:9;
-text-align: center; 
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-background-color: #0661637e;
-min-width: 100%;
-min-height: 100%;
+  display: none;
+  position: fixed;
+  /* padding: 15px; */
+  z-index: 9;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.752);
+  min-width: 100%;
+  min-height: 100%;
 }
 
 #deletePost {
-position: fixed;
-right: 25%;
-top: 20%;
+  position: fixed;
+  left: 45%;
+  top: 60%;
+  background-color: rgb(136, 16, 0);
+  color: #CDBE78;
+  font-size: large;
 }
 
 #exitPost {
-position: fixed;
-right: 20%;
-top: 20%;
+  position: fixed;
+  right: 40%;
+  top: 40%;
+  background-color: #066163;
+  color: #CDBE78;
+  border-radius: 50%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+  font-size: larger;
 }
 
-#newIMG {
-    position: fixed;
-    left: 50%;
-    top: 35%;
+#editPost {
+  position: fixed;
+  left: 50%;
+  top: 60%;
+  background-color: #066163;
+  color: #CDBE78;
+  font-size: large;
+}
+
+#newImg {
+  position: fixed;
+  left: 45%;
+  top: 55%;
 }
 
 #postEditHeader {
-    position: fixed;
-    left: 30%;
-    top:40%;
-    
+  position: fixed;
+  left: 30%;
+  top: 50%;
 }
-
 
 #newText {
-    position: fixed;
-    left: 50%;
-    right: 50%;
-    top: 50%;
+  position: fixed;
+  left: 43%;
+  top: 50%;
 }
 
-editPost{
-    position: fixed;
-    left: 50%;
-    top: 45%;
+#newTextInput {
+  background-color: #F2F2F2;
+  border-radius: 6px;
+  font-size: 20px;
+  color: black;
 }
 
 @media (min-width: 0px) and (max-width: 650px) {
+  #postEdit {
+    display: none;
+    position: fixed;
+    /* padding: 15px; */
+    z-index: 9;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.752);
+    min-width: 100%;
+    min-height: 100%;
+  }
 
+  #deletePost {
+    position: fixed;
+    left: 23%;
+    top: 58%;
+    background-color: #066163;
+    color: #CDBE78;
+    font-size: large;
+  }
+
+  #exitPost {
+    position: fixed;
+    right: 15%;
+    top: 35%;
+    background-color: rgb(204, 19, 19);
+    border-radius: 50%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+    font-size: larger;
+  }
+
+  #editPost {
+    position: fixed;
+    left: 23%;
+    top: 62%;
+    background-color: #066163;
+    color: #CDBE78;
+    font-size: large;
+  }
+
+  #newImg {
+    position: fixed;
+    left: 23%;
+    top: 55%;
+  }
+
+  #postEditHeader {
+    position: fixed;
+    left: 30%;
+    top: 50%;
+  }
+
+  #newText {
+    position: fixed;
+    left: 12%;
+    top: 50%;
+  }
+
+  #newTextInput {
+    background-color: #F2F2F2;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+  }
 }

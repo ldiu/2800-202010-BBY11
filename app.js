@@ -182,9 +182,11 @@ app.get("/search.html", function (req, res) {
 
 app.get("/index2.html", (req, res) => {
   if (req.session.users) {
+    req.session.users.save();
     res.sendFile(__dirname + "/index2.html");
   }
   else {
+    console.log("lol session");
     res.redirect("/login.html");
   }
 });
@@ -211,6 +213,8 @@ app.get("/userProfilePage.html", function (req, res) {
   }
 
 });
+
+// ---- app.post ----//
 
 app.post("/userProfilePage.html", imageLoader.single("imageToUpload"), function (req, res) {
 
@@ -420,7 +424,16 @@ app.post("/add", function (req, res) {
   }
 });
 
+// app.post("/index2.html", function(req, res){
+// if(req.session.users) {
+//   req.session.users.save();
+//   res.sendFile(__dirname + "/index2.html");
 
+// } else {
+//   console.log("no session");
+//   res.sendFile(__dirname + "/login.html");
+// }
+// });
 
 app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
