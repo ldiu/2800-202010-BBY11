@@ -8,3 +8,6 @@ This assignment is [90]% complete.
 
 [In timeline we cannot upload more than 1 image, but we can do CRUD in timeline.]
 
+MONGODB_URI: mongodb+srv://colinAdmin:kltArFWfC60CuIX6@cluster0.50fbk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+
