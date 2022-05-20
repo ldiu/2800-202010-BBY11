@@ -56,7 +56,7 @@ async function loadTimeline() {
 
       post.append(headerDivElement, imageContainerElement, bodyDivElement);
 
-      userPosts.append(post);
+      userPosts.prepend(post);
     }
     document.getElementById("timeline").appendChild(userPosts);
 
