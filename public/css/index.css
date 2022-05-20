@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-*{
+* {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -246,11 +246,11 @@
     border: 1px solid black;
   }
 
-  #logoutButton{
-    background-color: rgba(76, 76, 76, 0.437);
-    color:white;
+  #logoutButton {
+    background-color: #066163;
+    color: #CDBE78;
     font-size: 23px;
-    border: 1px solid black;
+    border: #066163;
   }
 
 }
@@ -495,11 +495,11 @@
     border: 1px solid black;
   }
 
-  #logoutButton{
-    background-color: rgba(76, 76, 76, 0.437);
-    color:white;
+  #logoutButton {
+    background-color: #066163;
+    color: #CDBE78;
     font-size: 23px;
-    border: 1px solid black;
+    border: #066163;
   }
 
 }

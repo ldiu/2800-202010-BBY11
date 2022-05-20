@@ -234,7 +234,6 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
         console.log("Data " + data);
         req.session.imagePath = "img/" + req.file.filename;
         res.redirect("/userProfilePage.html");
-
       }
     })
 
