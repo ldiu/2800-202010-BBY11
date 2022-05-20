@@ -14,7 +14,6 @@ async function loadTimeline() {
     
     let timelinePosts = await posts.json();
 
-
     let userPosts = document.createElement('div');
     // parse through the timeline objects
     for (var i = 0; i < timelinePosts.length; i++) {
@@ -29,6 +28,7 @@ async function loadTimeline() {
       // create edit button to show form for update
       let editButton = document.createElement('button');
       editButton.addEventListener("click", editPost);
+      editButton.innerHTML = 	"&#9998";
       editButton.id = timelinePosts[i]._id;
       headerDivElement.className = "postheader";
       
@@ -48,9 +48,7 @@ async function loadTimeline() {
         imageElement.src = timelineImages[x].path;
         imageDivElement.appendChild(imageElement);
         imageContainerElement.appendChild(imageDivElement);
-
       }
-
       //Create Body Section and add text field from timeline
       let bodyDivElement = document.createElement('div');
       bodyDivElement.className = "postbody";
@@ -58,7 +56,7 @@ async function loadTimeline() {
 
       post.append(headerDivElement, imageContainerElement, bodyDivElement);
 
-      userPosts.append(post);
+      userPosts.prepend(post);
     }
     document.getElementById("timeline").appendChild(userPosts);
 
@@ -159,5 +157,31 @@ function findImages(e) {
     }).catch(function (error) { ("Error message is:", error) }
     );
 }
+
+async function deletePost(data) {  
+  console.log("this is " + data);
+  try {
+    console.log("deletePost was called");
+    let responseObject = await fetch("/deleteOldPost", { 
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+document.getElementById("deletePost").addEventListener("click", function (e) {
+  let postHeaderElement = document.getElementById("postEditHeader");
+    deletePost({
+      _id: postHeaderElement.getAttribute("data-id")
+    })
+  console.log("Data was sent");
+});
+
 
 
