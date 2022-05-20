@@ -14,7 +14,6 @@ const { ConnectionClosedEvent } = require("mongodb");
 const { resolveSoa } = require("dns");
 const port = process.env.PORT || 8000;
 const uri = process.env.MONGODB_URI;
-let dbConnection;
 const IS_HEROKU = process.env.IS_HEROKU || false;
 const url = "mongodb://localhost:27017/COMP2800";
 
@@ -66,11 +65,11 @@ const usersSchema = {
   },
   name: {
     type: String,
-    // required: [true, "enter your name"]
+    required: [true, "enter your name"]
   },
   lastName: {
     type: String,
-    // required: [true, "enter your last name"]
+    required: [true, "enter your last name"]
   },
   imagePath: {
     type: String
@@ -99,45 +98,6 @@ const usersSchema = {
 };
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
-
-const admin1 = new BBY_11_user({
-  email: "eliyahabibi@gmail.com",
-  password: 123,
-  name: "iliya",
-  lastName: "habibi",
-  admin: true
-});
-
-const admin2 = new BBY_11_user({
-  email: "michaela@gmail.com",
-  password: 123,
-  name: "Michaela",
-  lastName: "Ashlee",
-  admin: true
-});
-
-const admin3 = new BBY_11_user({
-  email: "liana@gmail.com",
-  password: 123,
-  name: "Liana",
-  lastName: "Diu",
-  admin: true
-});
-const admin4 = new BBY_11_user({
-  email: "colin@gmail.com",
-  password: 123,
-  name: "Colin",
-  lastName: "Lam",
-  admin: true
-});
-
-// BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function(err){
-// if(err){
-//   console.log(err);
-// } else {
-//   console.log("saved successfully");
-// }
-// });
 
 // BBY_11_user.insertMany("/data.json", function(err){
 // if(err){
@@ -182,7 +142,6 @@ app.get("/search.html", function (req, res) {
 
 app.get("/index2.html", (req, res) => {
   if (req.session.users) {
-    // req.session.users.save();
     res.sendFile(__dirname + "/index2.html");
   }
   else {
@@ -366,7 +325,7 @@ app.post("/update", function (req, res) {
           console.log(err);
         } else {
           console.log("email updated");
-          res.redirect("/search.html");
+          res.redirect("/adminDash.html");
         }
       });
   } else {
@@ -384,7 +343,7 @@ app.post("/delete", function (req, res) {
         console.log(err);
       } else {
         console.log("user deleted");
-        res.redirect("/search.html");
+        res.redirect("/adminDash.html");
       }
     });
   } else {
@@ -402,20 +361,17 @@ app.post("/add", function (req, res) {
           console.log("there is an error");
           console.log(err);
         } else {
-          let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+          let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
           let changeToJSDOM = new JSDOM(dbInfo);
-          if (changeToJSDOM.window.document.getElementById("newVal5").checked) {
+          if (changeToJSDOM.window.document.getElementById("val5").checked) {
             admin: true;
-            console.log("admin user added");
-            res.redirect("/search.html");
-          } else if (changeToJSDOM.window.document.getElementById("newVal5").checked != true) {
+            res.redirect("/adminDash.html");
+          } else if (changeToJSDOM.window.document.getElementById("val5").checked != true) {
             admin: false;
-            console.log("normal user added");
-            res.redirect("/search.html");
+            res.redirect("/adminDash.html");
           } else {
             admin: false;
-            console.log("normal user added");
-            res.redirect("/search.html");
+            res.redirect("/adminDash.html");
           }
         }
       });
@@ -423,17 +379,6 @@ app.post("/add", function (req, res) {
     res.redirect("/login.html");
   }
 });
-
-// app.post("/index2.html", function(req, res){
-// if(req.session.users) {
-//   req.session.users.save();
-//   res.sendFile(__dirname + "/index2.html");
-
-// } else {
-//   console.log("no session");
-//   res.sendFile(__dirname + "/login.html");
-// }
-// });
 
 app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
@@ -463,7 +408,6 @@ app.post("/login.html", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      // console.log("found THE user", foundUser);
       if (foundUser && foundUser.admin === false) {
         if (foundUser.password === password) {
           req.session.user = foundUser;
@@ -569,7 +513,6 @@ app.post('/deleteOldPost', function (req, res) {
         console.log("Error " + err);
       } else {
         req.session.save(function (err) { });
-        // res.redirect("/userProfilePage.html");
         res.redirect("/userProfilePage.html");
         console.log("deleteOldPost Complete!");
       }
