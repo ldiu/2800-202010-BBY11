@@ -29,11 +29,11 @@ const multer = require("multer");
 //Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
 const imageStore = multer.diskStorage({
   destination: function (req, file, callback) {
-      callback(null, "./public/img") 
+    callback(null, "./public/img")
   },
-  filename: function(req, file, callback) { 
-      callback(null, file.originalname.split('/').pop().trim());
-  }  
+  filename: function (req, file, callback) {
+    callback(null, file.originalname.split('/').pop().trim());
+  }
 });
 
 const imageLoader = multer({ storage: imageStore });
@@ -48,7 +48,7 @@ app.use(session({
 }));
 
 if (IS_HEROKU) {
-  MongoClient.connect(uri);
+  mongoose.connect(uri);
 } else {
   mongoose.connect(url, { useNewUrlParser: true });
 }
@@ -73,7 +73,7 @@ const usersSchema = {
   imagePath: {
     type: String
   },
-  
+
   timeline: [{
     text: {
       type: String
@@ -82,7 +82,7 @@ const usersSchema = {
       type: Date
     },
     images: [{
-      name:{
+      name: {
         type: String
       },
       path: {
@@ -199,7 +199,7 @@ app.get("/userProfilePage.html", function (req, res) {
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
-    
+
     changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
     changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
     changeToJSDOM.window.document.getElementById("userLastName").setAttribute("value", req.session.lastName);
@@ -227,9 +227,9 @@ app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req,
     function(err, data){
       if (err){
         console.log("Error " + err);
-        
-      }else{
-        console.log("Data "+ data);
+
+      } else {
+        console.log("Data " + data);
         req.session.email = req.body.email;
         req.session.password = req.body.password;
         req.session.name = req.body.userFirstName;
@@ -238,27 +238,30 @@ app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req,
         res.redirect( "/userProfilePage.html");
       }
     })
-    
+
 });
 
 
 app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
-  
-  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
-    imagePath: "img/" + req.file.filename}},
-    
-    function(err, data){
-      if (err){
+
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
+    $set: {
+      imagePath: "img/" + req.file.filename
+    }
+  },
+
+    function (err, data) {
+      if (err) {
         console.log("Error " + err);
-        
-      }else{
-        console.log("Data "+ data);
+
+      } else {
+        console.log("Data " + data);
         req.session.imagePath = "img/" + req.file.filename;
-        res.redirect( "/userProfilePage.html");
+        res.redirect("/userProfilePage.html");
 
       }
     })
-    
+
 });
 
 app.post('/upload-images', imageLoader.array("files"), function (req, res) {
@@ -385,7 +388,7 @@ app.post("/signUp.html", function (req, res) {
     name: req.body.firstName,
     lastName: req.body.lastName,
     imagePath: "img/johndoe.png",
-    isAdmin : false
+    isAdmin: false
   });
 
   newUser.save(function (err) {
@@ -419,6 +422,7 @@ app.post("/login.html", function (req, res) {
           req.session.imagePath = foundUser.imagePath;
           // req.session.timeline.text = foundUser.timeline.text;
           // req.session.timeline.images = foundUser.timeline.images;
+
           res.sendFile(__dirname + "/index2.html");
         }
       }
@@ -434,6 +438,20 @@ app.post("/login.html", function (req, res) {
       }
     }
   });
+});
+
+app.get('/getTimelinePosts', function (req, res) {
+  console.log("Debug");
+  BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(user.timeline);
+    }
+  })
+
+  // document.getElementById('timeline').appendChild(doc);
+  //res.send(doc);
 });
 
 
