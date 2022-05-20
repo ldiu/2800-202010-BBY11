@@ -114,9 +114,10 @@ document.getElementById("editPost").addEventListener("click", function (e) {
   if (document.getElementById("newImg").value == "") {
     submitEditPost({
       text: document.getElementById("newTextInput").value,
+      date: Date(),
       images: [{
         name: "",
-        path: ""
+        path: "noImageUploaded.jpg"
       }],
       _id: postHeaderElement.getAttribute("data-id")
     })
@@ -124,6 +125,7 @@ document.getElementById("editPost").addEventListener("click", function (e) {
   
   submitEditPost({
     text: document.getElementById("newTextInput").value,
+    date: Date(),
     images: [{
       name: document.getElementById("newImg").files[0].name,
       path: document.getElementById("newImg").files[0].name

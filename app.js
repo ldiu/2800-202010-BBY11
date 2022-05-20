@@ -21,7 +21,7 @@ const url = "mongodb://localhost:27017/COMP2800";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //from arrons notes
 const multer = require("multer");
@@ -190,11 +190,11 @@ app.get("/index2.html", (req, res) => {
 
 //The following code follows 1537 course instructor's sessions example.
 app.get("/userProfilePage.html", function (req, res) {
-  
+
   let timelineList = req.session.user.timeline;
-  
+
   // console.log(req.session.user.timeline);
-  
+
   if (req.session.loggedIn) {
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
@@ -221,11 +221,14 @@ app.get("/userProfilePage.html", function (req, res) {
 
 app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req, res) {
 
-  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, { $set: {
-    name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename}},
-    
-    function(err, data){
-      if (err){
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
+    $set: {
+      name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename
+    }
+  },
+
+    function (err, data) {
+      if (err) {
         console.log("Error " + err);
 
       } else {
@@ -235,7 +238,7 @@ app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req,
         req.session.name = req.body.userFirstName;
         req.session.lastName = req.body.userLastName;
         req.session.imagePath = "img/" + req.file.filename;
-        res.redirect( "/userProfilePage.html");
+        res.redirect("/userProfilePage.html");
       }
     })
 
@@ -269,14 +272,14 @@ app.post('/upload-images', imageLoader.array("files"), function (req, res) {
   //console.log(req.body);
   console.log(req.files);
 
-  for(let i = 0; i < req.files.length; i++) {
-      req.files[i].filename = req.files[i].originalname;
+  for (let i = 0; i < req.files.length; i++) {
+    req.files[i].filename = req.files[i].originalname;
   } //this is what you would use to list the files and display them in the html. Shows three new images that you uploaded. 
 
 });
 
 //Here, still need to figure out the command to insert into an embedded array. 
-app.post("/createNewPost",  imageLoader.single("fileImage"), function (req, res) {
+app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) {
 
 
   res.setHeader("Content-Type", "application/json");
@@ -285,31 +288,37 @@ app.post("/createNewPost",  imageLoader.single("fileImage"), function (req, res)
   console.log(req.body.text);
   console.log(req.body.date);
   let images = req.body.images;
-  for (let i = 0; i < images.length; i++){
+  for (let i = 0; i < images.length; i++) {
     console.log(images[i].name);
     console.log(images[i].path);
 
-  
-  //change this to account for embedded timeline array. Remember we wanted the path 
-     BBY_11_user.updateOne({ email: req.session.user.email }, { $push: {
-     timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }]}}},
 
-     function(err, data){
-       if (err){
-         console.log("Error " + err);
-        
-      }else{
-        //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
-        console.log("Data " + data);
-        console.log(Date());
-        console.log("Text inserted " + req.body.text);
-        req.session.user.timeline.images = req.body.images;
-        req.session.save(function (err){});
-        // res.send(req.session.user.timeline);
-        res.redirect( "/userProfilePage.html");
+    //change this to account for embedded timeline array. Remember we wanted the path 
+    BBY_11_user.updateOne({ email: req.session.user.email }, {
+      $push: {
+        timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
+      }
+    },
 
-      }})}});
- 
+      function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+
+        } else {
+          //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
+          console.log("Data " + data);
+          console.log(Date());
+          console.log("Text inserted " + req.body.text);
+          req.session.user.timeline.images = req.body.images;
+          req.session.save(function (err) { });
+          // res.send(req.session.user.timeline);
+          res.redirect("/userProfilePage.html");
+
+        }
+      })
+  }
+});
+
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -456,7 +465,65 @@ app.get('/getTimelinePosts', function (req, res) {
 app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
 
-} )
+  console.log(req.body);
+  console.log(req.body.text);
+  console.log(req.body._id);
+  console.log(req.body.date);
+
+  let images = req.body.images;
+  for (let i = 0; i < images.length; i++) {
+    console.log(images[i].name);
+    console.log(images[i].path);
+
+    if (images == "") {
+
+      BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
+        $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date }
+      },
+
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+
+          } else {
+            //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
+            console.log("Data " + data);
+            console.log(Date());
+            console.log("Text inserted " + req.body.text);
+            // req.session.user.timeline.images = req.body.images;
+            req.session.save(function (err) { });
+            // res.send(req.session.user.timeline);
+            res.redirect("/userProfilePage.html");
+
+          }
+        })
+
+    } else {
+
+      BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
+        $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date, "timeline.$.images": [{ name: images[i].name, path: "img/" + images[i].path }] }
+      },
+
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+
+          } else {
+            //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
+            console.log("Data " + data);
+            console.log(Date());
+            console.log("Text inserted " + req.body.text);
+            // req.session.user.timeline.images = req.body.images;
+            req.session.save(function (err) { });
+            // res.send(req.session.user.timeline);
+            res.redirect("/userProfilePage.html");
+
+          }
+        })
+    }
+  }
+
+});
 
 
 app.listen(port, function () {
