@@ -1,8 +1,8 @@
-
-async function submitNewPost(data) { //call is going to await this function has a call that will return promises and there will be an await on that promise. The code has to complete before line 46 happens. 
+// Code follows similar outline to "fetch-example" from 2537 course.
+async function submitNewPost(data) { 
     console.log(data);
     try {
-        let responseObject = await fetch("/createNewPost", { //replaces xml http request (the fecth part does)
+        let responseObject = await fetch("/createNewPost", { 
             method: 'POST',
             headers: {
                 "Accept": 'application/json',
@@ -20,6 +20,7 @@ async function submitNewPost(data) { //call is going to await this function has 
     }
 }
 
+//Code follows similar outline to "fetch-example" from 2537 course.
 document.getElementById("submitPost").addEventListener("click", function (e) {
 
     submitNewPost({
@@ -33,38 +34,28 @@ document.getElementById("submitPost").addEventListener("click", function (e) {
     console.log("Data was sent");
 });
 
-const upLoadForm = document.getElementById("postForm");
-upLoadForm.addEventListener("submit", uploadImages);
+//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+const newFormUpload = document.getElementById("postForm");
+newFormUpload.addEventListener("submit", getMyImages);
 
-function uploadImages(e) {
-    // e.preventDefault();
+function getMyImages(e) {
 
-    const imageUpload = document.querySelector('#findImg');
-    const formData = new FormData();
+    const uploadMyImages = document.querySelector('#findImg');
+    const dataFromForm = new FormData();
 
-    for (let i = 0; i < imageUpload.files.length; i++) {
-        // put the images from the input into the form data
-        formData.append("files", imageUpload.files[i]);
+    for (let index = 0; index < uploadMyImages.files.length; index++) {
+        
+        dataFromForm.append("files", uploadMyImages.files[index]);
     }
-
-    const options = { //don't put in headers. 
+    const setMethodBody = { 
         method: 'POST',
-        body: formData, //these are the files - formData
-        // don't put a header in, the browser will do that for us
-        //                headers: {
-        //                  "Content-Type": "multipart/form-data"
-        //                }
+        body: dataFromForm, 
+     
     };
-    //delete options.headers['Content-Type'];
 
-    // now use fetch
-    fetch("/upload-images", options
+    fetch("/saveImage", setMethodBody
     ).then(function (res) {
         console.log(res);
-    }).catch(function (err) { ("Error:", err) }
+    }).catch(function (error) { ("Error message is:", error) }
     );
 }
-
- // console.log("From the server", parsedJSON);
-      // let newValues = JSON.stringify(parsedJSON);
-      // document.getElementById("insert").innerHTML = newValues;

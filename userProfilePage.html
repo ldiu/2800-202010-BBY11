@@ -65,27 +65,22 @@
       <div id="container4">
         Create a Post:
 
-        <form id="postForm" enctype="multipart/form-data">
-          <!-- <label for="textForPost"></label> -->
+        <form id="postForm">
           <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost"
             value="Enter text">Enter text</textarea>
-          <!-- <label for="findImg" class="findImgStyle"> Choose Image -->
           <br>
           <input id="findImg" type="file" size="60" name="fileImage" value="Choose Image"
             accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
-          <!-- <input id="uploadImageButton" type="submit" value="Upload New Image" /> -->
           <button id="submitPost" type="submit" value="Submit">Submit</button>
         </form>
-        <!-- action="/createNewPost" method="POST" enctype="multipart/form-data" -->
         <div id="timeline">
           Time Line:
-          <!-- <img id ="timelineImages" src="/img.johndoe.png"> -->
         </div>
 
         <div id="postEdit">
           <div id="postEditHeader"> <button onclick="exitEdit()"></button></div>
 
-          <form>
+          <form id="editForm">
             <input id="newImg" type="file" size="60" name="postImage" value="Choose Image"
             accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
 

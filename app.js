@@ -191,9 +191,6 @@ app.get("/index2.html", (req, res) => {
 //The following code follows 1537 course instructor's sessions example.
 app.get("/userProfilePage.html", function (req, res) {
 
-  let timelineList = req.session.user.timeline;
-
-  // console.log(req.session.user.timeline);
 
   if (req.session.loggedIn) {
 
@@ -206,10 +203,6 @@ app.get("/userProfilePage.html", function (req, res) {
     changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
     changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
     changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
-    // changeToJSDOM.window.document.getElementById("timeline").innerHTML = req.session.user.timeline.text;
-
-    // let usr = BBY_11_user.find({});
-    // console.log("the user based on the id in the session", usr);
 
     res.send(changeToJSDOM.serialize());
 
@@ -267,33 +260,24 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
 
 });
 
-app.post('/upload-images', imageLoader.array("files"), function (req, res) {
-
-  //console.log(req.body);
-  console.log(req.files);
+//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+app.post('/saveImage', imageLoader.array("files"), function (req, res) {
 
   for (let i = 0; i < req.files.length; i++) {
     req.files[i].filename = req.files[i].originalname;
-  } //this is what you would use to list the files and display them in the html. Shows three new images that you uploaded. 
+  }
 
 });
 
-//Here, still need to figure out the command to insert into an embedded array. 
+
 app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) {
 
-
   res.setHeader("Content-Type", "application/json");
-  console.log(req.session.user._id);
-  console.log(req.body);
-  console.log(req.body.text);
-  console.log(req.body.date);
+
   let images = req.body.images;
   for (let i = 0; i < images.length; i++) {
-    console.log(images[i].name);
-    console.log(images[i].path);
 
 
-    //change this to account for embedded timeline array. Remember we wanted the path 
     BBY_11_user.updateOne({ email: req.session.user.email }, {
       $push: {
         timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
@@ -305,13 +289,8 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
           console.log("Error " + err);
 
         } else {
-          //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
-          console.log("Data " + data);
-          console.log(Date());
-          console.log("Text inserted " + req.body.text);
-          req.session.user.timeline.images = req.body.images;
+
           req.session.save(function (err) { });
-          // res.send(req.session.user.timeline);
           res.redirect("/userProfilePage.html");
 
         }
@@ -429,8 +408,7 @@ app.post("/login.html", function (req, res) {
           req.session.name = foundUser.name;
           req.session.lastName = foundUser.lastName;
           req.session.imagePath = foundUser.imagePath;
-          // req.session.timeline.text = foundUser.timeline.text;
-          // req.session.timeline.images = foundUser.timeline.images;
+
 
           res.sendFile(__dirname + "/index2.html");
         }
@@ -458,22 +436,24 @@ app.get('/getTimelinePosts', function (req, res) {
     }
   })
 
-  // document.getElementById('timeline').appendChild(doc);
-  //res.send(doc);
+});
+
+//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
+
+  for (let index = 0; index < req.files.length; index++) {
+    req.files[index].filename = req.files[index].originalname;
+  }
 });
 
 app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
 
-  console.log(req.body);
-  console.log(req.body.text);
-  console.log(req.body._id);
-  console.log(req.body.date);
+
 
   let images = req.body.images;
   for (let i = 0; i < images.length; i++) {
-    console.log(images[i].name);
-    console.log(images[i].path);
+
 
     if (images == "") {
 
@@ -486,13 +466,8 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
             console.log("Error " + err);
 
           } else {
-            //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
-            console.log("Data " + data);
-            console.log(Date());
-            console.log("Text inserted " + req.body.text);
-            // req.session.user.timeline.images = req.body.images;
+
             req.session.save(function (err) { });
-            // res.send(req.session.user.timeline);
             res.redirect("/userProfilePage.html");
 
           }
@@ -509,13 +484,8 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
             console.log("Error " + err);
 
           } else {
-            //we don't need this if we insert many, we just want the session timeline to equal the body post, and then we have to go req.session.save(function (err){}). 
-            console.log("Data " + data);
-            console.log(Date());
-            console.log("Text inserted " + req.body.text);
-            // req.session.user.timeline.images = req.body.images;
+
             req.session.save(function (err) { });
-            // res.send(req.session.user.timeline);
             res.redirect("/userProfilePage.html");
 
           }

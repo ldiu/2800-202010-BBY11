@@ -11,7 +11,7 @@ async function loadTimeline() {
     let posts = await fetch("/getTimelinePosts", {
       method: 'GET'
     });
-    // if (posts.status === 200) {
+    
     let timelinePosts = await posts.json();
 
 
@@ -31,9 +31,9 @@ async function loadTimeline() {
       editButton.addEventListener("click", editPost);
       editButton.id = timelinePosts[i]._id;
       headerDivElement.className = "postheader";
-      // let isoDate = timelinePosts[i].date;
+      
       console.log(typeof timelinePosts[i].date)
-      // let parsedDate = isoDate.toLocaleString();
+      
       headerDivElement.innerHTML = timelinePosts[i].date;
       headerDivElement.appendChild(editButton);
       let timelineImages = timelinePosts[i].images;
@@ -82,15 +82,12 @@ function exitEdit() {
 }
 
 
-
-
-
-
-async function submitEditPost(data) { //call is going to await this function has a call that will return promises and there will be an await on that promise. The code has to complete before line 46 happens. 
+//Submit function after editing a post. Code follows similar outline to "fetch-example" from 2537 course.
+async function submitEditPost(data) { 
   console.log("this is " + data);
   try {
     console.log("submitEditPost was called");
-    let responseObject = await fetch("/editOldPost", { //replaces xml http request (the fecth part does)
+    let responseObject = await fetch("/editOldPost", { 
       method: 'POST',
       headers: {
         "Accept": 'application/json',
@@ -108,6 +105,7 @@ async function submitEditPost(data) { //call is going to await this function has
   }
 }
 
+//Code follows similar outline to "fetch-example" from 2537 course.
 document.getElementById("editPost").addEventListener("click", function (e) {
   let postHeaderElement = document.getElementById("postEditHeader");
 
@@ -131,10 +129,35 @@ document.getElementById("editPost").addEventListener("click", function (e) {
       path: document.getElementById("newImg").files[0].name
     }],
     _id: postHeaderElement.getAttribute("data-id")
-    // "postHeaderElement.getAttribute("data-id")"
   })
 }
   console.log("Data was sent");
 });
+
+//From Instructor Arrons "upload-file" Example.
+const form = document.getElementById("editForm");
+form.addEventListener("submit", findImages);
+
+function findImages(e) {
+
+    const myImages = document.querySelector('#newImg');
+    const newData = new FormData();
+
+    for (let index = 0; index < myImages.files.length; index++) {
+        
+        newData.append("files", myImages.files[index]);
+    }
+    const methodBody = { 
+        method: 'POST',
+        body: newData, 
+     
+    };
+
+    fetch("/saveImagePath", methodBody
+    ).then(function (res) {
+        console.log(res);
+    }).catch(function (error) { ("Error message is:", error) }
+    );
+}
 
 
