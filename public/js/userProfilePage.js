@@ -69,7 +69,7 @@ async function loadTimeline() {
 loadTimeline();
 
 function editPost() {
-  document.getElementById("postEdit").style.display = "block";
+  document.getElementById("postEdit").style.display = "grid";
   let headerDataID = document.getElementById("postEditHeader");
   headerDataID.setAttribute("data-id", this.id);
   console.log("data id set");
