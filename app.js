@@ -4,7 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const request = require("request");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 const { JSDOM } = require('jsdom');
 const jsdom = require("jsdom");
@@ -19,6 +19,9 @@ const IS_HEROKU = process.env.IS_HEROKU || false;
 const url = "mongodb://localhost:27017/COMP2800";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //from arrons notes
 const multer = require("multer");
@@ -37,7 +40,6 @@ const imageLoader = multer({ storage: imageStore });
 
 app.set("view engine", "html");
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
   secret: "password",
@@ -71,6 +73,23 @@ const usersSchema = {
   imagePath: {
     type: String
   },
+
+  timeline: [{
+    text: {
+      type: String
+    },
+    date: {
+      type: Date
+    },
+    images: [{
+      name: {
+        type: String
+      },
+      path: {
+        type: String
+      }
+    }]
+  }],
   admin: {
     type: Boolean,
     default: false
@@ -78,7 +97,6 @@ const usersSchema = {
 };
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
-
 
 const admin1 = new BBY_11_user({
   email: "eliyahabibi@gmail.com",
@@ -172,11 +190,11 @@ app.get("/index2.html", (req, res) => {
 //The following code follows 1537 course instructor's sessions example.
 app.get("/userProfilePage.html", function (req, res) {
 
+
   if (req.session.loggedIn) {
 
     let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
     let changeToJSDOM = new JSDOM(userProfilePage);
-    
 
     changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
     changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
@@ -184,8 +202,6 @@ app.get("/userProfilePage.html", function (req, res) {
     changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
     changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
     changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
-
-
 
     res.send(changeToJSDOM.serialize());
 
@@ -195,12 +211,12 @@ app.get("/userProfilePage.html", function (req, res) {
 
 });
 
-//------- app.post -------//
+app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req, res) {
 
-app.post("/userProfilePage.html", function (req, resp) {
-
-  BBY_11_user.updateOne({ email: req.session.email }, {
-    $set: { name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password }
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
+    $set: {
+      name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename
+    }
   },
     function (err, data) {
       if (err) {
@@ -212,15 +228,29 @@ app.post("/userProfilePage.html", function (req, resp) {
         req.session.password = req.body.password;
         req.session.name = req.body.userFirstName;
         req.session.lastName = req.body.userLastName;
-        resp.redirect("/userProfilePage.html");
-
+        req.session.imagePath = "img/" + req.file.filename;
+        res.redirect("/userProfilePage.html");
       }
     })
 
 });
 
-
 app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
+
+  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
+    $set: {
+      imagePath: "img/" + req.file.filename
+    }
+  },
+
+    function (err, data) {
+      if (err) {
+        console.log("Error " + err);
+
+      } else {
+        console.log("Data " + data);
+        req.session.imagePath = "img/" + req.file.filename;
+        res.redirect("/userProfilePage.html");
 
   BBY_11_user.updateOne({ email: req.session.email }, {
     $set: {
@@ -237,8 +267,44 @@ app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req
       }
     })
 
+}})});
+
+//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+app.post('/saveImage', imageLoader.array("files"), function (req, res) {
+
+  for (let i = 0; i < req.files.length; i++) {
+    req.files[i].filename = req.files[i].originalname;
+  }
+
 });
 
+
+app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+
+  let images = req.body.images;
+  for (let i = 0; i < images.length; i++) {
+
+
+    BBY_11_user.updateOne({ email: req.session.user.email }, {
+      $push: {
+        timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
+      }
+    },
+
+      function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+
+        } else {
+
+          req.session.save(function (err) { });
+          res.redirect("/userProfilePage.html");
+
+        }
+      })
+  }
+});
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -408,7 +474,6 @@ app.post("/signUp.html", function (req, res) {
   });
 });
 
-
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
   const password = req.body.password;
@@ -418,6 +483,7 @@ app.post("/login.html", function (req, res) {
     if (err) {
       console.log(err);
     } else {
+      // console.log("found THE user", foundUser);
       if (foundUser && foundUser.admin === false) {
         if (foundUser.password === password) {
           req.session.user = foundUser;
@@ -444,6 +510,91 @@ app.post("/login.html", function (req, res) {
   });
 });
 
+app.get('/getTimelinePosts', function (req, res) {
+  BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(user.timeline);
+    }
+  })
+
+});
+
+//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
+
+  for (let index = 0; index < req.files.length; index++) {
+    req.files[index].filename = req.files[index].originalname;
+  }
+});
+
+app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+
+
+
+  let images = req.body.images;
+  for (let i = 0; i < images.length; i++) {
+
+
+    if (images == "") {
+
+      BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
+        $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date }
+      },
+
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+
+          } else {
+
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+
+          }
+        })
+    } else {
+      BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
+        $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date, "timeline.$.images": [{ name: images[i].name, path: "img/" + images[i].path }] }
+      },
+
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+
+          } else {
+
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+          }
+        })
+    }
+  }
+});
+
+
+
+
+app.post('/deleteOldPost', function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+  console.log("deleteOldPost called");
+  console.log(req.body);
+  console.log(typeof req.body);
+
+  BBY_11_user.updateOne({ email: req.session.user.email }, { $pull: { timeline: { _id: req.body._id } } },
+    function (err, data) {
+      if (err) {
+        console.log("Error " + err);
+      } else {
+        req.session.save(function (err) { });
+        // res.redirect("/userProfilePage.html");
+        res.redirect("/userProfilePage.html");
+        console.log("deleteOldPost Complete!");
+      }
+    })
+});
 
 app.listen(port, function () {
   console.log("server started on port " + port);

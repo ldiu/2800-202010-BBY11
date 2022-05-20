@@ -4,7 +4,7 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-@media (min-width: 0px) and (max-width: 445px) {
+@media (min-width: 0px) and (max-width: 650px) {
 
   body {
     margin: 0px;
@@ -26,15 +26,15 @@
 
   #container2{
     display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 5% 1fr 5%;
+    grid-template-rows: 800px 1fr;
+    grid-template-columns: 5% 90% 5%;
   }
 
   #container3{
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
     display:grid;
-    grid-template-rows: 7% 43% 10% 30% 10%;
+    grid-template-rows: 7% 43% 40% 10%;
     grid-template-columns: 100%;
     grid-gap: .5rem;
     height: 85vh;
@@ -46,7 +46,15 @@
     grid-column: 1 / span 1;
     color: #CDBE78;
     font-size: 12px;
-    
+  }
+
+  img {
+    width: 90%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 3px solid rgba(90, 90, 90, 0.819);
   }
 
   #imageContainer{
@@ -56,20 +64,29 @@
   }
 
   #profileImage{
-    max-width: 100%;
+    width: 100%;
+    height: 85%;
     object-fit: cover;
-    object-position: center; 
     border-radius: 10px;
     padding: 1rem;
     border: 3px solid #CDBE78;
   }
 
-  #imageUpload{
+  #userFields{
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
+    border-radius: 6px;
+    border: .5px solid grey;
+
+  }
+
+  #buttonForm{
     display: grid;
-    grid-template-rows: 100%;
+    grid-template-rows: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
     grid-template-columns: 50% 50%;
+    grid-gap: .2rem;
+    height: 30vh;
+    margin-right: .4rem;
   }
 
   #findImage{
@@ -84,10 +101,6 @@
     background-color: #0b2d2e;
     border-radius: 6px;
     padding-top: 5%;
-    padding-left: 2%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-right: .5rem;;
     text-align: center;
   }
 
@@ -120,7 +133,7 @@
   }
 
   #userFirstName{
-    grid-row: 1 / span 1;
+    grid-row: 2 / span 1;
     grid-column: 1 / span 2;
     background-color: #F2F2F2;
     color: black;
@@ -129,7 +142,7 @@
   }
 
   #userLastName{
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
     grid-column: 1 / span 2;
     background-color: #F2F2F2;
     color: black;
@@ -139,7 +152,7 @@
   }
 
   #userEmail{
-    grid-row: 3 / span 1;
+    grid-row: 4 / span 1;
     grid-column: 1 / span 2;
     background-color: #F2F2F2;
     color: black;
@@ -168,7 +181,7 @@
   }
 
   #edit{
-    grid-row: 5 / span 1;
+    grid-row: 4 / span 1;
     grid-column: 1 / span 1;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -178,14 +191,24 @@
   #editButton{
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: .7rem;
+    margin-bottom: .7rem;
     margin-left: .5rem;
     margin-right: .5rem;
     background-color: #066163;
     color: #CDBE78;
     border: 2px solid #CDBE78;
     border-radius: 6px;
+  }
+
+  #container4{
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    padding-left: 20px;
+  }
+
+  textarea{
+    max-width:90%;
   }
 
   #logoutButton{
@@ -197,7 +220,7 @@
 
 }
 
-@media (min-width: 446px) {
+@media (min-width: 651px) {
 
   body {
     margin: 0px;
@@ -219,18 +242,19 @@
 
   #container2{
     display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 1fr 500px 1fr;
+    grid-template-rows: 800px 1fr;
+    grid-template-columns: 1fr 40% 1fr;
   }
 
   #container3{
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
     display:grid;
-    grid-template-rows: 10% 55% 10% 20% 10%;
+    grid-template-rows: 10% 55% 30% 10%;
     grid-template-columns: 100%;
     height: 85vh;
-  
+    max-width: 600px;
+    min-width: 450px;
   }
 
   #welcome{
@@ -240,6 +264,15 @@
     
   }
 
+  img {
+    width: 90%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 3px solid rgba(90, 90, 90, 0.819);
+  }
+
   #imageContainer{
     grid-row: 2 / span 1;
     grid-column: 1 / span 1;
@@ -247,25 +280,33 @@
   }
 
   #profileImage{
-    max-width: 100%;
-    height: 350px;
+    width: 90%;
+    height: 90%;
     object-fit: cover;
-    object-position: center; 
     border-radius: 10px;
     padding: 1rem;
     border: 3px solid #CDBE78;
   }
-
-  #imageUpload{
+  
+  #userFields{
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
+    border-radius: 6px;
+    border: .5px solid grey;
+    max-width:91.5%;
+    min-width:90%;
+  }
+
+  #buttonForm{
     display: grid;
-    grid-template-rows: 100%;
+    grid-template-rows: 25% 25% 25% 25%;
     grid-template-columns: 50% 50%;
+    height: 20vh;
+    grid-gap: .5rem;
+    margin-right: .4rem;
   }
 
   #findImage{
-
     display:none;
   }
 
@@ -276,11 +317,6 @@
     border: 1px solid #CDBE78;
     background-color: #0b2d2e;
     border-radius: 6px;
-    padding-top: 3%;
-    padding-left: 2%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-right: .5rem;;
     text-align: center;
   }
 
@@ -314,7 +350,7 @@
   }
 
   #userFirstName{
-    grid-row: 1 / span 1;
+    grid-row: 2 / span 1;
     grid-column: 1 / span 1;
     background-color: #F2F2F2;
     color: black;
@@ -323,23 +359,21 @@
   }
 
   #userLastName{
-    grid-row: 1 / span 1;
+    grid-row: 2 / span 1;
     grid-column: 2 / span 1;
     background-color: #F2F2F2;
     color: black;
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
 
   #userEmail{
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
     grid-column: 1 / span 1;
     background-color: #F2F2F2;
     color: black;
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
 
   #userPassword{
@@ -362,7 +396,7 @@
   }
 
   #edit{
-    grid-row: 5 / span 1;
+    grid-row: 4 / span 1;
     grid-column: 1 / span 1;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -389,6 +423,16 @@
     border: 1px solid #066163;
   }
 
-  
+  textarea{
+    max-width:90%;
+  }
+
+  #logoutButton{
+    float:right;
+    background-color: rgba(174, 174, 174, 0.437);
+    color:white;
+    font-size: 23px;
+    border:none;
+  }
   
 }

@@ -50,6 +50,9 @@ nav a {
 
 #logoutButton{
     float:right;
+    background-color: rgba(76, 76, 76, 0.437);
+    color:white;
+    font-size: 23px;
 }
 
 #logoutButton:hover {
@@ -73,3 +76,5 @@ nav a:hover {
     padding-top: 1%;
     margin-top: 7%;
 }
+
+

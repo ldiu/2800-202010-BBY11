@@ -1,0 +1,56 @@
+#postEdit {
+display: none;
+position:fixed;
+padding: 15px;
+z-index:9;
+text-align: center; 
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: #0661637e;
+min-width: 100%;
+min-height: 100%;
+}
+
+#deletePost {
+position: fixed;
+right: 25%;
+top: 20%;
+}
+
+#exitPost {
+position: fixed;
+right: 20%;
+top: 20%;
+}
+
+#newIMG {
+    position: fixed;
+    left: 50%;
+    top: 35%;
+}
+
+#postEditHeader {
+    position: fixed;
+    left: 30%;
+    top:40%;
+    
+}
+
+
+#newText {
+    position: fixed;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+}
+
+editPost{
+    position: fixed;
+    left: 50%;
+    top: 45%;
+}
+
+@media (min-width: 0px) and (max-width: 650px) {
+
+}
