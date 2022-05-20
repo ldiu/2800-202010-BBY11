@@ -87,6 +87,7 @@ function insertRNG(){
 }
 insertRNG();
 
+// Button DOM elements
 number1.button.onclick = function() {numbPressed(number1)};
 number2.button.onclick = function() {numbPressed(number2)};
 number3.button.onclick = function() {numbPressed(number3)};
@@ -104,11 +105,17 @@ cBracket.button.onclick = function() {cBracketPressed(cBracket)};
 var solutionLine = document.getElementById("solutionLine");
 solutionLine.innerText = "Your Solution";
 
+//Container DOM elements
+let solutionBox = document.getElementById("solutionBox");
+
+
+//Logic Variables
 var NUMB_NEXT = 1;
 var OBRACKET_NEXT = 1;
 var CBRACKET_NEXT = 0;
 var numbersLeft = 6;
 var bracketCount = 0;
+var gameOver = 0;
 
 var doOnce = (function() {
     var executed = false;
@@ -125,7 +132,7 @@ var doOnce = (function() {
 function numbPressed(number){
     doOnce();
     if(number.isPressed) {
-        // some visual que should happen
+        shake(number.button);
     } else if (NUMB_NEXT && !number.isPressed) { //if a number can be inserted and it hasn't been pressed
         NUMB_NEXT = 0; //a number can't go after another number
         OBRACKET_NEXT = 0; //an open bracket can't go after a number
@@ -140,15 +147,13 @@ function numbPressed(number){
         }
     }
     else {
-        // console.log("numbPressed called, operation must be used next");
+        shake(number.button);
     }
 }
 function operationPressed(operation){
     if(NUMB_NEXT || !numbersLeft){ //if a number is going next or there arent any numbers left, then an operation can never go next
-        //some visual que should happen
-        // console.log("operationPressed called, number must be used next");
+        shake(operation.button);
     }  else {
-        // console.log("operationPressed called, operation added to solutionLine");
         solutionLine.innerText += operation.value;
         NUMB_NEXT = 1;
         OBRACKET_NEXT = 1; //open bracket can go after an operation
@@ -161,6 +166,8 @@ function oBracketPressed(operation){
     if (OBRACKET_NEXT){
         solutionLine.innerText += operation.value;
         bracketCount++;
+    } else {
+        shake(operation.button);
     }
     
 }
@@ -171,18 +178,20 @@ function cBracketPressed(operation){
         bracketCount--;
         NUMB_NEXT = 0;
         OBRACKET_NEXT = 0;
-    }
+    } else [
+        shake(operation.button)
+    ]
 }
 
 function numbShade(number) {
-    //shades number if its pressed, unshades if not
-    if(number.isPressed){
-        // console.log("numbShade called, shading number");
-        number.button.style.color = "grey"; //not final!!! just a placeholder
-    } else {
-        // console.log("numbShade called, unshading number");
-        number.button.style.color = "white";
-    }
+    number.isPressed = 1;
+    number.button.style.color = "grey"; //not final!!! just a placeholder
+    
+}
+
+function numbUnShade(number) {
+    number.isPressed = 0;
+    number.button.style.color = "#CDBE78";
 }
 
 function submitAnswer() {
@@ -190,12 +199,78 @@ function submitAnswer() {
         let answer = solutionLine.innerText.replaceAll('x', '*');
         const func = new Function("return " + answer);
         if (func() === 24){
-            console.log("submitAnswer called, Correct!");
+            applyShake(solutionBox);
+            solutionBox.style.backgroundColor = "green";
+            gameOver = 1;
         } else {
             console.log("submitAnswer called, Incorret! Your answer was " + func());
+            solutionBox.style.backgroundColor = "red";
+            applyShake(solutionBox);
+            gameOver = 1;
         }
     } else {
-        console.log("submitAnswer called, invalid input");
+        shake(solutionBox);
     }
     
+}
+
+function shake(container){
+    let originalColor = container.style.color;
+    let originalBorderColor = container.style.borderColor;
+    applyShake(container);
+    container.style.borderColor = "red";
+    container.style.color = "red";
+    setTimeout( () => {
+        container.style.borderColor = originalBorderColor;
+        container.style.color = originalColor;
+    }, 170);
+}
+
+function applyShake(container){
+    container.classList.add("apply-shake");
+    container.addEventListener("animationend", (e) =>{
+        container.classList.remove("apply-shake");
+    });
+}
+
+function clearBoard(){
+    if (gameOver){
+        shake(document.getElementById("clearButton"));
+    } else {
+        resetBoard();
+    }
+}
+
+function playAgain(){
+    if(gameOver){
+        let numbers = [number1, number2, number3, number4, number5, number6];
+        resetBoard();
+        insertRNG();
+        gameOver = 0;
+        solutionBox.style.backgroundColor = "#2C3333";
+        applyShake(solutionBox);
+        for(let i = 0; i < 6; i++) {
+            applyShake(numbers[i].button);
+        }
+        solutionLine.innerText = "Play Again!";
+        setTimeout( () =>{
+            solutionLine.innerText = "";
+        }, 500);
+    }
+}
+
+function resetBoard(){
+    NUMB_NEXT = 1;
+    OBRACKET_NEXT = 1;
+    CBRACKET_NEXT = 0;
+    numbersLeft = 6;
+    bracketCount = 0;
+    
+    let numbers = [number1, number2, number3, number4, number5, number6];
+    for(let i = 0; i < 6; i++) {
+        if(numbers[i].isPressed){
+            numbUnShade(numbers[i]);
+        }
+    }
+    solutionLine.innerText = "";
 }
