@@ -27,7 +27,7 @@
           </div>
         </div>
         <form action="/" method="POST">
-          <a href="/index2.html" id="logo">24</a>
+          <a id="logo">24</a>
           <button id="logoutButton" type="submit">Log Out</button>
         </form>
       </nav>
@@ -39,13 +39,13 @@
           <img id="profileImage" src="img/johndoe.png">
         </div>
         <!-- <form id=imageUpload action="/userProfileImage" enctype="multipart/form-data" method="POST"> -->
-          <!-- <label for="findImage" class="findImageStyle"> Choose Image -->
-            <!-- <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image" /></label> -->
-          <!-- <input id="uploadButton" type="submit" value="Upload New Image" /> -->
+        <!-- <label for="findImage" class="findImageStyle"> Choose Image -->
+        <!-- <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image" /></label> -->
+        <!-- <input id="uploadButton" type="submit" value="Upload New Image" /> -->
         <fieldset id="userFields" disabled>
           <form id="buttonForm" action="/userProfilePage" enctype="multipart/form-data" method="POST">
             <label for="findImage" class="findImageStyle"> Choose Image
-            <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image"/></label>
+              <input id="findImage" type="file" size="60" name="imageToUpload" value="Choose Image" /></label>
             <label for="userFirstName"></label>
             <input id="userFirstName" type="text" value="" required name="userFirstName">
             <label for="userLastName"></label>
@@ -65,12 +65,14 @@
       <div id="container4">
         Create a Post:
 
-        <form id="postForm"  enctype="multipart/form-data">
+        <form id="postForm" enctype="multipart/form-data">
           <!-- <label for="textForPost"></label> -->
-          <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost" value="Enter text">Enter text</textarea>
+          <textarea id="textForPost" type="text" rows="7" cols="1000" require="required" name="textForPost"
+            value="Enter text">Enter text</textarea>
           <!-- <label for="findImg" class="findImgStyle"> Choose Image -->
           <br>
-          <input id="findImg" type="file" size="60" name="fileImage" value="Choose Image" accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
+          <input id="findImg" type="file" size="60" name="fileImage" value="Choose Image"
+            accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
           <!-- <input id="uploadImageButton" type="submit" value="Upload New Image" /> -->
           <button id="submitPost" type="submit" value="Submit">Submit</button>
         </form>
@@ -79,15 +81,22 @@
           Time Line:
           <!-- <img id ="timelineImages" src="/img.johndoe.png"> -->
         </div>
+
         <div id="postEdit">
           <div id="postEditHeader"> <button onclick="exitEdit()"></button></div>
+
           <form>
-<label for="newTextInput">Text: </label>
-<input type="text" value="">
-<label></label>
-<input>
+            <input id="newImg" type="file" size="60" name="postImage" value="Choose Image"
+            accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
+
+            <label for="newTextInput1">Text: </label>
+            <input id="newTextInput" type="text" value="">
+  
+            <button id="editPost" type="submit"></button>
           </form>
+
         </div>
+
       </div>
     </div>
   </div>

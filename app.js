@@ -193,7 +193,7 @@ app.get("/userProfilePage.html", function (req, res) {
   
   let timelineList = req.session.user.timeline;
   
-  console.log(req.session.user.timeline);
+  // console.log(req.session.user.timeline);
   
   if (req.session.loggedIn) {
 
@@ -441,7 +441,6 @@ app.post("/login.html", function (req, res) {
 });
 
 app.get('/getTimelinePosts', function (req, res) {
-  console.log("Debug");
   BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
     if (err) {
       console.log(err);
@@ -453,6 +452,11 @@ app.get('/getTimelinePosts', function (req, res) {
   // document.getElementById('timeline').appendChild(doc);
   //res.send(doc);
 });
+
+app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+
+} )
 
 
 app.listen(port, function () {
