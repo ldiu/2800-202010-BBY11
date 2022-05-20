@@ -319,7 +319,7 @@ app.post("/adminDash.html", function (req, res) {
 
 var id;
 
-app.post("/search.html", function (req, res) {
+app.post("/search", function (req, res) {
 
   if (req.session.loggedIn) {
     BBY_11_user.find({ email: req.body.dashEmail }, function (err, users) {
@@ -328,7 +328,7 @@ app.post("/search.html", function (req, res) {
         res.status(500).send();
       } else {
         var lol = req.body.dashEmail;
-        let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+        let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
         let changeToJSDOM = new JSDOM(dbInfo);
 
         let str = "<table>";

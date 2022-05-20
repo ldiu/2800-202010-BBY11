@@ -4,7 +4,7 @@ function changeBackground() {
     document.body.style.backgroundImage = "url('img/MILCyway.jpg')";
     let spaceSound = new Audio("sounds/spaceSound.mp3");
     spaceSound.play();
-    setTimeout(revertChange, 1700);
+    setTimeout(revertChange, 3000);
 }
 
 function revertChange() {
