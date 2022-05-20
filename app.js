@@ -98,7 +98,6 @@ const usersSchema = {
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
-
 const admin1 = new BBY_11_user({
   email: "eliyahabibi@gmail.com",
   password: 123,
@@ -226,7 +225,6 @@ app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req,
       name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename
     }
   },
-
     function (err, data) {
       if (err) {
         console.log("Error " + err);
@@ -243,7 +241,6 @@ app.post("/userProfilePage", imageLoader.single("imageToUpload"), function (req,
     })
 
 });
-
 
 app.post("/userProfileImage", imageLoader.single("imageToUpload"), function (req, res) {
 
@@ -280,8 +277,6 @@ app.post('/upload-images', imageLoader.array("files"), function (req, res) {
 
 //Here, still need to figure out the command to insert into an embedded array. 
 app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) {
-
-
   res.setHeader("Content-Type", "application/json");
   console.log(req.session.user._id);
   console.log(req.body);
@@ -318,7 +313,6 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
       })
   }
 });
-
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -409,7 +403,6 @@ app.post("/signUp.html", function (req, res) {
   });
 });
 
-
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
   const password = req.body.password;
@@ -497,9 +490,7 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
 
           }
         })
-
     } else {
-
       BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
         $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date, "timeline.$.images": [{ name: images[i].name, path: "img/" + images[i].path }] }
       },
@@ -517,14 +508,33 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
             req.session.save(function (err) { });
             // res.send(req.session.user.timeline);
             res.redirect("/userProfilePage.html");
-
           }
         })
     }
   }
-
 });
 
+
+
+
+app.post('/deleteOldPost', function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+  console.log("deleteOldPost called");
+  console.log(req.body);
+  console.log(typeof req.body);
+
+  BBY_11_user.updateOne({ email: req.session.user.email }, { $pull: { timeline: { _id: req.body._id } } },
+    function (err, data) {
+      if (err) {
+        console.log("Error " + err);
+      } else {
+        req.session.save(function (err) { });
+        // res.redirect("/userProfilePage.html");
+        res.redirect("/userProfilePage.html");
+        console.log("deleteOldPost Complete!");
+      }
+    })
+});
 
 app.listen(port, function () {
   console.log("server started on port " + port);

@@ -14,7 +14,6 @@ async function loadTimeline() {
     // if (posts.status === 200) {
     let timelinePosts = await posts.json();
 
-
     let userPosts = document.createElement('div');
     // parse through the timeline objects
     for (var i = 0; i < timelinePosts.length; i++) {
@@ -29,6 +28,7 @@ async function loadTimeline() {
       // create edit button to show form for update
       let editButton = document.createElement('button');
       editButton.addEventListener("click", editPost);
+      editButton.innerHTML = 	"&#9998";
       editButton.id = timelinePosts[i]._id;
       headerDivElement.className = "postheader";
       // let isoDate = timelinePosts[i].date;
@@ -48,9 +48,7 @@ async function loadTimeline() {
         imageElement.src = timelineImages[x].path;
         imageDivElement.appendChild(imageElement);
         imageContainerElement.appendChild(imageDivElement);
-
       }
-
       //Create Body Section and add text field from timeline
       let bodyDivElement = document.createElement('div');
       bodyDivElement.className = "postbody";
@@ -80,11 +78,6 @@ function editPost() {
 function exitEdit() {
   document.getElementById("postEdit").style.display = "none";
 }
-
-
-
-
-
 
 async function submitEditPost(data) { //call is going to await this function has a call that will return promises and there will be an await on that promise. The code has to complete before line 46 happens. 
   console.log("this is " + data);
@@ -136,5 +129,31 @@ document.getElementById("editPost").addEventListener("click", function (e) {
 }
   console.log("Data was sent");
 });
+
+async function deletePost(data) {  
+  console.log("this is " + data);
+  try {
+    console.log("deletePost was called");
+    let responseObject = await fetch("/deleteOldPost", { 
+      method: 'POST',
+      headers: {
+        "Accept": 'application/json',
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+document.getElementById("deletePost").addEventListener("click", function (e) {
+  let postHeaderElement = document.getElementById("postEditHeader");
+    deletePost({
+      _id: postHeaderElement.getAttribute("data-id")
+    })
+  console.log("Data was sent");
+});
+
 
 

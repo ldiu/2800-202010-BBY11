@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>24</title>
-
+  <link rel="stylesheet" href="css/editPost.css">
   <link rel="stylesheet" href="css/timeline.css">
   <link rel="stylesheet" href="css/navbarFooter.css">
   <link rel="stylesheet" href="css/userProfilePage.css">
@@ -83,8 +83,9 @@
         </div>
 
         <div id="postEdit">
-          <div id="postEditHeader"> <button onclick="exitEdit()"></button></div>
-
+          <div id="postEditHeader">  
+            <form><button type="submit" id="deletePost">	Delete </button></form>
+            <button type="button" onclick="exitEdit()">	&#10006; </button></div>
           <form>
             <input id="newImg" type="file" size="60" name="postImage" value="Choose Image"
             accept="image/png, image/gif, image/jpeg" multiple="multiple"></label>
@@ -96,7 +97,6 @@
           </form>
 
         </div>
-
       </div>
     </div>
   </div>
