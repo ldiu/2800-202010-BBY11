@@ -1,3 +1,5 @@
+"use strict";
+
 // Code follows similar outline to "fetch-example" from 2537 course.
 async function submitNewPost(data) { 
     console.log(data);
@@ -23,6 +25,31 @@ async function submitNewPost(data) {
 //Code follows similar outline to "fetch-example" from 2537 course.
 document.getElementById("submitPost").addEventListener("click", function (e) {
 
+  if(document.getElementById("findImg").value == ""){
+    
+    submitNewPost({
+        text: document.getElementById("textForPost").value,
+        date: Date(),
+        images: [{
+            name: "",
+            path: ""
+        }]
+    })
+    console.log("Data was sent");
+
+  } else if (document.getElementById("textForPost").value == ""){
+
+    submitNewPost({
+        text: "",
+        date: Date(),
+        images: [{
+            name: document.getElementById("findImg").files[0].name,
+            path: document.getElementById("findImg").files[0].name
+        }]
+    })
+    console.log("Data was sent");
+
+  } else {
     submitNewPost({
         text: document.getElementById("textForPost").value,
         date: Date(),
@@ -32,6 +59,7 @@ document.getElementById("submitPost").addEventListener("click", function (e) {
         }]
     })
     console.log("Data was sent");
+  }
 });
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 

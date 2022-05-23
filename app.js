@@ -141,7 +141,7 @@ app.get("/search.html", function (req, res) {
 });
 
 app.get("/index2.html", (req, res) => {
-  if (req.session.users) {
+  if (req.session.loggedIn) {
     res.sendFile(__dirname + "/index2.html");
   }
   else {
@@ -213,26 +213,70 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
   res.setHeader("Content-Type", "application/json");
 
   let images = req.body.images;
+  console.log(req.body.images);
+  console.log("This is the text" + req.body.text);
+
   for (let i = 0; i < images.length; i++) {
 
-
-    BBY_11_user.updateOne({ email: req.session.user.email }, {
-      $push: {
-        timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
-      }
-    },
-
-      function (err, data) {
-        if (err) {
-          console.log("Error " + err);
-
-        } else {
-
-          req.session.save(function (err) { });
-          res.redirect("/userProfilePage.html");
-
+    if (images === "") {
+      BBY_11_user.updateOne({ email: req.session.user.email }, {
+        $push: {
+          timeline: { text: req.body.text, date: req.body.date }
         }
-      })
+      },
+
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+
+          } else {
+
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+
+          }
+        })
+
+    } else if (req.body.text === "") {
+
+      BBY_11_user.updateOne({ email: req.session.user.email }, {
+        $push: {
+          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }]}
+        }
+      },
+
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+
+          } else {
+
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+
+          }
+        })
+
+    } else {
+
+      BBY_11_user.updateOne({ email: req.session.user.email }, {
+        $push: {
+          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
+        }
+      },
+
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+
+          } else {
+
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+
+          }
+        })
+    }
   }
 });
 
@@ -442,7 +486,6 @@ app.get('/getTimelinePosts', function (req, res) {
       res.send(user.timeline);
     }
   })
-
 });
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
