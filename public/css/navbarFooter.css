@@ -78,4 +78,20 @@ nav a:hover {
     margin-top: 7%;
 }
 
+#logoImg {
+    height: auto;
+    max-height: 33px;
+    width: auto;
+    max-width: 50px;
+   object-fit: cover;
+        border-radius: 0px;
+        padding: 0rem;
+        border: 0px;
+
+}
+
+#logo {
+    text-align: center;
+}
+
 
