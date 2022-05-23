@@ -20,7 +20,6 @@ async function loadTimeline() {
       let post = document.createElement('div');
       post.className = "post";
       post.id = timelinePosts[i]._id;
-      console.log(timelinePosts[i]._id);
 
       //Create Header and add Date string from timeline and button
       let headerDivElement = document.createElement('div');
@@ -32,8 +31,8 @@ async function loadTimeline() {
       editButton.style.float = "right";
       editButton.id = timelinePosts[i]._id;
       headerDivElement.className = "postheader";
-
-      headerDivElement.innerHTML = timelinePosts[i].date;
+      let date = new Date(timelinePosts[i].date);
+      headerDivElement.innerHTML = "Posted on: " + date.toLocaleString("en-US"); 
       headerDivElement.appendChild(editButton);
       let timelineImages = timelinePosts[i].images;
 
