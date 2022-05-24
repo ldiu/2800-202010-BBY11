@@ -35,45 +35,34 @@
     <div id="container2">
       <div id="container3">
         <div id="welcome"></div>
-
-      </div>
-      <!-- <div id="container4"> -->
-        <!-- Create a Post:
-        <form id="postForm">
-          <textarea id="textForPost" rows="5" cols="1000" name="textForPost"></textarea>
-          <br>
-          <input id="findImg" type="file" size="60" name="fileImage" accept="image/png, image/gif, image/jpeg"
-            multiple="multiple">
-          <button id="submitPost" type="submit" value="Submit">Submit</button>
-        </form>
-        <div id="timeline">
-          Time Line:
+        <div id="imageContainer">
+          <img id="profileImage" src="img/johndoe.png" alt="">
         </div>
+        <fieldset id="userFields" disabled>
+          <form id="buttonForm">
+            <label for="findImage" class="findImageStyle"> Choose Image
+              <input id="findImage" type="file" size="60" name="imageToUpload"></label>
+            <label for="userFirstName"></label>
+            <input id="userFirstName" type="text" value="" required name="userFirstName">
+            <label for="userLastName"></label>
+            <input id="userLastName" type="text" value="" required name="userLastName">
+            <label for="userEmail"></label>
+            <input id="userEmail" type="email" value="" required name="email">
+            <label for="userPassword"></label>
+            <input id="userPassword" type="password" value="" required name="password">
 
-        <div id="postEdit">
-          <div id="postEditHeader">
-            <form><button type="submit" id="deletePost"> Delete </button></form>
-            <button type="button" id="exitPost" onclick="exitEdit()"> &#10006; </button>
-          </div>
-          <form id="editForm">
-            <label class="addImg" for="newImg">
-              <input id="newImg" type="file" size="60" name="postImage" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple">
-            </label>
-
-            <label id="newText" for="newTextInput">Text: <input id="newTextInput" type="text"></label>
-
-
-            <button id="editPost" type="submit">Submit</button>
+            <button type="submit" id="saveButton">Save</button>
           </form>
-
-        </div> -->
-      <!-- </div> -->
+        </fieldset>
+        <form id="edit">
+          <button type="button" id="editButton" onclick="update()">Edit</button>
+        </form>
+      </div>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <!-- <script src="js/client.js"></script> -->
-  <script src="js/clientTest.js"></script>
+  <script src="js/userInformation.js"></script>
   <!-- <script src="js/userProfilePage.js"></script> -->
 </body>
 

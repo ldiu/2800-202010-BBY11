@@ -150,8 +150,8 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
-app.get("/userTest.html", function (req, res) {
-  res.sendFile(__dirname + "/userTest.html");
+app.get("/userInformation.html", function (req, res) {
+  res.sendFile(__dirname + "/userInformation.html");
 });
 
 //The following code follows 1537 course instructor's sessions example.
@@ -501,14 +501,9 @@ app.post('/saveProfileImage', imageLoader.array("files"), function (req, res) {
 
 app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
-  
-  console.log(req.body);
-  console.log(req.body.email);
-  console.log(req.body.password);
-  console.log(req.body.name);
-  console.log("This is the last name " + req.body.lastName);
 
-  if (req.body.imagePath === "img/johndoe.png") {
+
+  if (req.body.imagePath === "") {
     BBY_11_user.updateOne({ email: req.session.user.email }, {
       $set: { email: req.body.email, password: req.body.password, name: req.body.name, lastName: req.body.lastName }
     },
@@ -520,7 +515,7 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
         } else {
 
           req.session.save(function (err) { });
-          res.redirect("/userTest.html");
+          res.redirect("/userInformation.html");
 
         }
       })
@@ -538,7 +533,7 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
         } else {
 
           req.session.save(function (err) { });
-          res.redirect("/userTest.html");
+          res.redirect("/userInformation.html");
 
         }
       })
