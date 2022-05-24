@@ -22,6 +22,83 @@
   animation-duration: 0.18s;
 }
 
+.hoverInstructions {
+  grid-row: 3 / 4;
+  justify-self: center;
+  color: #CDBE78;
+  text-decoration: underline dotted 1px;
+  text-underline-position: under;
+}
+
+.modal-dialog {
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 99999;
+  opacity:0;
+  color: black;
+  -webkit-transition: opacity 100ms ease-in;
+  -moz-transition: opacity 100ms ease-in;
+  transition: opacity 100ms ease-in;
+  pointer-events: none;
+}
+
+.modal-dialog.show{
+  opacity:1;
+  pointer-events: auto;
+}
+
+.modal-dialog:target {
+  opacity:1;
+  pointer-events: auto;
+}
+
+.modal-dialog div {
+width: 230px;
+position: relative;
+margin: 10% auto;
+padding: 16px 20px 21px 20px;
+border-radius: 4px;
+background: #425353;
+border: 2px #CDBE78;
+}
+
+.modal-dialog p {
+  color: #CDBE78;
+  text-shadow: none;
+  text-transform: none;
+  font-size: 14px;
+}
+
+#logoutButton {
+background-color: #066163;
+color: #CDBE78;
+font-size: 23px;
+border: #066163;
+}
+
+.close {
+background: black;
+color: white;
+line-height: 24px;
+position: absolute;
+right: -12px;
+text-align: center;
+top: -10px;
+width: 26px;
+text-decoration: none;
+font-weight: bold;
+border: 1px solid #666;
+border-radius: 12px;
+box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #aaa; }
+
 @media (min-width: 0px) and (max-width: 445px) {
 
   body {
@@ -241,7 +318,7 @@
     margin-top: 30px;
     margin-bottom: 10px;
     margin-left: 17px;
-    max-width: 94%;
+    max-width: 90%;
     color: #CDBE78;
   }
 
@@ -249,23 +326,19 @@
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
     font-size: 20px;
-    margin-left: 2%;
+    margin-left: 3%;
     text-align: center;
     background-color: #2C3333;
     border: 2px solid #CDBE78;
     border-radius: 6px;
     margin-top: 30px;
     margin-bottom: 10px;
-    margin-left: 17px;
-    max-width: 94%;
+    max-width: 95%;
     color: #CDBE78;
   }
 
-  #logoutButton {
-    background-color: #066163;
-    color: #CDBE78;
-    font-size: 23px;
-    border: #066163;
+  .hoverInstructions {
+    align-self: center;
   }
 
   #logoutButton{
@@ -309,7 +382,6 @@
     display: grid;
     grid-template-rows: 15% 70% 15%;
     grid-template-columns: 100%;
-    /* grid-gap: .3rem; */
     height: 85vh;
     width: 95%;
     max-width: 410px;
@@ -342,7 +414,6 @@
     display: grid;
     grid-template-rows: 25% 25% 25% 25%;
     grid-template-columns: 33% 33% 33%;
-    /* grid-gap: .5rem; */
   }
 
   #button1 {
@@ -354,8 +425,6 @@
     color: #CDBE78;
     border: 2px solid #CDBE78;
     border-radius: 6px;
-    /* background-color: rgba(79, 79, 79, 0.819);
-    color: white; */
 
   }
 
@@ -484,7 +553,7 @@
   #submitContainer {
     display: grid;
     grid-template-rows: 100%;
-    grid-template-columns: 100%;
+    grid-template-columns: 66% 34%;
   }
 
   #enterButton {
@@ -493,14 +562,37 @@
     font-size: 20px;
     margin-left: 2%;
     text-align: center;
-    background-color: #066163;
+    background-color: #2C3333;
     border: 2px solid #CDBE78;
     border-radius: 6px;
     margin-top: 30px;
     margin-bottom: 10px;
-    margin-left: 19px;
-    max-width: 91%;
+    margin-left: 17px;
+    max-width: 90%;
     color: #CDBE78;
+  }
+
+  #clearButton {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    font-size: 20px;
+    margin-left: 3%;
+    text-align: center;
+    background-color: #2C3333;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    max-width: 82%;
+    color: #CDBE78;
+  }
+
+  .hoverInstructions {
+    margin-top: 1%;
+  }
+
+  .hoverInstructions:hover{
+    color: whitesmoke;
   }
 
   #logoutButton {

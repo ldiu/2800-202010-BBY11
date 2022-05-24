@@ -274,3 +274,16 @@ function resetBoard(){
     }
     solutionLine.innerText = "";
 }
+
+$(".hoverInstructions").click(function () {
+    $.ajax({
+        success: function (data) {            
+            $('#info-modal').addClass("show"); 
+        },
+        async: true
+    });    
+});
+
+$(".modal-dialog .close").click(function(){
+    $(this).closest(".modal-dialog").removeClass("show");
+});
