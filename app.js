@@ -456,40 +456,42 @@ app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
 app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
 
-
-
-  let images = req.body.images;
+  let imageName = req.body.images[0].name;
   for (let i = 0; i < images.length; i++) {
 
-
-    if (images == "") {
-
+    if (imageName == "" && req.body.text == "") {
+    } else if (images[0].name == "") {
       BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
         $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date }
       },
-
         function (err, data) {
           if (err) {
             console.log("Error " + err);
-
           } else {
-
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
-
+          }
+        })
+    } else if (req.body.text == "") {
+      BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
+        $set: { "timeline.$.date": req.body.date, "timeline.$.images": [{ name: images[i].name, path: "img/" + images[i].path }] }
+      },
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+          } else {
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
           }
         })
     } else {
       BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
         $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date, "timeline.$.images": [{ name: images[i].name, path: "img/" + images[i].path }] }
       },
-
         function (err, data) {
           if (err) {
             console.log("Error " + err);
-
           } else {
-
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
           }
@@ -497,9 +499,6 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
     }
   }
 });
-
-
-
 
 app.post('/deleteOldPost', function (req, res) {
   res.setHeader("Content-Type", "application/json");
