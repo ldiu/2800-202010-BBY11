@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/img/favicon.png">
   <title>24</title>
-  <link rel="stylesheet" href="css/editPost.css">
-  <link rel="stylesheet" href="css/timeline.css">
+  <!-- <link rel="stylesheet" href="css/editPost.css"> -->
+  <!-- <link rel="stylesheet" href="css/timeline.css"> -->
   <link rel="stylesheet" href="css/userProfilePage.css">
   <link rel="stylesheet" href="css/navbarFooter.css">
 
@@ -39,9 +39,9 @@
           <img id="profileImage" src="img/johndoe.png" alt="">
         </div>
         <fieldset id="userFields" disabled>
-          <form id="buttonForm" action="/userProfilePage.html" enctype="multipart/form-data" method="POST">
+          <form id="buttonForm">
             <label for="findImage" class="findImageStyle"> Choose Image
-            <input id="findImage" type="file" size="60" name="imageToUpload"></label>
+              <input id="findImage" type="file" size="60" name="imageToUpload"></label>
             <label for="userFirstName"></label>
             <input id="userFirstName" type="text" value="" required name="userFirstName">
             <label for="userLastName"></label>
@@ -58,43 +58,12 @@
           <button type="button" id="editButton" onclick="update()">Edit</button>
         </form>
       </div>
-      <div id="container4">
-        Create a Post:
-        <form id="postForm">
-          <textarea id="textForPost" rows="5" cols="1000" name="textForPost"></textarea>
-          <br>
-          <input id="findImg" type="file" size="60" name="fileImage" accept="image/png, image/gif, image/jpeg"
-            multiple="multiple">
-          <button id="submitPost" type="submit" value="Submit">Submit</button>
-        </form>
-        <div id="timeline">
-          Time Line:
-        </div>
-
-        <div id="postEdit">
-          <div id="postEditHeader">
-            <form><button type="submit" id="deletePost"> Delete </button></form>
-            <button type="button" id="exitPost" onclick="exitEdit()"> &#10006; </button>
-          </div>
-          <form id="editForm">
-            <label class="addImg" for="newImg">
-              <input id="newImg" type="file" size="60" name="postImage" accept="image/png, image/gif, image/jpeg"
-                multiple="multiple">
-            </label>
-
-            <label id="newText" for="newTextInput">Text: <input id="newTextInput" type="text"></label>
-
-
-            <button id="editPost" type="submit">Submit</button>
-          </form>
-
-        </div>
-      </div>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="js/client.js"></script>
-  <script src="js/userProfilePage.js"></script>
+  <!-- <script src="js/client.js"></script> -->
+  <script src="js/userInformation.js"></script>
+  <!-- <script src="js/userProfilePage.js"></script> -->
 </body>
 
 </html>

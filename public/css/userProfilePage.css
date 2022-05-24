@@ -139,7 +139,6 @@
     color: black;
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
 
   #userPassword{
@@ -149,7 +148,6 @@
     color: black;
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
 
   #saveButton{
@@ -185,16 +183,19 @@
   #container4{
     grid-row: 2 / span 1;
     grid-column: 2 / span 1;
-    padding-left: 20px;
     margin-bottom: 5%;
+    max-width: 100%;
   }
 
   #timeline{
     margin-bottom: 5%;
+    max-width: 97%;
   }
 
   textarea{
-    max-width:90%;
+    max-width:97%;
+    min-width: 94%;
+    border-radius: 6px;
   }
 
   #logoutButton{
@@ -266,7 +267,7 @@
 
   }
   
-  #profileImage{
+  .profileImage{
     width: 90%;
     height: 90%;
     object-fit: cover;
@@ -305,6 +306,7 @@
     color: #CDBE78;
     border: 1px solid #CDBE78;
     background-color: #0b2d2e;
+    padding-top: 4%;
     border-radius: 6px;
     text-align: center;
   } 
@@ -379,12 +381,14 @@
   #container4{
     grid-row: 2 / span 1;
     grid-column: 2 / span 1;
-    padding-left: 20px;
-    margin-top: 20%;
+    max-width: 600px;
+    min-width: 450px;
+    border-radius: 6px;
   }
 
   #timeline{
     margin-bottom: 5%;
+    max-width: 97%;
   }
 
   #submitPost{
@@ -404,7 +408,9 @@
   }
 
   textarea{
-    max-width:90%;
+    max-width:96%;
+    min-width: 94%;
+    border-radius: 6px;
   }
 
   #logoutButton{

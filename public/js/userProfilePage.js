@@ -39,14 +39,20 @@ async function loadTimeline() {
       let imageContainerElement = document.createElement('div');
       imageContainerElement.className = "imageContainer";
       for (var x = 0; x < timelineImages.length; x++) {
-        let imageDivElement = document.createElement('div');
-        imageDivElement.className = "postImages";
+        if ( timelineImages[x].name == ""){
+          console.log ("do nothing");
+        } else {
 
-        let imageElement = document.createElement('img');
-        imageElement.src = timelineImages[x].path;
-        imageDivElement.appendChild(imageElement);
-        imageContainerElement.appendChild(imageDivElement);
+          let imageDivElement = document.createElement('div');
+          imageDivElement.className = "postImages";
+  
+          let imageElement = document.createElement('img');
+          imageElement.src = timelineImages[x].path;
+          imageDivElement.appendChild(imageElement);
+          imageContainerElement.appendChild(imageDivElement);
+        }
       }
+      
       //Create Body Section and add text field from timeline
       let bodyDivElement = document.createElement('div');
       bodyDivElement.className = "postbody";
