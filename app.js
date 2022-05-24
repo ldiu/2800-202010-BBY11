@@ -150,10 +150,6 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
-app.get("/userInformation.html", function (req, res) {
-  res.sendFile(__dirname + "/userInformation.html");
-});
-
 //The following code follows 1537 course instructor's sessions example.
 app.get("/userProfilePage.html", function (req, res) {
 
@@ -504,7 +500,7 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
 
 
   if (req.body.imagePath === "") {
-    BBY_11_user.updateOne({ email: req.session.user.email }, {
+    BBY_11_user.updateOne({ email: req.session.email }, {
       $set: { email: req.body.email, password: req.body.password, name: req.body.name, lastName: req.body.lastName }
     },
 
@@ -513,16 +509,16 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
           console.log("Error " + err);
 
         } else {
-          req.session.user.email = req.body.email;
+          req.session.email = req.body.email;
           req.session.save(function (err) { });
-          res.redirect("/userInformation.html");
+          res.redirect("/userProfilePage.html");
 
         }
       })
 
   } else {
 
-    BBY_11_user.updateOne({ email: req.session.user.email }, {
+    BBY_11_user.updateOne({ email: req.session.email }, {
       $set: { email: req.body.email, password: req.body.password, name: req.body.name, lastName: req.body.lastName, imagePath: req.body.imagePath }
     },
 
@@ -531,9 +527,9 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
           console.log("Error " + err);
 
         } else {
-
+          req.session.email = req.body.email;
           req.session.save(function (err) { });
-          res.redirect("/userInformation.html");
+          res.redirect("/userProfilePage.html");
 
         }
       })
@@ -564,6 +560,7 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
 
   let imageName = req.body.images[0].name;
+  let images = req.body.images;
   for (let i = 0; i < images.length; i++) {
 
     if (imageName == "" && req.body.text == "") {
@@ -613,7 +610,7 @@ app.post('/deleteOldPost', function (req, res) {
   console.log(req.body);
   console.log(typeof req.body);
 
-  BBY_11_user.updateOne({ email: req.session.user.email }, { $pull: { timeline: { _id: req.body._id } } },
+  BBY_11_user.updateOne({ email: req.session.email }, { $pull: { timeline: { _id: req.body._id } } },
     function (err, data) {
       if (err) {
         console.log("Error " + err);

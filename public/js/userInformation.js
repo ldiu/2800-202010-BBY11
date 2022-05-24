@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 // Code follows similar outline to "fetch-example" from 2537 course.
 async function submitNewPost(data) {
@@ -127,21 +127,21 @@ async function loadUserProfile() {
 
 loadUserProfile();
 
-function update() {
+// function update() {
 
-  document.getElementById("userFields").disabled = false;
-  document.getElementById("saveButton").style.display = "block";
-  document.getElementById("chooseImage").style.display = "block";
-  document.getElementById("editButton").style.display = "none";
-  document.getElementById("userFirstName").style.backgroundColor = "#F2F2F2";
-  document.getElementById("userFirstName").style.color = "black";
-  document.getElementById("userLastName").style.backgroundColor = "#F2F2F2";
-  document.getElementById("userLastName").style.color = "black";
-  document.getElementById("userEmail").style.backgroundColor = "#F2F2F2";
-  document.getElementById("userEmail").style.color = "black";
-  document.getElementById("userPassword").style.backgroundColor = "#F2F2F2";
-  document.getElementById("userPassword").style.color = "black";
-}
+//   document.getElementById("userFields").disabled = false;
+//   document.getElementById("saveButton").style.display = "block";
+//   document.getElementById("chooseImage").style.display = "block";
+//   document.getElementById("editButton").style.display = "none";
+//   document.getElementById("userFirstName").style.backgroundColor = "#F2F2F2";
+//   document.getElementById("userFirstName").style.color = "black";
+//   document.getElementById("userLastName").style.backgroundColor = "#F2F2F2";
+//   document.getElementById("userLastName").style.color = "black";
+//   document.getElementById("userEmail").style.backgroundColor = "#F2F2F2";
+//   document.getElementById("userEmail").style.color = "black";
+//   document.getElementById("userPassword").style.backgroundColor = "#F2F2F2";
+//   document.getElementById("userPassword").style.color = "black";
+// }
 async function updateUserInfo(data) {
   console.log(data);
   try {
@@ -199,10 +199,10 @@ document.getElementById("saveButton").addEventListener("click", function (e) {
 });
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
-const newFormUpload = document.getElementById("buttonForm");
-newFormUpload.addEventListener("submit", getMyImages);
+const newForm = document.getElementById("buttonForm");
+newForm.addEventListener("submit", getImages);
 
-function getMyImages(e) {
+function getImages(e) {
 
   const uploadMyImages = document.querySelector('#findImage');
   const dataFromForm = new FormData();
