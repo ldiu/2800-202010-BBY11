@@ -513,7 +513,7 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
           console.log("Error " + err);
 
         } else {
-
+          req.session.user.email = req.body.email;
           req.session.save(function (err) { });
           res.redirect("/userInformation.html");
 

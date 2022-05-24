@@ -130,8 +130,18 @@ loadUserProfile();
 function update() {
 
   document.getElementById("userFields").disabled = false;
+  document.getElementById("saveButton").style.display = "block";
+  document.getElementById("chooseImage").style.display = "block";
+  document.getElementById("editButton").style.display = "none";
+  document.getElementById("userFirstName").style.backgroundColor = "#F2F2F2";
+  document.getElementById("userFirstName").style.color = "black";
+  document.getElementById("userLastName").style.backgroundColor = "#F2F2F2";
+  document.getElementById("userLastName").style.color = "black";
+  document.getElementById("userEmail").style.backgroundColor = "#F2F2F2";
+  document.getElementById("userEmail").style.color = "black";
+  document.getElementById("userPassword").style.backgroundColor = "#F2F2F2";
+  document.getElementById("userPassword").style.color = "black";
 }
-
 async function updateUserInfo(data) {
   console.log(data);
   try {
@@ -155,7 +165,15 @@ async function updateUserInfo(data) {
 
 
 document.getElementById("saveButton").addEventListener("click", function (e) {
-  
+  document.getElementById("editButton").style.display = "block";
+  document.getElementById("userFirstName").style.backgroundColor = "rgb(81, 81, 81)";
+  document.getElementById("userFirstName").style.color = "rgb(48, 48, 48)";
+  document.getElementById("userLastName").style.backgroundColor = "rgb(81, 81, 81)";
+  document.getElementById("userLastName").style.color = "rgb(48, 48, 48)";
+  document.getElementById("userEmail").style.backgroundColor = "rgb(81, 81, 81)";
+  document.getElementById("userEmail").style.color = "rgb(48, 48, 48)";
+  document.getElementById("userPassword").style.backgroundColor = "rgb(81, 81, 81)";
+  document.getElementById("userPassword").style.color = "rgb(48, 48, 48)";
   if (document.getElementById("findImage").value == ""){
 
     updateUserInfo({
