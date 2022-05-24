@@ -267,7 +267,7 @@
 
   }
   
-  #profileImage{
+  .profileImage{
     width: 90%;
     height: 90%;
     object-fit: cover;
@@ -306,6 +306,7 @@
     color: #CDBE78;
     border: 1px solid #CDBE78;
     background-color: #0b2d2e;
+    padding-top: 4%;
     border-radius: 6px;
     text-align: center;
   } 

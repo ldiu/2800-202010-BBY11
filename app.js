@@ -150,6 +150,10 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
+app.get("/userTest.html", function (req, res) {
+  res.sendFile(__dirname + "/userTest.html");
+});
+
 //The following code follows 1537 course instructor's sessions example.
 app.get("/userProfilePage.html", function (req, res) {
 
@@ -241,7 +245,7 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
 
       BBY_11_user.updateOne({ email: req.session.user.email }, {
         $push: {
-          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }]}
+          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
         }
       },
 
@@ -478,6 +482,70 @@ app.post("/login.html", function (req, res) {
   });
 });
 
+app.get('/getUserInfo', function (req, res) {
+  BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(user);
+    }
+  })
+});
+
+app.post('/saveProfileImage', imageLoader.array("files"), function (req, res) {
+
+  for (let index = 0; index < req.files.length; index++) {
+    req.files[index].filename = req.files[index].originalname;
+  }
+});
+
+app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+  
+  console.log(req.body);
+  console.log(req.body.email);
+  console.log(req.body.password);
+  console.log(req.body.name);
+  console.log("This is the last name " + req.body.lastName);
+
+  if (req.body.imagePath === "img/johndoe.png") {
+    BBY_11_user.updateOne({ email: req.session.user.email }, {
+      $set: { email: req.body.email, password: req.body.password, name: req.body.name, lastName: req.body.lastName }
+    },
+
+      function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+
+        } else {
+
+          req.session.save(function (err) { });
+          res.redirect("/userTest.html");
+
+        }
+      })
+
+  } else {
+
+    BBY_11_user.updateOne({ email: req.session.user.email }, {
+      $set: { email: req.body.email, password: req.body.password, name: req.body.name, lastName: req.body.lastName, imagePath: req.body.imagePath }
+    },
+
+      function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+
+        } else {
+
+          req.session.save(function (err) { });
+          res.redirect("/userTest.html");
+
+        }
+      })
+  }
+}
+);
+
 app.get('/getTimelinePosts', function (req, res) {
   BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
     if (err) {
@@ -487,6 +555,7 @@ app.get('/getTimelinePosts', function (req, res) {
     }
   })
 });
+
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
 app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
@@ -498,8 +567,6 @@ app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
 
 app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
-
-
 
   let images = req.body.images;
   for (let i = 0; i < images.length; i++) {
