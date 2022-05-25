@@ -39,6 +39,21 @@ const imageStore = multer.diskStorage({
 const imageLoader = multer({ storage: imageStore });
 
 
+//from arrons notes
+const multer = require("multer");
+
+//Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
+const imageStore = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./public/img")
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.originalname.split('/').pop().trim());
+  }
+});
+
+const imageLoader = multer({ storage: imageStore });
+
 app.set("view engine", "html");
 app.use(express.static("public"));
 
@@ -427,6 +442,117 @@ app.post("/add", function (req, res) {
     res.redirect("/login.html");
   }
 });
+
+//---- searching ----//
+
+var id;
+
+app.post("/search.html", function (req, res) {
+
+  if (req.session.loggedIn) {
+    BBY_11_user.find({ email: req.body.dashEmail }, function (err, users) {
+      if (err) {
+        console.log("the error: " + err);
+        res.status(500).send();
+      } else {
+        var lol = req.body.dashEmail;
+        let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+        let changeToJSDOM = new JSDOM(dbInfo);
+
+        let str = "<table>";
+        users.forEach(function (user) {
+          str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
+            "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
+        });
+        str += "</table>";
+
+        changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
+        res.send(changeToJSDOM.serialize());
+        console.log("user printed");
+
+        req.session.searchUser = req.body.dashEmail;
+        req.session.save();
+
+        id = req.session.searchUser;
+        console.log(id);
+      }
+    });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+//---- updating ----//
+
+app.post("/update", function (req, res) {
+  if (req.session.loggedIn) {
+    BBY_11_user.updateOne({ email: req.session.searchUser },
+      { $set: { email: req.body.upEmail, password: req.body.upPassword, name: req.body.fName, lastName: req.body.lName } },
+      function (err, users) {
+        if (err) {
+          console.log("there is an error");
+          console.log(err);
+        } else {
+          console.log("email updated");
+          res.redirect("/search.html");
+        }
+      });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+//---- deleting ---//
+
+app.post("/delete", function (req, res) {
+  if (req.session.loggedIn) {
+    BBY_11_user.deleteOne({ email: req.session.searchUser }, function (err, users) {
+      if (err) {
+        console.log("there is an error");
+        console.log(err);
+      } else {
+        console.log("user deleted");
+        res.redirect("/search.html");
+      }
+    });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+//---- adding ----//
+
+app.post("/add", function (req, res) {
+  if (req.session.loggedIn) {
+    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname },
+      function (err, users) {
+        if (err) {
+          console.log("there is an error");
+          console.log(err);
+        } else {
+          let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
+          if (changeToJSDOM.window.document.getElementById("newVal5").checked) {
+            admin: true;
+            console.log("admin user added");
+            res.redirect("/search.html");
+          } else if (changeToJSDOM.window.document.getElementById("newVal5").checked != true) {
+            admin: false;
+            console.log("normal user added");
+            res.redirect("/search.html");
+          } else {
+            admin: false;
+            console.log("normal user added");
+            res.redirect("/search.html");
+          }
+        }
+      });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+
 
 app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
