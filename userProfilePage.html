@@ -39,9 +39,9 @@
           <img id="profileImage" src="img/johndoe.png" alt="">
         </div>
         <fieldset id="userFields" disabled>
-          <form id="buttonForm" action="/userProfilePage.html" enctype="multipart/form-data" method="POST">
-            <label for="findImage" class="findImageStyle"> Choose Image
-            <input id="findImage" type="file" size="60" name="imageToUpload"></label>
+          <form id="buttonForm">
+            <label for="findImage" class="findImageStyle" id="chooseImage"> Choose Image
+              <input id="findImage" type="file" size="60" name="imageToUpload"></label>
             <label for="userFirstName"></label>
             <input id="userFirstName" type="text" value="" required name="userFirstName">
             <label for="userLastName"></label>
@@ -95,6 +95,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="js/client.js"></script>
   <script src="js/userProfilePage.js"></script>
+  <script src="js/userInformation.js"></script>
 </body>
 
 </html>
