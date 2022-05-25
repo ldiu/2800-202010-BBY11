@@ -134,21 +134,11 @@ app.get("/adminDash.html", function (req, res) {
   }
 });
 
-app.get("/search.html", function (req, res) {
-  if (req.session.users) {
-    res.sendFile(__dirname + "/search.html");
-  }
-  else {
-    res.redirect("/login.html");
-  }
-});
-
 app.get("/index2.html", (req, res) => {
   if (req.session.loggedIn) {
     res.sendFile(__dirname + "/index2.html");
   }
   else {
-    console.log("lol session");
     res.redirect("/login.html");
   }
 });
