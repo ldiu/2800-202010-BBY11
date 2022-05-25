@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>24</title>
+  <link href="css/passRecov.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbarFooter.css">
+</head>
+
+<body>
+  <div id="container1">
+    <div id="navbar">
+      <nav>
+        <div id="dropdown" onclick="displayDropdown()">
+          <a id="dropdownButton" onclick="displayDropdown()" href="">Menu</a>
+          <div id="menu">
+            <a class="menuItem" href="">Leaderboard</a>
+            <a class="menuItem" href="">About</a>
+            <a class="menuItem" href="">Contact</a>
+          </div>
+        </div>
+        <a href="/index.html" id="logo">24</a>
+      </nav>
+    </div>
+    <div id="section">
+      <div id="container2">
+
+        <div id="contain">
+          <form id="searchSection" action="/accountSearch" method="POST">
+            <!-- <label for="emailRecov"></label> -->
+            <input id="emailRecov" type="email" placeholder=" Enter your Email" required="required" name="emailRecov">
+              <button type="submit" id="searchUsers">Search</button>
+          </form>
+          
+          <div id="found"></div>
+
+          <form id="updateSection" action="/updatePass" method="POST">
+            <input id="newPass" type="password" placeholder=" Enter your new Password" name="newPass">
+            <button type="submit" id="updatePassword">Update</button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/footer.js"></script>
+</body>
+
+</html>
