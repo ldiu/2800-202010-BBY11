@@ -237,7 +237,6 @@
   }
 
   #val5 {
-    display: grid;
     grid-column: 1;
     grid-row: 5;
     font-size: 20px;
@@ -246,7 +245,6 @@
   }
 
   #val6 {
-    display: grid;
     grid-column: 1;
     grid-row: 6;
     font-size: 20px;
