@@ -42,18 +42,6 @@ const imageLoader = multer({ storage: imageStore });
 //from arrons notes
 const multer = require("multer");
 
-//Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
-const imageStore = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, "./public/img")
-  },
-  filename: function (req, file, callback) {
-    callback(null, file.originalname.split('/').pop().trim());
-  }
-});
-
-const imageLoader = multer({ storage: imageStore });
-
 app.set("view engine", "html");
 app.use(express.static("public"));
 
@@ -250,7 +238,7 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
             res.redirect("/userProfilePage.html");
 
           }
-        })
+        });
 
     } else if (req.body.text === "") {
 
