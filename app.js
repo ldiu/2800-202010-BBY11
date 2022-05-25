@@ -121,6 +121,10 @@ app.get("/signUp.html", function (req, res) {
   res.sendFile(__dirname + "/signUp.html");
 });
 
+app.get("/passRecov.html", function (req, res) {
+  res.sendFile(__dirname + "/passRecov.html");
+});
+
 app.get("/adminDash.html", function (req, res) {
   if (req.session.users) {
     res.sendFile(__dirname + "/adminDash.html");
