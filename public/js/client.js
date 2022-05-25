@@ -103,3 +103,17 @@ function getMyImages(e) {
     }).catch(function (error) { ("Error message is:", error) }
     );
 }
+
+/* Code snippet retrieved from 
+https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery, 
+by Mohammad Web developer at Ravaghsoft */
+document.querySelector("#findImage").onchange = function(){
+    document.querySelector("#findImageName").textContent = this.files[0].name;
+  }
+
+  /* Code snippet retrieved from 
+https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery, 
+by Mohammad Web developer at Ravaghsoft */
+document.querySelector("#findImg").onchange = function(){
+    document.querySelector("#findImgName").textContent = this.files[0].name;
+  }
