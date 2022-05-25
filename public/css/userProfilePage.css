@@ -251,7 +251,7 @@
 
   #container2{
     display: grid;
-    grid-template-rows: 800px 1fr;
+    grid-template-rows: 1080px 1fr;
     grid-template-columns: 1fr 40% 1fr;
   }
   
@@ -428,7 +428,7 @@
 
   #findImgName{
     color: #CDBE78;
-    margin-left: .7rem;
+    margin-left: 0.7rem;
   }
 
   #submitPost{
@@ -444,7 +444,7 @@
 
   #logoutButton{
     background-color: #066163;
-    color:#CDBE78;
+    color:#CDBE78; 
     font-size: 23px;
     border: 1px solid #066163;
   }

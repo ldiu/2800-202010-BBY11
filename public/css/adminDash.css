@@ -240,30 +240,18 @@
     display: grid;
     grid-column: 1;
     grid-row: 5;
-    width: 90%;
-    height: 50%;
     font-size: 20px;
     border: 2px solid #383838;
     border-radius: 6px;
-    color: black;
-    justify-self: center;
-    margin-top: 2%;
-    margin-right: 2%;
   }
 
   #val6 {
     display: grid;
     grid-column: 1;
     grid-row: 6;
-    width: 90%;
-    height: 50%;
     font-size: 20px;
     border: 2px solid #383838;
     border-radius: 6px;
-    color: black;
-    justify-self: center;
-    margin-top: 2%;
-    margin-right: 2%;
   }
 
   .add {

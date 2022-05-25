@@ -113,6 +113,10 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/index.html", function (req, res) {
+  res.sendFile(__dirname + "/index.html");
+});
+
 app.get("/login.html", function (req, res) {
   res.sendFile(__dirname + "/login.html");
 });
@@ -390,7 +394,7 @@ app.post("/delete", function (req, res) {
 
 app.post("/add", function (req, res) {
   if (req.session.loggedIn) {
-    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname },
+    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname, admin: req.body.isAdmin},
       function (err, users) {
         if (err) {
           console.log("there is an error");
@@ -398,17 +402,20 @@ app.post("/add", function (req, res) {
         } else {
           let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
           let changeToJSDOM = new JSDOM(dbInfo);
-          if (changeToJSDOM.window.document.getElementById("val5").checked) {
-            admin: true;
+          
+          if (changeToJSDOM.window.document.getElementById("val5").checked == true) {
+
+            isAdmin = true;
             console.log("admin user added");
             res.redirect("/adminDash.html");
-          } else if (changeToJSDOM.window.document.getElementById("val5").checked != true) {
-            admin: false;
+
+          } else if (changeToJSDOM.window.document.getElementById("val6").checked == true) {
+            isAdmin = false;
             console.log("normal user added");
             res.redirect("/adminDash.html");
           } else {
-            admin: false;
-            console.log("normal user added");
+            BBY_11_user.admin = false;
+            console.log("default user added");
             res.redirect("/adminDash.html");
           }
         }
