@@ -38,10 +38,6 @@ const imageStore = multer.diskStorage({
 
 const imageLoader = multer({ storage: imageStore });
 
-
-//from arrons notes
-const multer = require("multer");
-
 app.set("view engine", "html");
 app.use(express.static("public"));
 
