@@ -105,7 +105,8 @@ box-shadow: 1px 1px 3px #000;
     margin: 0px;
     padding: 0px;
     background-color: #2C3333;
-  }
+    color: #CDBE78;
+  }  
 
   #container1 {
     display: grid;
@@ -356,7 +357,8 @@ box-shadow: 1px 1px 3px #000;
     margin: 0px;
     padding: 0px;
     background-color: #2C3333;
-  }
+    color: #CDBE78;
+  }  
 
   #container1 {
     display: grid;

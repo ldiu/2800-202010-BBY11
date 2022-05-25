@@ -113,6 +113,10 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/about.html", function (req, res) {
+  res.sendFile(__dirname + "/about.html");
+});
+
 app.get("/index.html", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });

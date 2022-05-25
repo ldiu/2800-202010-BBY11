@@ -16,7 +16,7 @@
         <div id="dropdown" onclick="displayDropdown()">
           <a id="dropdownButton" onclick="displayDropdown()" href="">Menu</a>
           <div id="menu">
-            <a class="menuItem" href="">About</a>
+            <a class="menuItem" href="/about.html">About</a>
           </div>
         </div>
         <a href="/index.html" id="logo">24</a>
@@ -35,7 +35,7 @@
           <div id="found"></div>
 
           <form id="updateSection" action="/updatePass" method="POST">
-            <input id="newPass" type="password" placeholder=" Enter your new Password" name="newPass">
+            <input id="newPass" type="password" placeholder=" Enter your new Password" required="required" name="newPass">
             <button type="submit" id="updatePassword">Update</button>
           </form>
 
