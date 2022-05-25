@@ -422,11 +422,11 @@ app.post("/add", function (req, res) {
         } else {
           let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
           let changeToJSDOM = new JSDOM(dbInfo);
-          if (changeToJSDOM.window.document.getElementById("newVal5").checked) {
+          if (changeToJSDOM.window.document.getElementById("val5").checked) {
             admin: true;
             console.log("admin user added");
             res.redirect("/adminDash.html");
-          } else if (changeToJSDOM.window.document.getElementById("newVal5").checked != true) {
+          } else if (changeToJSDOM.window.document.getElementById("val5").checked != true) {
             admin: false;
             console.log("normal user added");
             res.redirect("/adminDash.html");
