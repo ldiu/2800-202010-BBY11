@@ -130,10 +130,8 @@ var doOnce = (function() {
 })();
 
 function numbPressed(number){
-    doOnce();
-    if(number.isPressed) {
-        shake(number.button);
-    } else if (NUMB_NEXT && !number.isPressed) { //if a number can be inserted and it hasn't been pressed
+    doOnce(); //if a number is pressed first, the solution line is emptied, but only once
+    if (NUMB_NEXT && !number.isPressed) {
         NUMB_NEXT = 0; //a number can't go after another number
         OBRACKET_NEXT = 0; //an open bracket can't go after a number
         number.isPressed = 1;
@@ -145,8 +143,7 @@ function numbPressed(number){
         if(bracketCount){
             CBRACKET_NEXT = 1; //iff there's an unclosed open bracket, a closing bracket can go after a number
         }
-    }
-    else {
+    } else {
         shake(number.button);
     }
 }
@@ -162,7 +159,7 @@ function operationPressed(operation){
 }
 
 function oBracketPressed(operation){
-    doOnce();
+    doOnce(); //if an operation is pressed first, the solution line is emptied, but only once
     if (OBRACKET_NEXT){
         solutionLine.innerText += operation.value;
         bracketCount++;
@@ -185,7 +182,7 @@ function cBracketPressed(operation){
 
 function numbShade(number) {
     number.isPressed = 1;
-    number.button.style.color = "grey"; //not final!!! just a placeholder
+    number.button.style.color = "grey";
     
 }
 
@@ -203,9 +200,8 @@ function submitAnswer() {
             solutionBox.style.backgroundColor = "green";
             gameOver = 1;
         } else {
-            console.log("submitAnswer called, Incorret! Your answer was " + func());
-            solutionBox.style.backgroundColor = "red";
             applyShake(solutionBox);
+            solutionBox.style.backgroundColor = "red";
             gameOver = 1;
         }
     } else {
@@ -216,12 +212,11 @@ function submitAnswer() {
 
 function shake(container){
     let originalColor = container.style.color;
-    let originalBorderColor = container.style.borderColor;
-    applyShake(container);
     container.style.borderColor = "red";
     container.style.color = "red";
+    applyShake(container);
     setTimeout( () => {
-        container.style.borderColor = originalBorderColor;
+        container.style.borderColor = "#CDBE78";
         container.style.color = originalColor;
     }, 170);
 }
@@ -274,3 +269,16 @@ function resetBoard(){
     }
     solutionLine.innerText = "";
 }
+
+$(".hoverInstructions").click(function () {
+    $.ajax({
+        success: function (data) {            
+            $('#info-modal').addClass("show"); 
+        },
+        async: true
+    });    
+});
+
+$(".modal-dialog .close").click(function(){
+    $(this).closest(".modal-dialog").removeClass("show");
+});
