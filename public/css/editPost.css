@@ -121,7 +121,12 @@
     margin-right: 1rem;
     font-size: 14px;
   }
-  
+
+  #newImgName{
+    color: #CDBE78;
+    grid-row: 1;
+    grid-column: 2;
+  }
   
   #editPost {
     grid-row: 3;
@@ -255,6 +260,12 @@
   margin-left: 1rem;
   margin-right: 1rem;
   font-size: 14px;
+}
+
+#newImgName{
+color: #CDBE78;
+grid-row: 1;
+grid-column: 2;
 }
 
 

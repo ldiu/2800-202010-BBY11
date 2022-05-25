@@ -187,5 +187,12 @@ document.getElementById("deletePost").addEventListener("click", function (e) {
   console.log("Data was sent");
 });
 
+/* Code snippet retrieved from 
+https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery, 
+by Mohammad Web developer at Ravaghsoft */
+document.querySelector("#newImg").onchange = function(){
+  document.querySelector("#newImgName").textContent = this.files[0].name;
+}
+
 
 

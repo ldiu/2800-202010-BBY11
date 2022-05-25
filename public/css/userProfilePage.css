@@ -109,8 +109,28 @@
     color: #CDBE78;
     border: 2px solid #CDBE78;
     border-radius: 6px;
-    margin-bottom: 2%;
-    margin-top: 3%;
+    padding: .42rem;
+    margin-right: .5rem;
+    float: right;
+  }
+
+  #findImg {
+    display: none;
+
+  }
+  
+  .findImgClass{
+    background-color: #0b2d2e;
+    color: #CDBE78;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    padding: .3rem;
+    float: left;
+  }
+
+  #findImgName{
+    color: #CDBE78;
+    margin-left: .7rem;
   }
 
   #userFirstName{
@@ -190,6 +210,7 @@
   #timeline{
     margin-bottom: 5%;
     max-width: 97%;
+    margin-top: 5rem;
   }
 
   textarea{
@@ -389,6 +410,25 @@
   #timeline{
     margin-bottom: 5%;
     max-width: 97%;
+    margin-top: 5rem;
+  }
+
+  #findImg {
+    display: none;
+  }
+  
+  .findImgClass{
+    background-color: #0b2d2e;
+    color: #CDBE78;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    padding: .3rem;
+    float: left;
+  }
+
+  #findImgName{
+    color: #CDBE78;
+    margin-left: .7rem;
   }
 
   #submitPost{
@@ -396,8 +436,10 @@
     color: #CDBE78;
     border: 2px solid #CDBE78;
     border-radius: 6px;
-    margin-bottom: 2%;
-    margin-top: 3%;
+    padding: .42rem;
+    margin-right: 1rem;
+    float: right;
+    
   }
 
   #logoutButton{
