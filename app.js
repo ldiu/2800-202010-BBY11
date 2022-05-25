@@ -38,7 +38,6 @@ const imageStore = multer.diskStorage({
 
 const imageLoader = multer({ storage: imageStore });
 
-
 app.set("view engine", "html");
 app.use(express.static("public"));
 
@@ -120,10 +119,6 @@ app.get("/login.html", function (req, res) {
 
 app.get("/signUp.html", function (req, res) {
   res.sendFile(__dirname + "/signUp.html");
-});
-
-app.get("/passRecov.html", function (req, res) {
-  res.sendFile(__dirname + "/passRecov.html");
 });
 
 app.get("/adminDash.html", function (req, res) {
@@ -239,7 +234,7 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
             res.redirect("/userProfilePage.html");
 
           }
-        })
+        });
 
     } else if (req.body.text === "") {
 
@@ -334,42 +329,28 @@ app.post("/search", function (req, res) {
         console.log("the error: " + err);
         res.status(500).send();
       } else {
-        if (users) {
-          let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
-          let changeToJSDOM = new JSDOM(dbInfo);
+        var lol = req.body.dashEmail;
+        let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
+        let changeToJSDOM = new JSDOM(dbInfo);
 
-          let str = "<table>";
-          users.forEach(function (user) {
-            // for (var i = 0; i < user.length; i++) {
-            str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
-              "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
-          });
+        let str = "<table>";
+        users.forEach(function (user) {
+          str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
+            "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
+        });
+        str += "</table>";
 
-          str += "</table>";
+        changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
+        res.send(changeToJSDOM.serialize());
+        console.log("user printed");
 
-          changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
-          res.send(changeToJSDOM.serialize());
-          console.log("user printed");
+        req.session.searchUser = req.body.dashEmail;
+        req.session.save();
 
-          req.session.searchUser = req.body.dashEmail;
-          req.session.save();
-
-          id = req.session.searchUser;
-          console.log(id);
-        } else {
-          let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
-          let changeToJSDOM = new JSDOM(dbInfo);
-
-          let str = "<table><tr><td>Account not found!</td></tr></td>";
-          changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
-          changeToJSDOM.window.document.getElementById("searchUser").style.color = "#d50000";
-          res.send(changeToJSDOM.serialize());
-          console.log("no user found");
-        }
-        // });
+        id = req.session.searchUser;
+        console.log(id);
       }
     });
-
   } else {
     res.redirect("/login.html");
   }
@@ -427,15 +408,12 @@ app.post("/add", function (req, res) {
           let changeToJSDOM = new JSDOM(dbInfo);
           if (changeToJSDOM.window.document.getElementById("val5").checked) {
             admin: true;
-            console.log("admin user added");
             res.redirect("/adminDash.html");
           } else if (changeToJSDOM.window.document.getElementById("val5").checked != true) {
             admin: false;
-            console.log("normal user added");
             res.redirect("/adminDash.html");
           } else {
             admin: false;
-            console.log("normal user added");
             res.redirect("/adminDash.html");
           }
         }
@@ -445,54 +423,116 @@ app.post("/add", function (req, res) {
   }
 });
 
-// ---- Reset Pass ----//
+//---- searching ----//
 
-app.post("/accountSearch", function (req, res) {
-  BBY_11_user.findOne({ email: req.body.emailRecov }, function (err, user) {
-    if (err) {
-      console.log(err);
-    } else {
-      if (user) {
-        let dbInfo = fs.readFileSync(__dirname + "/passRecov.html", "utf8");
+var id;
+
+app.post("/search.html", function (req, res) {
+
+  if (req.session.loggedIn) {
+    BBY_11_user.find({ email: req.body.dashEmail }, function (err, users) {
+      if (err) {
+        console.log("the error: " + err);
+        res.status(500).send();
+      } else {
+        var lol = req.body.dashEmail;
+        let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
         let changeToJSDOM = new JSDOM(dbInfo);
 
-        let str = "<table><tr><td>Account Found!</td></tr></td>";
-        changeToJSDOM.window.document.getElementById("found").innerHTML = str;
-        changeToJSDOM.window.document.getElementById("found").style.color = "#15ec01";
-        res.send(changeToJSDOM.serialize());
-
-        req.session.found = req.body.emailRecov;
-        req.session.save();
-        console.log("user found");
-
-        app.post("/updatePass", function (req, res) {
-          BBY_11_user.updateOne({ email: req.session.found }, { $set: { password: req.body.newPass } },
-            function (err, user) {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("pass updated");
-                res.redirect("/login.html");
-              }
-            });
+        let str = "<table>";
+        users.forEach(function (user) {
+          str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
+            "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
         });
+        str += "</table>";
 
-      }
-
-      if (!user) {
-        let dbInfo = fs.readFileSync(__dirname + "/passRecov.html", "utf8");
-        let changeToJSDOM = new JSDOM(dbInfo);
-
-        let str = "<table><tr><td>Account not found!</td></tr></td>";
-        changeToJSDOM.window.document.getElementById("found").innerHTML = str;
-        changeToJSDOM.window.document.getElementById("found").style.color = "#d50000";
+        changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
         res.send(changeToJSDOM.serialize());
+        console.log("user printed");
+
+        req.session.searchUser = req.body.dashEmail;
+        req.session.save();
+
+        id = req.session.searchUser;
+        console.log(id);
       }
-    }
-  });
+    });
+  } else {
+    res.redirect("/login.html");
+  }
 });
 
-// ---- SignUp ----//
+//---- updating ----//
+
+app.post("/update", function (req, res) {
+  if (req.session.loggedIn) {
+    BBY_11_user.updateOne({ email: req.session.searchUser },
+      { $set: { email: req.body.upEmail, password: req.body.upPassword, name: req.body.fName, lastName: req.body.lName } },
+      function (err, users) {
+        if (err) {
+          console.log("there is an error");
+          console.log(err);
+        } else {
+          console.log("email updated");
+          res.redirect("/search.html");
+        }
+      });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+//---- deleting ---//
+
+app.post("/delete", function (req, res) {
+  if (req.session.loggedIn) {
+    BBY_11_user.deleteOne({ email: req.session.searchUser }, function (err, users) {
+      if (err) {
+        console.log("there is an error");
+        console.log(err);
+      } else {
+        console.log("user deleted");
+        res.redirect("/search.html");
+      }
+    });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+//---- adding ----//
+
+app.post("/add", function (req, res) {
+  if (req.session.loggedIn) {
+    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname },
+      function (err, users) {
+        if (err) {
+          console.log("there is an error");
+          console.log(err);
+        } else {
+          let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
+          if (changeToJSDOM.window.document.getElementById("newVal5").checked) {
+            admin: true;
+            console.log("admin user added");
+            res.redirect("/search.html");
+          } else if (changeToJSDOM.window.document.getElementById("newVal5").checked != true) {
+            admin: false;
+            console.log("normal user added");
+            res.redirect("/search.html");
+          } else {
+            admin: false;
+            console.log("normal user added");
+            res.redirect("/search.html");
+          }
+        }
+      });
+  } else {
+    res.redirect("/login.html");
+  }
+});
+
+
 
 app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
@@ -512,8 +552,6 @@ app.post("/signUp.html", function (req, res) {
     }
   });
 });
-
-// ---- LogIn ----//
 
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
@@ -535,16 +573,7 @@ app.post("/login.html", function (req, res) {
           req.session.imagePath = foundUser.imagePath;
           res.sendFile(__dirname + "/index2.html");
         }
-        if (foundUser.password != password) {
-          let dbInfo = fs.readFileSync(__dirname + "/login.html", "utf8");
-          let changeToJSDOM = new JSDOM(dbInfo);
-          let str = "<table><tr><td>Invalid username or password</td></tr></td>";
-          changeToJSDOM.window.document.getElementById("msg").innerHTML = str;
-          res.send(changeToJSDOM.serialize());
-          console.log("invalid useranme or pass");
-        }
       }
-
       if (foundUser && foundUser.admin === true) {
         if (foundUser.password === password && foundUser.admin != isAdmin) {
           req.session.users = foundUser;
@@ -553,23 +582,7 @@ app.post("/login.html", function (req, res) {
           req.session.password = password;
           res.sendFile(__dirname + "/adminDash.html");
         }
-        if (foundUser.password != password && foundUser.admin != isAdmin) {
-          let dbInfo = fs.readFileSync(__dirname + "/login.html", "utf8");
-          let changeToJSDOM = new JSDOM(dbInfo);
-          let str = "<table><tr><td>Invalid username or password</td></tr></td>";
-          changeToJSDOM.window.document.getElementById("msg").innerHTML = str;
-          res.send(changeToJSDOM.serialize());
-          console.log("invalid useranme or pass");
-        }
-      }
 
-      if (!foundUser) {
-        let dbInfo = fs.readFileSync(__dirname + "/login.html", "utf8");
-        let changeToJSDOM = new JSDOM(dbInfo);
-        let str = "<table><tr><td>Account not Found</td></tr></td>";
-        changeToJSDOM.window.document.getElementById("msg").innerHTML = str;
-        res.send(changeToJSDOM.serialize());
-        console.log("account not found");
       }
     }
   });
