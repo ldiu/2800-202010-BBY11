@@ -89,6 +89,13 @@ function stringEmpty(myString) {
   return myString.trim().length === 0;
 }
 
+/* Code snippet similar to code written by Annoying Armadillo on May 11 2020, example
+can be found at https://www.codegrepper.com/code-examples/javascript/javascript+check+email+format*/
+function validateEmail(userInput) {
+  const matchThis = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return matchThis.test(String(userInput).toLowerCase());
+}
+
 document.getElementById("saveButton").addEventListener("click", function (e) {
   document.getElementById("editButton").style.display = "block";
   document.getElementById("userFirstName").style.backgroundColor = "rgb(81, 81, 81)";
@@ -99,14 +106,16 @@ document.getElementById("saveButton").addEventListener("click", function (e) {
   document.getElementById("userEmail").style.color = "rgb(48, 48, 48)";
   document.getElementById("userPassword").style.backgroundColor = "rgb(81, 81, 81)";
   document.getElementById("userPassword").style.color = "rgb(48, 48, 48)";
-  
+
+
   if(stringEmpty(document.getElementById("userFirstName").value) ||
   stringEmpty(document.getElementById("userLastName").value) ||
   stringEmpty(document.getElementById("userEmail").value)|| 
   stringEmpty(document.getElementById("userPassword").value) || 
   document.getElementById("userEmail").value.trim() == "@" || 
   document.getElementById("userEmail").value == "@" || 
-  !document.getElementById("userEmail").value.includes("@")){
+  !document.getElementById("userEmail").value.includes("@") ||
+  !validateEmail(document.getElementById("userEmail").value)){
     console.log("Must input letters");
 
   } else if (document.getElementById("findImage").value == ""){
