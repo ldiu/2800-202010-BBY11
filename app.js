@@ -160,6 +160,10 @@ app.get("/about.html", function (req, res) {
   res.sendFile(__dirname + "/about.html");
 });
 
+app.get("/errorRedirect.html", function (req, res) {
+  ews.sendFile(__dirname + "/errorRedirect.html");
+});
+
 // ---- app.post ----//
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
@@ -186,7 +190,8 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
       },
         function (err, data) {
           if (err) {
-            console.log("Error " + err);
+            console.log("Error:\n" + err);
+            res.redirect("/errorRedirect.html");
           } else {
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
@@ -201,12 +206,10 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
         function (err, data) {
           if (err) {
             console.log("Error " + err);
-
+            res.redirect("/errorRedirect.html");
           } else {
-
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
-
           }
         });
     } else {
@@ -217,7 +220,8 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
       },
         function (err, data) {
           if (err) {
-            console.log("Error " + err);
+            console.log("Error:\n" + err);
+            res.redirect("/errorRedirect.html");
           } else {
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
@@ -234,20 +238,13 @@ app.post("/", function (req, res) {
   req.session.destroy();
 });
 
-//we don't need this. Just commented out in case something happened. 
-// app.post("/", function (req, res) {
-//   res.sendFile(__dirname + "/index.html");
-// });
-
-
 app.post("/adminDash.html", function (req, res) {
   if (req.session.loggedIn) {
-
     BBY_11_user.find({}, function (err, users) {
       console.log("find()");
       if (err) {
-        console.log("the error: " + err);
-        res.status(500).send();
+        console.log("Error:\n" + err);
+        res.redirect("/errorRedirect.html");
       } else {
         let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
         let changeToJSDOM = new JSDOM(dbInfo);
@@ -258,9 +255,7 @@ app.post("/adminDash.html", function (req, res) {
             "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
         });
         str += "</table>";
-
         changeToJSDOM.window.document.getElementById("tableInfo").innerHTML = str;
-
         res.send(changeToJSDOM.serialize());
       }
     });
@@ -271,15 +266,12 @@ app.post("/adminDash.html", function (req, res) {
 
 //---- searching ----//
 
-var id;
-
 app.post("/search", function (req, res) {
-
   if (req.session.loggedIn) {
     BBY_11_user.find({ email: req.body.dashEmail }, function (err, users) {
       if (err) {
-        console.log("the error: " + err);
-        res.status(500).send();
+        console.log("Error:\n" + err);
+        res.redirect("/errorRedirect.html");
       } else {
         if (users) {
           let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
@@ -287,11 +279,9 @@ app.post("/search", function (req, res) {
 
           let str = "<table>";
           users.forEach(function (user) {
-            // for (var i = 0; i < user.length; i++) {
             str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
               "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
           });
-
           str += "</table>";
 
           changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
@@ -300,9 +290,6 @@ app.post("/search", function (req, res) {
 
           req.session.searchUser = req.body.dashEmail;
           req.session.save();
-
-          id = req.session.searchUser;
-          console.log(id);
         } else {
           let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
           let changeToJSDOM = new JSDOM(dbInfo);
@@ -313,10 +300,8 @@ app.post("/search", function (req, res) {
           res.send(changeToJSDOM.serialize());
           console.log("no user found");
         }
-        // });
       }
     });
-
   } else {
     res.redirect("/login.html");
   }
@@ -330,10 +315,9 @@ app.post("/update", function (req, res) {
       { $set: { email: req.body.upEmail, password: req.body.upPassword, name: req.body.fName, lastName: req.body.lName } },
       function (err, users) {
         if (err) {
-          console.log("there is an error");
-          console.log(err);
+          console.log("Error\n:" + err);
+          res.redirect("/errorRedirect.html");
         } else {
-          console.log("email updated");
           res.redirect("/adminDash.html");
         }
       });
@@ -348,8 +332,8 @@ app.post("/delete", function (req, res) {
   if (req.session.loggedIn) {
     BBY_11_user.deleteOne({ email: req.session.searchUser }, function (err, users) {
       if (err) {
-        console.log("there is an error");
-        console.log(err);
+        console.log("Error:\n" + err);
+        res.redirect("/errorRedirect.html");
       } else {
         console.log("user deleted");
         res.redirect("/adminDash.html");
@@ -367,25 +351,21 @@ app.post("/add", function (req, res) {
     BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname, admin: req.body.isAdmin },
       function (err, users) {
         if (err) {
-          console.log("there is an error");
-          console.log(err);
+          console.log("Error:\n" + err);
+          res.redirect("/errorRedirect.html");
         } else {
           let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
           let changeToJSDOM = new JSDOM(dbInfo);
 
           if (changeToJSDOM.window.document.getElementById("val5").checked == true) {
-
             isAdmin = true;
-            console.log("admin user added");
             res.redirect("/adminDash.html");
 
           } else if (changeToJSDOM.window.document.getElementById("val6").checked == true) {
             isAdmin = false;
-            console.log("normal user added");
             res.redirect("/adminDash.html");
           } else {
             BBY_11_user.admin = false;
-            console.log("default user added");
             res.redirect("/adminDash.html");
           }
         }
@@ -400,7 +380,8 @@ app.post("/add", function (req, res) {
 app.post("/accountSearch", function (req, res) {
   BBY_11_user.findOne({ email: req.body.emailRecov }, function (err, user) {
     if (err) {
-      console.log(err);
+      console.log("Error:\n" + err);
+      res.redirect("/errorRedirect.html");
     } else {
       if (user) {
         let dbInfo = fs.readFileSync(__dirname + "/passRecov.html", "utf8");
@@ -413,7 +394,6 @@ app.post("/accountSearch", function (req, res) {
 
         req.session.found = req.body.emailRecov;
         req.session.save();
-        console.log("user found");
 
         app.post("/updatePass", function (req, res) {
           BBY_11_user.updateOne({ email: req.session.found }, { $set: { password: req.body.newPass } },
@@ -426,9 +406,7 @@ app.post("/accountSearch", function (req, res) {
               }
             });
         });
-
       }
-
       if (!user) {
         let dbInfo = fs.readFileSync(__dirname + "/passRecov.html", "utf8");
         let changeToJSDOM = new JSDOM(dbInfo);
@@ -456,7 +434,8 @@ app.post("/signUp.html", function (req, res) {
 
   newUser.save(function (err) {
     if (err) {
-      console.log(err);
+      console.log("Error:\n" + err);
+      res.redirect("/errorRedirect.html");
     } else {
       res.sendFile(__dirname + "/login.html");
     }
@@ -472,7 +451,8 @@ app.post("/login.html", function (req, res) {
 
   BBY_11_user.findOne({ email: username }, function (err, foundUser) {
     if (err) {
-      console.log(err);
+      console.log("Error:\n" + err);
+      res.redirect("/errorRedirect.html");
     } else {
       // console.log("found THE user", foundUser);
       if (foundUser && foundUser.admin === false) {
@@ -529,7 +509,8 @@ app.post("/login.html", function (req, res) {
 app.get('/getUserInfo', function (req, res) {
   BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
     if (err) {
-      console.log(err);
+      console.log("Error:\n" + err);
+      res.redirect("/errorRedirect.html");
     } else {
       res.send(user);
     }
@@ -554,33 +535,29 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
 
       function (err, data) {
         if (err) {
-          console.log("Error " + err);
-
+          console.log("Error:\n" + err);
+          res.redirect("/errorRedirect.html");
         } else {
           req.session.email = req.body.email;
           req.session.save(function (err) { });
           res.redirect("/userProfilePage.html");
-
         }
-      })
-
+      });
   } else {
 
     BBY_11_user.updateOne({ email: req.session.email }, {
       $set: { email: req.body.email, password: req.body.password, name: req.body.name, lastName: req.body.lastName, imagePath: req.body.imagePath }
     },
-
       function (err, data) {
         if (err) {
-          console.log("Error " + err);
-
+          console.log("Error:\n" + err);
+          res.redirect("/errorRedirect.html");
         } else {
           req.session.email = req.body.email;
           req.session.save(function (err) { });
           res.redirect("/userProfilePage.html");
-
         }
-      })
+      });
   }
 }
 );
@@ -588,17 +565,17 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
 app.get('/getTimelinePosts', function (req, res) {
   BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
     if (err) {
-      console.log(err);
+      console.log("Error:\n" + err);
+      res.redirect("/errorRedirect.html");
     } else {
       res.send(user.timeline);
     }
-  })
+  });
 });
 
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
 app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
-
   for (let index = 0; index < req.files.length; index++) {
     req.files[index].filename = req.files[index].originalname;
   }
@@ -610,7 +587,6 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   let imageName = req.body.images[0].name;
   let images = req.body.images;
   for (let i = 0; i < images.length; i++) {
-
     if (imageName == "" && req.body.text == "") {
     } else if (images[0].name == "") {
       BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
@@ -618,36 +594,39 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
       },
         function (err, data) {
           if (err) {
-            console.log("Error " + err);
+            console.log("Error:\n" + err);
+            res.redirect("/errorRedirect.html");
           } else {
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
           }
-        })
+        });
     } else if (req.body.text == "") {
       BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
         $set: { "timeline.$.date": req.body.date, "timeline.$.images": [{ name: images[i].name, path: "img/" + images[i].path }] }
       },
         function (err, data) {
           if (err) {
-            console.log("Error " + err);
+            console.log("Error:\n" + err);
+            res.redirect("/errorRedirect.html");
           } else {
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
           }
-        })
+        });
     } else {
       BBY_11_user.updateOne({ email: req.session.user.email, "timeline._id": req.body._id }, {
         $set: { "timeline.$.text": req.body.text, "timeline.$.date": req.body.date, "timeline.$.images": [{ name: images[i].name, path: "img/" + images[i].path }] }
       },
         function (err, data) {
           if (err) {
-            console.log("Error " + err);
+            console.log("Error:\n" + err);
+            res.redirect("/errorRedirect.html");
           } else {
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
           }
-        })
+        });
     }
   }
 });
