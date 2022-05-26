@@ -113,12 +113,20 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/index.html", function (req, res) {
+  res.sendFile(__dirname + "/index.html");
+});
+
 app.get("/login.html", function (req, res) {
   res.sendFile(__dirname + "/login.html");
 });
 
 app.get("/signUp.html", function (req, res) {
   res.sendFile(__dirname + "/signUp.html");
+});
+
+app.get("/passRecov.html", function (req, res) {
+  res.sendFile(__dirname + "/passRecov.html");
 });
 
 app.get("/adminDash.html", function (req, res) {
@@ -130,81 +138,35 @@ app.get("/adminDash.html", function (req, res) {
   }
 });
 
-app.get("/search.html", function (req, res) {
-  if (req.session.users) {
-    res.sendFile(__dirname + "/search.html");
-  }
-  else {
-    res.redirect("/login.html");
-  }
-});
-
 app.get("/index2.html", (req, res) => {
   if (req.session.loggedIn) {
     res.sendFile(__dirname + "/index2.html");
   }
   else {
-    console.log("lol session");
     res.redirect("/login.html");
   }
 });
 
-//The following code follows 1537 course instructor's sessions example.
-app.get("/userProfilePage.html", function (req, res) {
-
+app.get("/userProfilePage.html", (req, res) => {
   if (req.session.loggedIn) {
-
-    let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
-    let changeToJSDOM = new JSDOM(userProfilePage);
-
-    changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
-    changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
-    changeToJSDOM.window.document.getElementById("userLastName").setAttribute("value", req.session.lastName);
-    changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
-    changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
-    changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
-
-    res.send(changeToJSDOM.serialize());
-
-  } else {
+    res.sendFile(__dirname + "/userProfilePage.html");
+  }
+  else {
     res.redirect("/login.html");
   }
+});
 
+app.get("/about.html", function (req, res) {
+  res.sendFile(__dirname + "/about.html");
 });
 
 // ---- app.post ----//
 
-app.post("/userProfilePage.html", imageLoader.single("imageToUpload"), function (req, res) {
-
-  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
-    $set: {
-      name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename
-    }
-  },
-    function (err, data) {
-      if (err) {
-        console.log("Error " + err);
-
-      } else {
-        console.log("Data " + data);
-        req.session.email = req.body.email;
-        req.session.password = req.body.password;
-        req.session.name = req.body.userFirstName;
-        req.session.lastName = req.body.userLastName;
-        req.session.imagePath = "img/" + req.file.filename;
-        res.redirect("/userProfilePage.html");
-      }
-    })
-
-});
-
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
 app.post('/saveImage', imageLoader.array("files"), function (req, res) {
-
   for (let i = 0; i < req.files.length; i++) {
     req.files[i].filename = req.files[i].originalname;
   }
-
 });
 
 
@@ -216,14 +178,26 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
   console.log("This is the text" + req.body.text);
 
   for (let i = 0; i < images.length; i++) {
-
     if (images === "") {
       BBY_11_user.updateOne({ email: req.session.user.email }, {
         $push: {
           timeline: { text: req.body.text, date: req.body.date }
         }
       },
-
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+          } else {
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+          }
+        });
+    } else if (req.body.text === "") {
+      BBY_11_user.updateOne({ email: req.session.user.email }, {
+        $push: {
+          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
+        }
+      },
         function (err, data) {
           if (err) {
             console.log("Error " + err);
@@ -235,58 +209,36 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
 
           }
         });
-
-    } else if (req.body.text === "") {
-
-      BBY_11_user.updateOne({ email: req.session.user.email }, {
-        $push: {
-          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
-        }
-      },
-
-        function (err, data) {
-          if (err) {
-            console.log("Error " + err);
-
-          } else {
-
-            req.session.save(function (err) { });
-            res.redirect("/userProfilePage.html");
-
-          }
-        })
-
     } else {
-
       BBY_11_user.updateOne({ email: req.session.user.email }, {
         $push: {
           timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
         }
       },
-
         function (err, data) {
           if (err) {
             console.log("Error " + err);
-
           } else {
-
             req.session.save(function (err) { });
             res.redirect("/userProfilePage.html");
-
           }
-        })
+        });
     }
   }
 });
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
+  req.session.loggedIn = false;
+  console.log(req.session.loggedIn);
+  req.session.destroy();
 });
 
-app.post("/", function (req, res) {
-  req.session.destroy();
-  res.redirect(__dirname + "/");
-});
+//we don't need this. Just commented out in case something happened. 
+// app.post("/", function (req, res) {
+//   res.sendFile(__dirname + "/index.html");
+// });
+
 
 app.post("/adminDash.html", function (req, res) {
   if (req.session.loggedIn) {
@@ -329,28 +281,42 @@ app.post("/search", function (req, res) {
         console.log("the error: " + err);
         res.status(500).send();
       } else {
-        var lol = req.body.dashEmail;
-        let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
-        let changeToJSDOM = new JSDOM(dbInfo);
+        if (users) {
+          let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
 
-        let str = "<table>";
-        users.forEach(function (user) {
-          str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
-            "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
-        });
-        str += "</table>";
+          let str = "<table>";
+          users.forEach(function (user) {
+            // for (var i = 0; i < user.length; i++) {
+            str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
+              "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
+          });
 
-        changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
-        res.send(changeToJSDOM.serialize());
-        console.log("user printed");
+          str += "</table>";
 
-        req.session.searchUser = req.body.dashEmail;
-        req.session.save();
+          changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
+          res.send(changeToJSDOM.serialize());
+          console.log("user printed");
 
-        id = req.session.searchUser;
-        console.log(id);
+          req.session.searchUser = req.body.dashEmail;
+          req.session.save();
+
+          id = req.session.searchUser;
+          console.log(id);
+        } else {
+          let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
+
+          let str = "<table><tr><td>Account not found!</td></tr></td>";
+          changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
+          changeToJSDOM.window.document.getElementById("searchUser").style.color = "#d50000";
+          res.send(changeToJSDOM.serialize());
+          console.log("no user found");
+        }
+        // });
       }
     });
+
   } else {
     res.redirect("/login.html");
   }
@@ -398,7 +364,7 @@ app.post("/delete", function (req, res) {
 
 app.post("/add", function (req, res) {
   if (req.session.loggedIn) {
-    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname },
+    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname, admin: req.body.isAdmin },
       function (err, users) {
         if (err) {
           console.log("there is an error");
@@ -406,14 +372,20 @@ app.post("/add", function (req, res) {
         } else {
           let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
           let changeToJSDOM = new JSDOM(dbInfo);
-          if (changeToJSDOM.window.document.getElementById("val5").checked) {
-            admin: true;
+
+          if (changeToJSDOM.window.document.getElementById("val5").checked == true) {
+
+            isAdmin = true;
+            console.log("admin user added");
             res.redirect("/adminDash.html");
-          } else if (changeToJSDOM.window.document.getElementById("val5").checked != true) {
-            admin: false;
+
+          } else if (changeToJSDOM.window.document.getElementById("val6").checked == true) {
+            isAdmin = false;
+            console.log("normal user added");
             res.redirect("/adminDash.html");
           } else {
-            admin: false;
+            BBY_11_user.admin = false;
+            console.log("default user added");
             res.redirect("/adminDash.html");
           }
         }
@@ -423,116 +395,54 @@ app.post("/add", function (req, res) {
   }
 });
 
-//---- searching ----//
+// ---- Reset Pass ----//
 
-var id;
-
-app.post("/search.html", function (req, res) {
-
-  if (req.session.loggedIn) {
-    BBY_11_user.find({ email: req.body.dashEmail }, function (err, users) {
-      if (err) {
-        console.log("the error: " + err);
-        res.status(500).send();
-      } else {
-        var lol = req.body.dashEmail;
-        let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
+app.post("/accountSearch", function (req, res) {
+  BBY_11_user.findOne({ email: req.body.emailRecov }, function (err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (user) {
+        let dbInfo = fs.readFileSync(__dirname + "/passRecov.html", "utf8");
         let changeToJSDOM = new JSDOM(dbInfo);
 
-        let str = "<table>";
-        users.forEach(function (user) {
-          str += "<tr><td>email: " + user.email + "</td></tr><tr><td>name: " + user.name + "</tr></td>" +
-            "<tr><td>lastName: " + user.lastName + "</tr></td><tr><td>isAdmin: " + user.admin + "</tr></td><tr><td><br></td></tr>";
-        });
-        str += "</table>";
-
-        changeToJSDOM.window.document.getElementById("searchUser").innerHTML = str;
+        let str = "<table><tr><td>Account Found!</td></tr></td>";
+        changeToJSDOM.window.document.getElementById("found").innerHTML = str;
+        changeToJSDOM.window.document.getElementById("found").style.color = "#15ec01";
         res.send(changeToJSDOM.serialize());
-        console.log("user printed");
 
-        req.session.searchUser = req.body.dashEmail;
+        req.session.found = req.body.emailRecov;
         req.session.save();
+        console.log("user found");
 
-        id = req.session.searchUser;
-        console.log(id);
+        app.post("/updatePass", function (req, res) {
+          BBY_11_user.updateOne({ email: req.session.found }, { $set: { password: req.body.newPass } },
+            function (err, user) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("pass updated");
+                res.redirect("/login.html");
+              }
+            });
+        });
+
       }
-    });
-  } else {
-    res.redirect("/login.html");
-  }
-});
 
-//---- updating ----//
+      if (!user) {
+        let dbInfo = fs.readFileSync(__dirname + "/passRecov.html", "utf8");
+        let changeToJSDOM = new JSDOM(dbInfo);
 
-app.post("/update", function (req, res) {
-  if (req.session.loggedIn) {
-    BBY_11_user.updateOne({ email: req.session.searchUser },
-      { $set: { email: req.body.upEmail, password: req.body.upPassword, name: req.body.fName, lastName: req.body.lName } },
-      function (err, users) {
-        if (err) {
-          console.log("there is an error");
-          console.log(err);
-        } else {
-          console.log("email updated");
-          res.redirect("/search.html");
-        }
-      });
-  } else {
-    res.redirect("/login.html");
-  }
-});
-
-//---- deleting ---//
-
-app.post("/delete", function (req, res) {
-  if (req.session.loggedIn) {
-    BBY_11_user.deleteOne({ email: req.session.searchUser }, function (err, users) {
-      if (err) {
-        console.log("there is an error");
-        console.log(err);
-      } else {
-        console.log("user deleted");
-        res.redirect("/search.html");
+        let str = "<table><tr><td>Account not found!</td></tr></td>";
+        changeToJSDOM.window.document.getElementById("found").innerHTML = str;
+        changeToJSDOM.window.document.getElementById("found").style.color = "#d50000";
+        res.send(changeToJSDOM.serialize());
       }
-    });
-  } else {
-    res.redirect("/login.html");
-  }
+    }
+  });
 });
 
-//---- adding ----//
-
-app.post("/add", function (req, res) {
-  if (req.session.loggedIn) {
-    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname },
-      function (err, users) {
-        if (err) {
-          console.log("there is an error");
-          console.log(err);
-        } else {
-          let dbInfo = fs.readFileSync(__dirname + "/search.html", "utf8");
-          let changeToJSDOM = new JSDOM(dbInfo);
-          if (changeToJSDOM.window.document.getElementById("newVal5").checked) {
-            admin: true;
-            console.log("admin user added");
-            res.redirect("/search.html");
-          } else if (changeToJSDOM.window.document.getElementById("newVal5").checked != true) {
-            admin: false;
-            console.log("normal user added");
-            res.redirect("/search.html");
-          } else {
-            admin: false;
-            console.log("normal user added");
-            res.redirect("/search.html");
-          }
-        }
-      });
-  } else {
-    res.redirect("/login.html");
-  }
-});
-
-
+// ---- SignUp ----//
 
 app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
@@ -548,10 +458,12 @@ app.post("/signUp.html", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.sendFile(__dirname + "/index2.html");
+      res.sendFile(__dirname + "/login.html");
     }
   });
 });
+
+// ---- LogIn ----//
 
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
@@ -562,6 +474,7 @@ app.post("/login.html", function (req, res) {
     if (err) {
       console.log(err);
     } else {
+      // console.log("found THE user", foundUser);
       if (foundUser && foundUser.admin === false) {
         if (foundUser.password === password) {
           req.session.user = foundUser;
@@ -573,7 +486,16 @@ app.post("/login.html", function (req, res) {
           req.session.imagePath = foundUser.imagePath;
           res.sendFile(__dirname + "/index2.html");
         }
+        if (foundUser.password != password) {
+          let dbInfo = fs.readFileSync(__dirname + "/login.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
+          let str = "<table><tr><td>Invalid username or password</td></tr></td>";
+          changeToJSDOM.window.document.getElementById("msg").innerHTML = str;
+          res.send(changeToJSDOM.serialize());
+          console.log("invalid useranme or pass");
+        }
       }
+
       if (foundUser && foundUser.admin === true) {
         if (foundUser.password === password && foundUser.admin != isAdmin) {
           req.session.users = foundUser;
@@ -582,7 +504,23 @@ app.post("/login.html", function (req, res) {
           req.session.password = password;
           res.sendFile(__dirname + "/adminDash.html");
         }
+        if (foundUser.password != password && foundUser.admin != isAdmin) {
+          let dbInfo = fs.readFileSync(__dirname + "/login.html", "utf8");
+          let changeToJSDOM = new JSDOM(dbInfo);
+          let str = "<table><tr><td>Invalid username or password</td></tr></td>";
+          changeToJSDOM.window.document.getElementById("msg").innerHTML = str;
+          res.send(changeToJSDOM.serialize());
+          console.log("invalid useranme or pass");
+        }
+      }
 
+      if (!foundUser) {
+        let dbInfo = fs.readFileSync(__dirname + "/login.html", "utf8");
+        let changeToJSDOM = new JSDOM(dbInfo);
+        let str = "<table><tr><td>Account not Found</td></tr></td>";
+        changeToJSDOM.window.document.getElementById("msg").innerHTML = str;
+        res.send(changeToJSDOM.serialize());
+        console.log("account not found");
       }
     }
   });

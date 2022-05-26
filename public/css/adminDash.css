@@ -4,7 +4,7 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-@media (min-width: 0px) and (max-width: 445px) {
+@media (min-width: 0px) and (max-width: 650px) {
 
   body {
     margin: 0px;
@@ -237,33 +237,19 @@
   }
 
   #val5 {
-    display: grid;
     grid-column: 1;
     grid-row: 5;
-    width: 90%;
-    height: 50%;
     font-size: 20px;
     border: 2px solid #383838;
     border-radius: 6px;
-    color: black;
-    justify-self: center;
-    margin-top: 2%;
-    margin-right: 2%;
   }
 
   #val6 {
-    display: grid;
     grid-column: 1;
     grid-row: 6;
-    width: 90%;
-    height: 50%;
     font-size: 20px;
     border: 2px solid #383838;
     border-radius: 6px;
-    color: black;
-    justify-self: center;
-    margin-top: 2%;
-    margin-right: 2%;
   }
 
   .add {
@@ -332,7 +318,7 @@
 
 }
 
-@media (min-width: 446px) {
+@media (min-width: 651px) {
 
   body {
     margin: 0px;
@@ -599,7 +585,7 @@
     border: 2px solid #CDBE78;
     border-radius: 6px;
     color: #CDBE78;
-    margin-top: 70%;
+    margin-top: 50%;
     text-align: center;
     width: 70%;
     height: 20%;
@@ -609,7 +595,7 @@
     display: grid;
     grid-column: 2;
     grid-row: 1;
-    margin-top: 55%;
+    margin-top: 50%;
   }
 
   #delete {

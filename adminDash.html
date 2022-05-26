@@ -17,13 +17,11 @@
         <div id="dropdown" onclick="displayDropdown()">
           <a id="dropdownButton" onclick="displayDropdown()" href="">Menu</a>
           <div id="menu">
-            <a class="menuItem" href="">Leaderboard</a>
             <a class="menuItem" href="">About</a>
-            <a class="menuItem" href="">Contact</a>
           </div>
         </div>
         <form action="/" method="POST">
-          <a id="logo" href="/index2.html"><img id="logoImg" src="/img/logo.png"></a>
+          <a id="logo" href="/adminDash.html"><img id="logoImg" src="/img/logo.png" alt=""></a>
           <button id="logoutButton" type="submit">Log Out</button>
         </form>
       </nav>
@@ -75,9 +73,9 @@
             <input class="name" type="text" value="" placeholder="First Name" name="adFname" required="required">
             <input class="lname" type="text" value="" placeholder="Last Name" name="adLname" required="required">
             <br>
-            <input id="val5" type="checkbox" value="" name="Admin">
+            <input id="val5" type="checkbox" value="yes" name="isAdmin">
             <label for="val5">is Admin</label>
-            <input id="val6" type="checkbox" value="" name="Admin">
+            <input id="val6" type="checkbox" value="" name="isNotAdmin">
             <label for="val5">not Admin</label>
             <button class="add" type="submit">add</button>
           </form>
