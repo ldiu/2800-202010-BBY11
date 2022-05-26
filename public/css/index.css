@@ -12,7 +12,7 @@
 @keyframes horizontal-shaking {
   0% { transform: translateX(0) rotate(0deg);}
   25% { transform: translateX(2px) rotate(2deg);}
-  50% { transform: translateX(-2px) rotate(0eg); }
+  50% { transform: translateX(-2px) rotate(0deg);}
   75% { transform: translateX(2px) rotate(-2deg);}
   100% { transform: translateX(0) rotate(0deg);}
 }
@@ -105,7 +105,8 @@ box-shadow: 1px 1px 3px #000;
     margin: 0px;
     padding: 0px;
     background-color: #2C3333;
-  }
+    color: #CDBE78;
+  }  
 
   #container1 {
     display: grid;
@@ -356,7 +357,8 @@ box-shadow: 1px 1px 3px #000;
     margin: 0px;
     padding: 0px;
     background-color: #2C3333;
-  }
+    color: #CDBE78;
+  }  
 
   #container1 {
     display: grid;
@@ -397,7 +399,6 @@ box-shadow: 1px 1px 3px #000;
   #solutionBox {
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
-    /* margin: 1rem; */
     font-size: 20px;
     text-align: center;
     background-color: #2C3333;
@@ -600,13 +601,6 @@ box-shadow: 1px 1px 3px #000;
     color: #CDBE78;
     font-size: 23px;
     border: #066163;
-  }
-
-  #logoutButton{
-    background-color: rgba(76, 76, 76, 0.437);
-    color:white;
-    font-size: 23px;
-    border: 1px solid black;
   }
 
 }

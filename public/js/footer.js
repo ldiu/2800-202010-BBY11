@@ -1,10 +1,10 @@
 "use strict";
 
-// function loadFooter(){
-//     $('#footer').load('public/text/footer.html');
-// }
+function loadFooter(){
+    $('#footer').load('text/footer.html');
+}
 
-// loadFooter();
+loadFooter();
 
 function displayDropdown(){
     let menuDisplay = document.getElementById("menu").style.display;

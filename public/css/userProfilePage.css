@@ -4,12 +4,13 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-@media (min-width: 0px) and (max-width: 445px) {
+@media (min-width: 0px) and (max-width: 650px) {
 
   body {
     margin: 0px;
     padding: 0px;
     background-color: #2C3333;
+    color: #CDBE78;
   }
 
   #container1{
@@ -26,27 +27,34 @@
 
   #container2{
     display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 5% 1fr 5%;
+    grid-template-rows: 800px 1fr;
+    grid-template-columns: 5% 90% 5%;
   }
 
   #container3{
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
     display:grid;
-    grid-template-rows: 7% 43% 10% 30% 10%;
+    grid-template-rows: 7% 43% 40% 10%;
     grid-template-columns: 100%;
     grid-gap: .5rem;
     height: 85vh;
-  
   }
 
   #welcome{
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
     color: #CDBE78;
-    font-size: 12px;
-    
+    font-size: 18px;
+  }
+
+  img {
+    width: 90%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 2px solid #CDBE78;
   }
 
   #imageContainer{
@@ -56,20 +64,29 @@
   }
 
   #profileImage{
-    max-width: 100%;
+    width: 100%;
+    height: 85%;
     object-fit: cover;
-    object-position: center; 
     border-radius: 10px;
     padding: 1rem;
-    border: 3px solid #CDBE78;
+    border: 2px solid #CDBE78;
   }
 
-  #imageUpload{
+  #userFields{
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
+    border-radius: 6px;
+    border: 2px solid #CDBE78;
+
+  }
+
+  #buttonForm{
     display: grid;
-    grid-template-rows: 100%;
+    grid-template-rows: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
     grid-template-columns: 50% 50%;
+    grid-gap: .2rem;
+    height: 30vh;
+    margin-right: .4rem;
   }
 
   #findImage{
@@ -80,95 +97,89 @@
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
     color: #CDBE78;
-    border: 1px solid #CDBE78;
+    border: 2px solid #CDBE78;
     background-color: #0b2d2e;
     border-radius: 6px;
     padding-top: 5%;
-    padding-left: 2%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-right: .5rem;;
     text-align: center;
   }
 
-  #uploadButton{
-    grid-row: 1 / span 1;
-    grid-column: 2 / span 1;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  #submitPost{
     background-color: #0b2d2e;
     color: #CDBE78;
-    border: 1px solid #CDBE78;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    margin-left: .5rem;
+    padding: .42rem;
+    margin-right: .5rem;
+    float: right;
   }
 
-  #userFields{
-    grid-row: 4 / span 1;
-    grid-column: 1 / span 1;
+  #findImg {
+    display: none;
+
+  }
+  
+  .findImgClass{
+    background-color: #0b2d2e;
+    color: #CDBE78;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
-    border: .5px solid #CDBE78;
+    padding: .3rem;
+    float: left;
   }
 
-  #buttonForm{
-    display: grid;
-    grid-template-rows: 20% 20% 20% 20% 20%;
-    grid-template-columns: 50% 50%;
-    grid-gap: .2rem;
-    height: 21vh;
-    margin-right: .4rem;
+  #findImgName{
+    color: #CDBE78;
+    margin-left: .7rem;
   }
 
   #userFirstName{
-    grid-row: 1 / span 1;
+    grid-row: 2 / span 1;
     grid-column: 1 / span 2;
-    background-color: #F2F2F2;
-    color: black;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
     border: 1px solid #2C3333;
     border-radius: 6px;
   }
 
   #userLastName{
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
     grid-column: 1 / span 2;
-    background-color: #F2F2F2;
-    color: black;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
 
   #userEmail{
-    grid-row: 3 / span 1;
+    grid-row: 4 / span 1;
     grid-column: 1 / span 2;
-    background-color: #F2F2F2;
-    color: black;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
 
   #userPassword{
     grid-column: 1 / span 2;
-    grid-row: 4 / span 1;
-    background-color: #F2F2F2;
-    color: black;
+    grid-row: 5 / span 1;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
 
   #saveButton{
     grid-column: 1 / span 2;
-    grid-row: 5 / span 1;
+    grid-row: 6 / span 1;
     background-color: #0b2d2e;
     color: #CDBE78;
-    border: 1px solid #CDBE78;
+    border: 2px solid #CDBE78;
     border-radius: 6px;
   }
 
   #edit{
-    grid-row: 5 / span 1;
+    grid-row: 4 / span 1;
     grid-column: 1 / span 1;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -178,13 +189,32 @@
   #editButton{
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: .7rem;
+    margin-bottom: .7rem;
     margin-left: .5rem;
     margin-right: .5rem;
     background-color: #066163;
     color: #CDBE78;
     border: 2px solid #CDBE78;
+    border-radius: 6px;
+  }
+
+  #container4{
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    margin-bottom: 5%;
+    max-width: 100%;
+  }
+
+  #timeline{
+    margin-bottom: 5%;
+    max-width: 97%;
+    margin-top: 5rem;
+  }
+
+  textarea{
+    max-width:97%;
+    min-width: 94%;
     border-radius: 6px;
   }
 
@@ -197,12 +227,13 @@
 
 }
 
-@media (min-width: 446px) {
+@media (min-width: 651px) {
 
-  body {
+   body {
     margin: 0px;
     padding: 0px;
     background-color: #2C3333;
+    color: #CDBE78;
   }
 
   #container1{
@@ -219,25 +250,36 @@
 
   #container2{
     display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 1fr 500px 1fr;
+    grid-template-rows: 1080px 1fr;
+    grid-template-columns: 1fr 40% 1fr;
   }
-
-  #container3{
+  
+  #container3 {
     grid-row: 1 / span 1;
     grid-column: 2 / span 1;
     display:grid;
-    grid-template-rows: 10% 55% 10% 20% 10%;
+    grid-template-rows: 10% 55% 30% 10%;
     grid-template-columns: 100%;
     height: 85vh;
-  
+    max-width: 600px;
+    min-width: 450px;
   }
-
+  
   #welcome{
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
     color: #CDBE78;
+    font-size: 20px;
     
+  }
+
+  img {
+    width: 90%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 3px solid #CDBE78;
   }
 
   #imageContainer{
@@ -245,27 +287,37 @@
     grid-column: 1 / span 1;
 
   }
-
-  #profileImage{
-    max-width: 100%;
-    height: 350px;
+  
+  .profileImage{
+    width: 90%;
+    height: 90%;
     object-fit: cover;
-    object-position: center; 
     border-radius: 10px;
     padding: 1rem;
     border: 3px solid #CDBE78;
   }
-
-  #imageUpload{
+ 
+  #userFields{
     grid-row: 3 / span 1;
     grid-column: 1 / span 1;
-    display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 50% 50%;
+    border-radius: 6px;
+    border: 2px solid #CDBE78;
+    max-width:91.5%;
+    min-width:90%;
   }
 
-  #findImage{
+    
+  #buttonForm{
+    display: grid;
+    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-columns: 50% 50%;
+    height: 20vh;
+    grid-gap: .5rem;
+    margin-right: .4rem;
+  }
 
+    
+  #findImage{
     display:none;
   }
 
@@ -275,86 +327,51 @@
     color: #CDBE78;
     border: 1px solid #CDBE78;
     background-color: #0b2d2e;
+    padding-top: 4%;
     border-radius: 6px;
-    padding-top: 3%;
-    padding-left: 2%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-right: .5rem;;
     text-align: center;
-  }
+  } 
 
-  #uploadButton{
-    grid-row: 1 / span 1;
-    grid-column: 2 / span 1;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background-color: #0b2d2e;
-    color: #CDBE78;
-    border: 1px solid #CDBE78;
-    border-radius: 6px;
-    margin-left: .5rem;
-    
-  }
-
-  #userFields{
-    grid-row: 4 / span 1;
-    grid-column: 1 / span 1;
-    border-radius: 6px;
-    border: .5px solid #CDBE78;
-  }
-
-  #buttonForm{
-    display: grid;
-    grid-template-rows: 33% 33% 33%;
-    grid-template-columns: 50% 50%;
-    height: 12vh;
-    grid-gap: .5rem;
-    margin-right: .4rem;
-  }
-
-  #userFirstName{
-    grid-row: 1 / span 1;
-    grid-column: 1 / span 1;
-    background-color: #F2F2F2;
-    color: black;
-    border: 1px solid #2C3333;
-    border-radius: 6px;
-  }
-
-  #userLastName{
-    grid-row: 1 / span 1;
-    grid-column: 2 / span 1;
-    background-color: #F2F2F2;
-    color: black;
-    border: 1px solid #2C3333;
-    border-radius: 6px;
-
-  }
-
-  #userEmail{
+   #userFirstName{
     grid-row: 2 / span 1;
     grid-column: 1 / span 1;
-    background-color: #F2F2F2;
-    color: black;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
     border: 1px solid #2C3333;
     border-radius: 6px;
-
   }
-
+ 
+  #userLastName{
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
+    border: 1px solid #2C3333;
+    border-radius: 6px;
+  }
+  
+  #userEmail{
+    grid-row: 3 / span 1;
+    grid-column: 1 / span 1;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
+    border: 1px solid #2C3333;
+    border-radius: 6px;
+  }
+  
   #userPassword{
     grid-column: 2 / span 1;
-    grid-row: 2 / span 1;
-    background-color: #F2F2F2;
-    color: black;
+    grid-row: 3 / span 1;
+    background-color: rgb(109, 109, 109);
+    color: rgb(48, 48, 48);
     border: 1px solid #2C3333;
     border-radius: 6px;
 
   }
-
+  
   #saveButton{
     grid-column: 1 / span 1;
-    grid-row: 3 / span 1;
+    grid-row: 4 / span 1;
     background-color: #0b2d2e;
     color: #CDBE78;
     border: 1px solid #CDBE78;
@@ -362,7 +379,7 @@
   }
 
   #edit{
-    grid-row: 5 / span 1;
+    grid-row: 4 / span 1;
     grid-column: 1 / span 1;
     display: grid;
     grid-template-columns: 50% 50%;
@@ -380,15 +397,78 @@
     color: #CDBE78;
     border: 2px solid #CDBE78;
     border-radius: 6px;
+  } 
+
+  #container4{
+    grid-row: 2 / span 1;
+    grid-column: 2 / span 1;
+    max-width: 600px;
+    min-width: 450px;
+    border-radius: 6px;
+  }
+
+  #timeline{
+    margin-bottom: 5%;
+    max-width: 97%;
+    margin-top: 5rem;
+  }
+
+  #findImg {
+    display: none;
+  }
+  
+  .findImgClass{
+    background-color: #0b2d2e;
+    color: #CDBE78;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    padding: .3rem;
+    float: left;
+  }
+
+  #findImgName{
+    color: #CDBE78;
+    margin-left: 0.7rem;
+  }
+
+  #submitPost{
+    background-color: #0b2d2e;
+    color: #CDBE78;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    padding: .42rem;
+    margin-right: 1rem;
+    float: right;
+    
   }
 
   #logoutButton{
     background-color: #066163;
-    color:#CDBE78;
+    color:#CDBE78; 
     font-size: 23px;
     border: 1px solid #066163;
   }
 
+  textarea{
+    max-width:96%;
+    min-width: 94%;
+    border-radius: 6px;
+  }
+
+  #logoutButton{
+    float:right;
+    background-color: #066163;
+    color: #CDBE78;
+    font-size: 23px;
+    border: #066163;
+  }
   
-  
+}
+
+#saveButton {
+  display: none;
+}
+
+#chooseImage {
+  display: none;
 }

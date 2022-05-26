@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/img/favicon.png">
   <title>Admin DashBoard</title>
   <link rel="stylesheet" href="css/navbarFooter.css">
   <link rel="stylesheet" href="css/adminDash.css">
@@ -16,13 +17,11 @@
         <div id="dropdown" onclick="displayDropdown()">
           <a id="dropdownButton" onclick="displayDropdown()" href="">Menu</a>
           <div id="menu">
-            <a class="menuItem" href="">Leaderboard</a>
             <a class="menuItem" href="">About</a>
-            <a class="menuItem" href="">Contact</a>
           </div>
         </div>
         <form action="/" method="POST">
-          <a href="/index2.html" id="logo">24</a>
+          <a id="logo" href="/adminDash.html"><img id="logoImg" src="/img/logo.png" alt=""></a>
           <button id="logoutButton" type="submit">Log Out</button>
         </form>
       </nav>
@@ -36,10 +35,51 @@
         <div id="tableInfo"></div>
       </div>
 
-      <div id="searchPage">
-        <form action="/search.html" method="POST">
-          <a id="searchingPage" href="/search.html" role="button">Search User</a>
-        </form>
+      <div id="content">
+
+        <div class="search">
+          <form id="searchSection" action="/search" method="POST">
+            <input id="searchBar" type="email" placeholder=" Search" name="dashEmail">
+            <button type="submit" id="searchUsers">Search</button>
+          </form>
+
+          <div id="deleting">
+            <form id="deleteSection" action="/delete" method="POST">
+              <button type="submit" id="delete">Delete User</button>
+            </form>
+          </div>
+
+          <div id="searchUser"></div>
+          <div id="updateInfo"></div>
+        </div>
+
+
+
+        <div id="data">
+          <form id="updateSection" action="/update" method="POST">
+            <input class="newVal1" type="email" value="" placeholder="Email" name="upEmail" required="required">
+            <input class="newVal2" type="password" value="" placeholder="Password" name="upPassword"
+              required="required">
+            <input class="newVal3" type="text" value="" placeholder="First Name" name="fName" required="required">
+            <input class="newVal4" type="text" value="" placeholder="Last Name" name="lName" required="required">
+            <button class="save" type="submit">Save</button>
+          </form>
+        </div>
+
+        <div id="adding">
+          <form id="addSection" action="/add" method="POST">
+            <input class="email" type="email" value="" placeholder="Email" name="adEmail" required="required">
+            <input class="pass" type="password" value="" placeholder="Password" name="adPassword" required="required">
+            <input class="name" type="text" value="" placeholder="First Name" name="adFname" required="required">
+            <input class="lname" type="text" value="" placeholder="Last Name" name="adLname" required="required">
+            <br>
+            <input id="val5" type="checkbox" value="yes" name="isAdmin">
+            <label for="val5">is Admin</label>
+            <input id="val6" type="checkbox" value="" name="isNotAdmin">
+            <label for="val5">not Admin</label>
+            <button class="add" type="submit">add</button>
+          </form>
+        </div>
       </div>
     </div>
 

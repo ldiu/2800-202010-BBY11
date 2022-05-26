@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/img/favicon.png">
   <title>24</title>
   <link href="css/login.css" rel="stylesheet">
   <link rel="stylesheet" href="css/navbarFooter.css">
@@ -16,12 +17,11 @@
         <div id="dropdown" onclick="displayDropdown()">
           <a id="dropdownButton" onclick="displayDropdown()" href="">Menu</a>
           <div id="menu">
-            <a class="menuItem" href="">Leaderboard</a>
-            <a class="menuItem" href="">About</a>
-            <a class="menuItem" href="">Contact</a>
+            <a class="menuItem" href="/about.html">About</a>
+            <a href="/index.html">Back</a>
           </div>
         </div>
-        <a href="/index.html" id="logo">24</a> 
+        <a id="logo" href="/index.html"><img id="logoImg" src="/img/logo.png" alt=""></a>
       </nav>
     </div>
     <div id="section">
@@ -33,11 +33,12 @@
           <label for="passowrdBox"></label>
           <input id="passowrdBox" placeholder="Enter your password" type="password" name="password" required="required">
           <div id="createAccount"></div>
-          
+          <div id="msg"></div>
+          <a id="forgot" href="/passRecov.html" role="button">Fogot Password?</a>
           <button type="submit" class="btn" id="signInButton">Sign In</button>
           <a id="signUpButton" href="/signUp.html" role="button">Sign Up</a>
+          
         </form>
-
       </div>
     </div>
   </div>

@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (min-width: 0px) and (max-width: 445px) {
+
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-image: url("../img/math2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+  }
+
+  #container1 {
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #section {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 5% 1fr 5%;
+  }
+
+  #container2 {
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-columns: 100%;
+    height: 80vh;
+  }
+
+  #container3 {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 17% 2% 17% 2% 17% 2% 17% 2% 15%;
+    height: 50vh;
+    background-color: rgba(0, 0, 0, 0.783);
+    border-radius: 6px;
+    ;
+  }
+
+  #contain {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 46% 6% 46%;
+    grid-column: 1;
+    grid-row: 2;
+    height: 40vh;
+    background-color: rgba(0, 0, 0, 0.783);
+    border-radius: 6px;
+  }
+
+  #searchSection {
+    display: grid;
+    grid-template-columns: 69% 9% 22%;
+    grid-template-rows: 50% 50%;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #emailRecov {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-left: 3%;
+    background-color: #F2F2F2;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+  }
+
+  #searchUsers {
+    grid-column: 3;
+    grid-row: 1;
+    width: 100%;
+    font-size: 20px;
+    background-color: #066163;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+    justify-self: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    margin-right: 12%;
+    padding-left: 5%;
+  }
+
+  #found{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #updateSection {
+    display: grid;
+    grid-column: 1;
+    grid-row: 3;
+    grid-template-columns: 68% 8% 24%;
+    grid-template-rows: 50% 50%;
+  }
+
+  #newPass {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-left: 3%;
+    background-color: #F2F2F2;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+  }
+
+  #updatePassword {
+    grid-column: 3;
+    grid-row: 1;
+    width: 100%;
+    font-size: 20px;
+    background-color: #066163;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+    justify-self: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    margin-right: 18%;
+    padding-left: 5%;
+  }
+
+
+}
+
+@media (min-width: 446px) {
+
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-image: url("../img/math2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  #container1 {
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    grid-template-columns: 100%;
+    height: 100vh;
+  }
+
+  #section {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 410px 1fr;
+  }
+
+  #container2 {
+    grid-row: 1;
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: 10% 1fr 10%;
+    grid-template-columns: 100%;
+    height: 80vh;
+    max-width: 410px;
+    min-width: 409px;
+  }
+
+  #contain {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 46% 6% 46%;
+    grid-column: 1;
+    grid-row: 2;
+    height: 40vh;
+    background-color: rgba(0, 0, 0, 0.783);
+    border-radius: 6px;
+  }
+
+  #searchSection {
+    display: grid;
+    grid-template-columns: 70% 10% 20%;
+    grid-template-rows: 50% 50%;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  #emailRecov {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-left: 3%;
+    background-color: #F2F2F2;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+  }
+
+  #searchUsers {
+    grid-column: 3;
+    grid-row: 1;
+    width: 100%;
+    font-size: 20px;
+    background-color: #066163;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+    justify-self: center;
+    margin-top: 2.3rem;
+    margin-bottom: 2rem;
+    margin-right: 15%;
+  }
+
+  #found{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #updateSection {
+    display: grid;
+    grid-column: 1;
+    grid-row: 3;
+    grid-template-columns: 69% 9% 22%;
+    grid-template-rows: 50% 50%;
+  }
+
+  #newPass {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    margin-left: 3%;
+    background-color: #F2F2F2;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+  }
+
+  #updatePassword {
+    grid-column: 3;
+    grid-row: 1;
+    width: 100%;
+    font-size: 20px;
+    background-color: #066163;
+    border: 2px solid #CDBE78;
+    border-radius: 6px;
+    color: #CDBE78;
+    justify-self: center;
+    margin-top: 2.3rem;
+    margin-bottom: 2rem;
+    margin-right: 18%;
+  }
+
+}

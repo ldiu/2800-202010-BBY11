@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/img/favicon.png">
+  <title>24</title>
+  <link href="css/index.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/navbarFooter.css">
+</head>
+
+<body>
+  <div id="container1">
+    <div id="navbar">
+      <nav>
+        <div id="dropdown" onclick="displayDropdown()">
+          <a id="dropdownButton" onclick="displayDropdown()">Menu</a>
+          <div id="menu">
+            <a class="menuItem" href="/index.html">Back</a>
+          </div>
+        </div>
+        <a id="logo" href="/index.html"><img id="logoImg" src="/img/logo.png" alt=""></a>
+      </nav>
+
+    </div>
+    <div id="section">
+      <span>Hello There!</span>
+    </div>
+    <p class="hoverInstructions">how to play</p>
+    <div id="info-modal" class="modal-dialog">
+      <div>
+        <a href="#close" title="Close" class="close">x</a>
+        <p>Find an equation that results in 24 using all of the six randomly generated numbers once and only once!<br><br>Click the solution box to play again!</p>
+      </div>
+    </div>
+  </div>
+  <div id="footer"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/surpriseEvent.js"></script>
+  <script src="js/gameBoard.js"></script>
+  <script src="js/footer.js"></script>
+</body>
+
+</html>

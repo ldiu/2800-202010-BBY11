@@ -4,10 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/img/favicon.png">
   <title>24</title>
-
-  <link rel="stylesheet" href="css/navbarFooter.css">
+  <link rel="stylesheet" href="css/editPost.css">
+  <link rel="stylesheet" href="css/timeline.css">
   <link rel="stylesheet" href="css/userProfilePage.css">
+  <link rel="stylesheet" href="css/navbarFooter.css">
 
 </head>
 
@@ -18,14 +20,12 @@
         <div id="dropdown">
           <a href="" id="dropdownButton">Menu</a>
           <div id="menu">
-            <a class="menuItem" href="">Leaderboard</a>
-            <a class="menuItem" href="">About</a>
-            <a class="menuItem" href="">Contact</a>
+            <a class="menuItem" href="/about.html">About</a>
             <a href="/index2.html">Back</a>
           </div>
         </div>
         <form action="/" method="POST">
-          <a href="/index2.html" id="logo">24</a>
+          <a id="logo" href="/index2.html"><img id="logoImg" src="/img/logo.png" alt=""></a>
           <button id="logoutButton" type="submit">Log Out</button>
         </form>
       </nav>
@@ -36,13 +36,11 @@
         <div id="imageContainer">
           <img id="profileImage" src="img/johndoe.png" alt="">
         </div>
-        <form id="imageUpload" action="/userProfileImage" enctype="multipart/form-data" method="POST">
-          <label for="findImage" class="findImageStyle"> Choose Image
-            <input id="findImage" type="file" size="60" name="imageToUpload"></label>
-          <input id="uploadButton" type="submit" value="Upload New Image" />
-        </form>
         <fieldset id="userFields" disabled>
-          <form id="buttonForm" action="/userProfilePage.html" method="POST">
+          <form id="buttonForm">
+            <label for="findImage" class="findImageStyle" id="chooseImage"> Choose Image
+              <input id="findImage" type="file" size="60" name="imageToUpload"></label>
+              <label id="findImageName"></label>
             <label for="userFirstName"></label>
             <input id="userFirstName" type="text" value="" required name="userFirstName">
             <label for="userLastName"></label>
@@ -56,13 +54,52 @@
           </form>
         </fieldset>
         <form id="edit">
-          <button type="button" id="editButton" onclick="update()">Edit</button>
+          <button type="button" id="editButton" onclick="update()" >Edit</button>
         </form>
+      </div>
+      <div id="container4">
+        Create a Post:
+        <form id="postForm">
+          <textarea id="textForPost" rows="5" cols="1000" name="textForPost"></textarea>
+          <br>
+          <br>
+          <label for="findImg" class="findImgClass"> Choose Image
+          <input id="findImg" type="file" size="60" name="fileImage" accept="image/png, image/gif, image/jpeg"
+            multiple="multiple"></label>
+          <div id="findImgName"></div>
+          <button id="submitPost" type="submit" value="Submit">Submit</button>
+        </form>
+        <div id="timeline">
+          Time Line:
+        </div>
+
+        <div id="postEdit">
+          
+            <div id="postEditHeader">
+              <button type="button" id="exitPost" onclick="exitEdit()"> &#10006; </button>
+            </div>
+            <form id="editForm">
+              <label id="newImgName"></label>
+              <label for="newImg" class="addImg"> Choose Image
+                <input id="newImg" type="file" size="60" name="postImage" accept="image/png, image/gif, image/jpeg"
+                  multiple="multiple">
+              </label>
+
+              <label id="newText" for="newTextInput"><input id="newTextInput" type="text" placeholder="Enter Text"></label>
+
+
+              <button id="editPost" type="submit">Submit</button>
+            </form>
+            <form id="deletePostForm"><button type="submit" id="deletePost"> Delete Post</button></form>
+          
+        </div>
       </div>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="js/client.js"></script>
   <script src="js/userProfilePage.js"></script>
+  <script src="js/userInformation.js"></script>
 </body>
 
 </html>

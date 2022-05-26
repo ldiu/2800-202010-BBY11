@@ -50,6 +50,10 @@ nav a {
 
 #logoutButton{
     float:right;
+    background-color: #066163;
+    color: #CDBE78;
+    font-size: 23px;
+    border: #066163;
 }
 
 #logoutButton:hover {
@@ -63,7 +67,6 @@ nav a:hover {
 }
 
 #footer {
-
     bottom: 0;
     width: 100%;
     height: 50px;
@@ -72,4 +75,23 @@ nav a:hover {
     text-align: center;
     vertical-align: middle;
     padding-top: 1%;
+    margin-top: 7%;
 }
+
+#logoImg {
+    height: auto;
+    max-height: 33px;
+    width: auto;
+    max-width: 50px;
+   object-fit: cover;
+        border-radius: 0px;
+        padding: 0rem;
+        border: 0px;
+
+}
+
+#logo {
+    text-align: center;
+}
+
+
