@@ -132,10 +132,12 @@
   }
 
   #contain {
-    display: grid;
+    display: block;
     grid-template-columns: 10% 80% 10%;
     grid-template-rows: 25% 50% 25%;
     height: 100vh;
+    padding: 3%;
+    line-height: 1.5;
   }
 
   #info {
