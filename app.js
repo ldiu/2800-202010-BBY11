@@ -113,10 +113,6 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/about.html", function (req, res) {
-  res.sendFile(__dirname + "/about.html");
-});
-
 app.get("/index.html", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
@@ -174,11 +170,15 @@ app.get("/userProfilePage.html", function (req, res) {
 
 });
 
+app.get("/about.html", function (req, res) {
+  res.sendFile(__dirname + "/about.html");
+});
+
 // ---- app.post ----//
 
 app.post("/userProfilePage.html", imageLoader.single("imageToUpload"), function (req, res) {
 
-  const currentUser = BBY_11_user.updateOne({ email: req.session.email }, {
+  BBY_11_user.updateOne({ email: req.session.email }, {
     $set: {
       name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename
     }
@@ -398,7 +398,7 @@ app.post("/delete", function (req, res) {
 
 app.post("/add", function (req, res) {
   if (req.session.loggedIn) {
-    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname, admin: req.body.isAdmin},
+    BBY_11_user.insertMany({ email: req.body.adEmail, password: req.body.adPassword, name: req.body.adFname, lastName: req.body.adLname, admin: req.body.isAdmin },
       function (err, users) {
         if (err) {
           console.log("there is an error");
@@ -406,7 +406,7 @@ app.post("/add", function (req, res) {
         } else {
           let dbInfo = fs.readFileSync(__dirname + "/adminDash.html", "utf8");
           let changeToJSDOM = new JSDOM(dbInfo);
-          
+
           if (changeToJSDOM.window.document.getElementById("val5").checked == true) {
 
             isAdmin = true;
