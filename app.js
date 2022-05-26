@@ -147,27 +147,13 @@ app.get("/index2.html", (req, res) => {
   }
 });
 
-//The following code follows 1537 course instructor's sessions example.
-app.get("/userProfilePage.html", function (req, res) {
-
+app.get("/userProfilePage.html", (req, res) => {
   if (req.session.loggedIn) {
-
-    let userProfilePage = fs.readFileSync(__dirname + "/userProfilePage.html", "utf8");
-    let changeToJSDOM = new JSDOM(userProfilePage);
-
-    changeToJSDOM.window.document.getElementById("welcome").innerHTML = "<h2>Welcome to your profile " + req.session.name + "</h2>";
-    changeToJSDOM.window.document.getElementById("userFirstName").setAttribute("value", req.session.name);
-    changeToJSDOM.window.document.getElementById("userLastName").setAttribute("value", req.session.lastName);
-    changeToJSDOM.window.document.getElementById("userEmail").setAttribute("value", req.session.email);
-    changeToJSDOM.window.document.getElementById("userPassword").setAttribute("value", req.session.password);
-    changeToJSDOM.window.document.getElementById("profileImage").src = req.session.imagePath;
-
-    res.send(changeToJSDOM.serialize());
-
-  } else {
+    res.sendFile(__dirname + "/userProfilePage.html");
+  }
+  else {
     res.redirect("/login.html");
   }
-
 });
 
 app.get("/about.html", function (req, res) {
@@ -175,30 +161,6 @@ app.get("/about.html", function (req, res) {
 });
 
 // ---- app.post ----//
-
-app.post("/userProfilePage.html", imageLoader.single("imageToUpload"), function (req, res) {
-
-  BBY_11_user.updateOne({ email: req.session.email }, {
-    $set: {
-      name: req.body.userFirstName, lastName: req.body.userLastName, email: req.body.email, password: req.body.password, imagePath: "img/" + req.file.filename
-    }
-  },
-    function (err, data) {
-      if (err) {
-        console.log("Error " + err);
-
-      } else {
-        console.log("Data " + data);
-        req.session.email = req.body.email;
-        req.session.password = req.body.password;
-        req.session.name = req.body.userFirstName;
-        req.session.lastName = req.body.userLastName;
-        req.session.imagePath = "img/" + req.file.filename;
-        res.redirect("/userProfilePage.html");
-      }
-    })
-
-});
 
 //Code follows Instructor Arron's "upload-file" example from 2537 course work. 
 app.post('/saveImage', imageLoader.array("files"), function (req, res) {
@@ -267,12 +229,16 @@ app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) 
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
+  req.session.loggedIn = false;
+  console.log(req.session.loggedIn);
+  req.session.destroy();
 });
 
-app.post("/", function (req, res) {
-  req.session.destroy();
-  res.redirect(__dirname + "/");
-});
+//we don't need this. Just commented out in case something happened. 
+// app.post("/", function (req, res) {
+//   res.sendFile(__dirname + "/index.html");
+// });
+
 
 app.post("/adminDash.html", function (req, res) {
   if (req.session.loggedIn) {
@@ -492,7 +458,7 @@ app.post("/signUp.html", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.sendFile(__dirname + "/index2.html");
+      res.sendFile(__dirname + "/login.html");
     }
   });
 });
