@@ -116,13 +116,13 @@ const usersSchema = {
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
-// BBY_11_user.insertMany("/data.json", function(err){
-// if(err){
-//   console.log(err);
-// } else {
-//   console.log("saved successfully");
-// }
-// });
+BBY_11_user.insertMany("/data.json", function(err){
+if(err){
+  console.log(err);
+} else {
+  console.log("saved successfully");
+}
+});
 
 
 //------- app.get all pages section -------//
