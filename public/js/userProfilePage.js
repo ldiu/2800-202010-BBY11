@@ -157,10 +157,9 @@ function findImages(e) {
   );
 }
 
+//This function deletes a post and takes its structure from the "fetch-example" from 2537 course.
 async function deletePost(data) {
-  console.log("this is " + data);
   try {
-    console.log("deletePost was called");
     let responseObject = await fetch("/deleteOldPost", {
       method: 'POST',
       headers: {

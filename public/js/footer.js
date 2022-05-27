@@ -1,5 +1,6 @@
 "use strict";
 
+// This block of code to load a text file (footer) into the document is from a COMP 1800 Project
 function loadFooter(){
     $('#footer').load('text/footer.html');
 }

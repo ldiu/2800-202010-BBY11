@@ -82,7 +82,6 @@ async function updateUserInfo(data) {
   }
 }
 
-
 //Code snippet similar to code written by Borislav Hadzhiev at the following website:
 //https://bobbyhadz.com/blog/javascript-check-if-string-contains-only-spaces
 function stringEmpty(myString) {
@@ -106,7 +105,6 @@ document.getElementById("saveButton").addEventListener("click", function (e) {
   document.getElementById("userEmail").style.color = "rgb(48, 48, 48)";
   document.getElementById("userPassword").style.backgroundColor = "rgb(81, 81, 81)";
   document.getElementById("userPassword").style.color = "rgb(48, 48, 48)";
-
 
   if(stringEmpty(document.getElementById("userFirstName").value) ||
   stringEmpty(document.getElementById("userLastName").value) ||

@@ -1,7 +1,6 @@
 "use strict";
 
 function update() {
-
     document.getElementById("userFields").disabled = false;
     document.getElementById("saveButton").style.display = "block";
     document.getElementById("chooseImage").style.display = "block";
