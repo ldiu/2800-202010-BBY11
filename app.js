@@ -116,13 +116,48 @@ const usersSchema = {
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
-BBY_11_user.insertMany("/data.json", function(err){
-if(err){
-  console.log(err);
-} else {
-  console.log("saved successfully");
-}
+
+
+//------- Creating admins to run on local host -------//
+
+const admin1 = new Users({
+  email: "eliyahabibi@gmail.com",
+  password: 123,
+  admin: true
 });
+
+const admin2 = new Users({
+  email: "michaela@gmail.com",
+  password: 123,
+  admin: true
+});
+
+const admin3 = new Users({
+  email: "liana@gmail.com",
+  password: 123,
+  admin: true
+});
+const admin4 = new Users({
+  email: "colin@gmail.com",
+  password: 123,
+  admin: true
+});
+
+
+//------- Inserting admins to database -------//
+
+
+/* NOTE: please run this once and then comment it out. It will continue
+         to insert into the database otherwise.
+*/ 
+Users.insertMany([admin1, admin2, admin3, admin4], function(err){
+  if(err){
+    console.log(err);
+  } else {
+    console.log("saved successfully");
+  }
+  });
+
 
 
 //------- app.get all pages section -------//

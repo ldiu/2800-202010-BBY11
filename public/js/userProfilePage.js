@@ -1,6 +1,6 @@
 "use strict";
 
-//The following code follows a demo represented by the instructor's in 1800 course Projects. 
+
 async function loadTimeline() {
   try {
     let posts = await fetch("/getTimelinePosts", {

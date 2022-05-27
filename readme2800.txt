@@ -132,7 +132,7 @@ d. multer (must have node.js)
 	In the terminal of the working directory:
 		$ npm install --save multer
 e. MongoDB Community Edition
-	
+		https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
 f. mongoose (must have node.js)
 	In the terminal of the working directory:	
 		$ npm install mongoose
