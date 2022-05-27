@@ -1,7 +1,13 @@
 document.getElementById("logoImg").addEventListener("click", changeBackground);
 
-// This function changes the background of the page as wella s plays a sound and was creaeted with the help of:
-//https://www.w3schools.com/js/js_timing.asp
+
+/**
+   * Changes the background of the page as well as plays a sound
+   * I found this code on w3schools.com
+   *
+   * @author w3schools.com
+   * @see https://www.w3schools.com/js/js_timing.asp
+   */
 function changeBackground() {
     document.body.style.backgroundImage = "url('img/MILCyway.jpg')";
     let spaceSound = new Audio("sounds/spaceSound.mp3");

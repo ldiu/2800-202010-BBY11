@@ -7,7 +7,7 @@
 
 /* Update Function
  * This update() function was heavily adapted from Instructor Carly Orr's
- * "demo 10" script from 1800 coursework. It allows the user to open their 
+ * "demo 10" script from COMP 1800 coursework. It allows the user to open their 
  * information fields and Edit. It also changes the colour to indicate that
  * it is editable.
  */

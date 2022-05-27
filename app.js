@@ -449,7 +449,7 @@ app.post("/signUp.html", function (req, res) {
 
 
 
-// ---- The following code is for Loggin In ----//
+// ---- The following code is for Logging In ----//
 
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
@@ -695,6 +695,15 @@ app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
 
 // ---- Update timeline Posts ----//
 
+
+/**
+   * Takes updated timeline data and saves to database. 
+   * This was adapted from MongoDb developer community post. 
+   * It helped indicate how to access an embedded array in mongodb.
+   *
+   * @author Maxime Beugnet, MongoDb Employee
+   * @see https://www.mongodb.com/community/forums/t/updating-an-object-in-an-array/16191/2
+   */
 app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
 
