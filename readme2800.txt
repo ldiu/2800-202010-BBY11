@@ -39,22 +39,14 @@ File Contents of folder 2800-202210-BBY11:
 │   ├── fonts
 │   │   └── Montserrat-Regular.ttf
 │   ├── img
-│   │   ├── 2800.jpg
-│   │   ├── BizComm.jpg
-│   │   ├── James.png
-│   │   ├── MILCyway.jpg
 │   │   ├── andromeda_galaxy.png
-│   │   ├── disastergirl_zoeroth_111120youtube.jpg
 │   │   ├── favicon.png
-│   │   ├── happy.png
+│   │   ├── game.jpg
 │   │   ├── johndoe.png
 │   │   ├── logo.png
 │   │   ├── math2.png
-│   │   ├── noImageUploaded.jpg
-│   │   ├── picChannel.jpg
-│   │   ├── sad.png
-│   │   ├── steph.png
-│   │   └── swish.png
+│   │   ├── MILCyway.jpg
+│   │   └── noImageUploaded.jpg
 │   ├── js
 │   │   ├── client.js
 │   │   ├── footer.js
