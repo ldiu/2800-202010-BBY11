@@ -120,24 +120,24 @@ const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
 //------- Creating admins to run on local host -------//
 
-const admin1 = new Users({
+const admin1 = new BBY_11_user({
   email: "eliyahabibi@gmail.com",
   password: 123,
   admin: true
 });
 
-const admin2 = new Users({
+const admin2 = new BBY_11_user({
   email: "michaela@gmail.com",
   password: 123,
   admin: true
 });
 
-const admin3 = new Users({
+const admin3 = new BBY_11_user({
   email: "liana@gmail.com",
   password: 123,
   admin: true
 });
-const admin4 = new Users({
+const admin4 = new BBY_11_user({
   email: "colin@gmail.com",
   password: 123,
   admin: true
@@ -150,14 +150,13 @@ const admin4 = new Users({
 /* NOTE: please run this once and then comment it out. It will continue
          to insert into the database otherwise.
 */ 
-Users.insertMany([admin1, admin2, admin3, admin4], function(err){
+BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function(err){
   if(err){
     console.log(err);
   } else {
     console.log("saved successfully");
   }
   });
-
 
 
 //------- app.get all pages section -------//
