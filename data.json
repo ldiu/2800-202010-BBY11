@@ -45,12 +45,12 @@
     "admin": false,
     "timeline": [
       {
-        "text": "I love basketball",
+        "text": "this is the solution!",
         "date": "2022-05-20T19:50:00.000Z",
         "images": [
           {
-            "name": "swish.png",
-            "path": "img/swish.png",
+            "name": "game.jpg",
+            "path": "img/game.jpg",
             "_id": "6287f0e890de89f4c7c8b28b"
           }
         ],
@@ -69,12 +69,12 @@
     "admin": false,
     "timeline": [
       {
-        "text": "I'm a big fan of Steph Curry!",
+        "text": "!",
         "date": "2022-05-20T19:54:42.000Z",
         "images": [
           {
-            "name": "steph.png",
-            "path": "img/steph.png",
+            "name": "game.jpg",
+            "path": "img/game.jpg",
             "_id": "6287f202c7176a491d100194"
           }
         ],
@@ -93,12 +93,12 @@
     "admin": false,
     "timeline": [
       {
-        "text": "I'm feeling happy today!",
+        "text": "solution!",
         "date": "2022-05-20T19:57:46.000Z",
         "images": [
           {
-            "name": "happy.png",
-            "path": "img/happy.png",
+            "name": "game.jpg",
+            "path": "img/game.jpg",
             "_id": "6287f2ba46f17dcca6185ad4"
           }
         ],
