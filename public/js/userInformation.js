@@ -1,28 +1,7 @@
 "use strict";
 
-// Code follows similar outline to "fetch-example" from 2537 course.
-async function submitNewPost(data) {
-  console.log(data);
-  try {
-    let responseObject = await fetch("/createNewPost", {
-      method: 'POST',
-      headers: {
-        "Accept": 'application/json',
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify(data),
+//--- parse through the users info ---//
 
-    });
-    console.log("Response object", responseObject);
-    let parsedJSON = await responseObject.json();
-    console.log("From the server", parsedJSON);
-
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-//parse through the users info
 async function loadUserProfile() {
   try {
     let userProfile = await fetch("/getUserInfo", {
@@ -61,6 +40,8 @@ async function loadUserProfile() {
 
 loadUserProfile();
 
+
+
 async function updateUserInfo(data) {
   console.log(data);
   try {
@@ -82,18 +63,35 @@ async function updateUserInfo(data) {
   }
 }
 
-//Code snippet similar to code written by Borislav Hadzhiev at the following website:
-//https://bobbyhadz.com/blog/javascript-check-if-string-contains-only-spaces
+/**
+   * Returns true if the string is all spaces or empty. 
+   * I found this code on bobbyhadz blog.
+   *
+   * @author Borislav Hadzhiev
+   * @see https://bobbyhadz.com/blog/javascript-check-if-string-contains-only-spaces
+   */
 function stringEmpty(myString) {
   return myString.trim().length === 0;
 }
 
-/* Code snippet similar to code written by Annoying Armadillo on May 11 2020, example
-can be found at https://www.codegrepper.com/code-examples/javascript/javascript+check+email+format*/
+
+/**
+   * Validates an email address inputed by the user. 
+   * I found this code on Grepper with the help of lab instructor Nabil.
+   *
+   * @author Annoying Armadillo on May 11 2020
+   * @see https://www.codegrepper.com/code-examples/javascript/javascript+check+email+format
+   */
 function validateEmail(userInput) {
   const matchThis = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return matchThis.test(String(userInput).toLowerCase());
 }
+
+
+/**
+ * The following code upon click event will change color of input boxes,
+ * display new buttons, check the users input, and sends it to app.js
+ */
 
 document.getElementById("saveButton").addEventListener("click", function (e) {
   document.getElementById("editButton").style.display = "block";
@@ -140,7 +138,12 @@ document.getElementById("saveButton").addEventListener("click", function (e) {
   }
 });
 
-//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+
+/* Get Images
+ * This getImages block of code was adapted from Instructor Arron Ferguson's
+ * "index.html - upload-file" script example from 2537 coursework. It is for 
+ * fetching and saving images to img folder. 
+ */ 
 const newForm = document.getElementById("buttonForm");
 newForm.addEventListener("submit", getImages);
 

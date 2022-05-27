@@ -1,5 +1,8 @@
 "use strict";
 
+
+//--- User presses edit, colours change and buttons appear ---//
+
 function update() {
     document.getElementById("userFields").disabled = false;
     document.getElementById("saveButton").style.display = "block";
@@ -15,7 +18,12 @@ function update() {
     document.getElementById("userPassword").style.color = "black";
   }
 
-// Code follows similar outline to "fetch-example" from 2537 course.
+
+/* Submit new Post
+ * This submitNewPost block of code was adapted from Instructor Arron Ferguson's
+ * "index.html-fetch example" script from 2537 coursework. It is for creating an async 
+ * function to submit a new post.
+ */
 async function submitNewPost(data) { 
     console.log(data);
     try {
@@ -37,7 +45,13 @@ async function submitNewPost(data) {
     }
 }
 
-//Code follows similar outline to "fetch-example" from 2537 course.
+
+
+/* Submit new post - Call function on click
+ * This submitNewPost block of code is heavily adapted from Instructor Arron Ferguson's
+ * "index.html-fetch example" script from 2537 coursework. It is calling a function
+ * that retrieves the input data from the user and sends to the server.
+ */
 document.getElementById("submitPost").addEventListener("click", function (e) {
 
   if(document.getElementById("findImg").value == ""){
@@ -77,7 +91,12 @@ document.getElementById("submitPost").addEventListener("click", function (e) {
   }
 });
 
-//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+
+/* Get My Images
+ * This getMyImages block of code was adapted from Instructor Arron Ferguson's
+ * "index.html - upload-file" script example from 2537 coursework. It is for 
+ * fetching and saving images to img folder. 
+ */ 
 const newFormUpload = document.getElementById("postForm");
 newFormUpload.addEventListener("submit", getMyImages);
 
@@ -103,16 +122,25 @@ function getMyImages(e) {
     );
 }
 
-/* Code snippet retrieved from 
-https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery, 
-by Mohammad Web developer at Ravaghsoft */
+/**
+   * Displays image name on the screen when uplaoding an image. 
+   * I found this code on Stack Overflow.
+   *
+   * @author Mohammad Web developer at Ravaghsoft
+   * @see https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery
+   */
 document.querySelector("#findImage").onchange = function(){
     document.querySelector("#findImageName").textContent = this.files[0].name;
   }
 
-  /* Code snippet retrieved from 
-https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery, 
-by Mohammad Web developer at Ravaghsoft */
+
+/**
+   * Displays image name on the screen when uplaoding an image. 
+   * I found this code on Stack Overflow.
+   *
+   * @author Mohammad Web developer at Ravaghsoft
+   * @see https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery
+   */
 document.querySelector("#findImg").onchange = function(){
     document.querySelector("#findImgName").textContent = this.files[0].name;
   }
