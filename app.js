@@ -81,12 +81,10 @@ const usersSchema = {
     required: [true, "enter your password"]
   },
   name: {
-    type: String,
-    required: [true, "enter your name"]
+    type: String
   },
   lastName: {
-    type: String,
-    required: [true, "enter your last name"]
+    type: String
   },
   imagePath: {
     type: String
