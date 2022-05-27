@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    background-color: rgb(0, 0, 16);
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 40% 60%;
+    width: 100vw;
+    height: 100vh;
+}
+
+#message {
+    grid-row: 1 / 2;
+    color: whitesmoke;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+}
+
+#image {
+    grid-row: 2 / 3;
+    border-radius: 3%;
+    justify-self: center;
+}
+
+@media (min-width: 0px) and (max-width: 950px) {
+
+    #message{
+        font-size: 100%;
+        padding-top: 30%;
+    }
+
+    #image{
+        width: 90%;
+        height: 55%;
+    }
+
+}
+@media (min-width: 951px) {
+    #message{
+        font-size: 3.5vw;
+    }
+
+    #image{
+        width: 950px;
+        height: 500px;
+    }
+}
