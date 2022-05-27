@@ -202,8 +202,28 @@ i. The game
 	- each number can onnly be used once
 
 ## Credits
-printing DB on screen: Assignment 5 1537
-sign up: https://stackoverflow.com/questions/51820482/how-to-add-newuser-in-mongoose-data-base-in-node-js
+
+Coding References: 
+
+	References for code from course material examples: 
+		- For printing DB on screen: Assignment 5 1537
+		- For loading images to img folder: 2537 examples "index.html - upload-file", "upload-app.js"
+		- For fetching data: 2537 example "index.html-fetch example".
+	
+	References for code from other resources: 	
+		- For Sign Up: https://stackoverflow.com/questions/51820482/how-to-add-newuser-in-mongoose-data-base-in-node-js
+		- Display image name when uploading: https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery
+		- Validates an email: https://www.codegrepper.com/code-examples/javascript/javascript+check+email+format
+  	- Checks if string is empty or all spaces: https://bobbyhadz.com/blog/javascript-check-if-string-contains-only-spaces
+  	- Surprise event: https://www.w3schools.com/js/js_timing.asp
+
+Photos References:
+	- noImageUploaded: https://stock.adobe.com/ca/search?k=%22gallery+icon%22 
+	- pencil html code: https://ogmeta.ru/en/symbols/pencils 
+	- andromeda_galaxy.png: https://wallpaperaccess.com/andromeda-galaxy-4k
+	- MILCyway.jpg: https://unsplash.com/photos/VdfCq4Uu5As
+	- math2.png: https://www.theparisreview.org/blog/2019/07/22/the-aesthetic-beauty-of-math/
+	- johndoe.png: https://nupem.ufrj.br/tecnicos/
 
 ## Contact
 iliya
