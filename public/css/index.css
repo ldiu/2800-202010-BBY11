@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-* {
+*{
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -399,7 +399,6 @@ box-shadow: 1px 1px 3px #000;
   #solutionBox {
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
-    /* margin: 1rem; */
     font-size: 20px;
     text-align: center;
     background-color: #2C3333;

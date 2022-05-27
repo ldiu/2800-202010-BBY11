@@ -70,13 +70,21 @@ function insertRNG(){
     var RNG = [number1, number2, number3, number4, number5, number6];
     RNG[0].value = Math.floor((Math.random() * 9) + 1); //generate number from 1 to 9 inclusive
     var temp = [];
-    for (let i = 0; i < 5; i++) {
-        let number = Math.floor((Math.random() * 31) + 10) //generate number from 10 to 40
+    for (let i = 0; i < 2; i++) {
+        let number = Math.floor((Math.random() * 10) + 10) //generate number from 10 to 20 
         while (temp.includes(number)) {
-            number = Math.floor((Math.random() * 31) + 10)
+            number = Math.floor((Math.random() * 10) + 10)
         }
         temp.push(number);
     }
+    for (let i = 2; i < 4; i++) {
+        let number = Math.floor((Math.random() * 15) + 20) //generate number from 20 to 35
+        while (temp.includes(number)) {
+            number = Math.floor((Math.random() * 15) + 20)
+        }
+        temp.push(number);
+    }
+    temp.push(Math.floor((Math.random() * 11) + 35)); //generate number from 35 to 45
     for (let i = 0; i < 5; i++) {
         RNG[i+1].value = temp[i];
     }
