@@ -88,7 +88,6 @@ function insertRNG(){
     for (let i = 0; i < 5; i++) {
         RNG[i+1].value = temp[i];
     }
-    // RNG[5].value = Math.floor((Math.random() * 41) + 51); //generate number from 60 to 100
     for(let i = 0; i < 6; i++){
         document.getElementById("button" + (i+1)).value = RNG[i].value;
     }

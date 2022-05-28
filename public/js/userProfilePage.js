@@ -1,6 +1,6 @@
 "use strict";
 
-//The following code follows a demo represented by the instructor's in 1800 course Projects. 
+
 async function loadTimeline() {
   try {
     let posts = await fetch("/getTimelinePosts", {
@@ -27,27 +27,27 @@ async function loadTimeline() {
       editButton.id = timelinePosts[i]._id;
       headerDivElement.className = "postheader";
       let date = new Date(timelinePosts[i].date);
-      headerDivElement.innerHTML = "Posted on: " + date.toLocaleString("en-US"); 
+      headerDivElement.innerHTML = "Posted on: " + date.toLocaleString("en-US");
       headerDivElement.appendChild(editButton);
       let timelineImages = timelinePosts[i].images;
 
       let imageContainerElement = document.createElement('div');
       imageContainerElement.className = "imageContainer";
       for (var x = 0; x < timelineImages.length; x++) {
-        if ( timelineImages[x].name == ""){
-          console.log ("do nothing");
+        if (timelineImages[x].name == "") {
+          console.log("do nothing");
         } else {
 
           let imageDivElement = document.createElement('div');
           imageDivElement.className = "postImages";
-  
+
           let imageElement = document.createElement('img');
           imageElement.src = timelineImages[x].path;
           imageDivElement.appendChild(imageElement);
           imageContainerElement.appendChild(imageDivElement);
         }
       }
-      
+
       //Create Body Section and add text field from timeline
       let bodyDivElement = document.createElement('div');
       bodyDivElement.className = "postbody";
@@ -78,8 +78,11 @@ function exitEdit() {
   document.getElementById("postEdit").style.display = "none";
 }
 
-
-//Submit function after editing a post. Code follows similar outline to "fetch-example" from 2537 course.
+/* Submit Editing of Post
+ * This submitEditPost block of code was adapted from Instructor Arron Ferguson's
+ * "index.html-fetch example" script from 2537 coursework. It is for creating an async 
+ * function.
+ */
 async function submitEditPost(data) {
   console.log("this is " + data);
   try {
@@ -102,7 +105,11 @@ async function submitEditPost(data) {
   }
 }
 
-//Code follows similar outline to "fetch-example" from 2537 course.
+/* Submit Edit Post - Call function on click
+ * This submitEditPost block of code is heavily adapted from Instructor Arron Ferguson's
+ * "index.html-fetch example" script from 2537 coursework. It is calling a function
+ * that retrieves the input data.
+ */
 document.getElementById("editPost").addEventListener("click", function (e) {
   let postHeaderElement = document.getElementById("postEditHeader");
 
@@ -131,7 +138,11 @@ document.getElementById("editPost").addEventListener("click", function (e) {
   console.log("Data was sent");
 });
 
-//From Instructor Arrons "upload-file" Example.
+/* Find Images
+ * This findImages block of code was adapted from Instructor Arron Ferguson's
+ * "index.html - upload-file" script example from 2537 coursework. It is for 
+ * fetching and saving images to img folder. 
+ */
 const form = document.getElementById("editForm");
 form.addEventListener("submit", findImages);
 
@@ -157,10 +168,13 @@ function findImages(e) {
   );
 }
 
+/* Delete a post
+ * This deletePost block of code was adapted from Instructor Arron Ferguson's
+ * "index.html-fetch example" script from 2537 coursework. It is for creating an async 
+ * function to delete posts.
+ */
 async function deletePost(data) {
-  console.log("this is " + data);
   try {
-    console.log("deletePost was called");
     let responseObject = await fetch("/deleteOldPost", {
       method: 'POST',
       headers: {
@@ -182,10 +196,15 @@ document.getElementById("deletePost").addEventListener("click", function (e) {
   console.log("Data was sent");
 });
 
-/* Code snippet retrieved from 
-https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery, 
-by Mohammad Web developer at Ravaghsoft */
-document.querySelector("#newImg").onchange = function(){
+
+/**
+   * Displays image name on the screen when uplaoding an image. 
+   * I found this code on Stack Overflow.
+   *
+   * @author Mohammad Web developer at Ravaghsoft
+   * @see https://stackoverflow.com/questions/41542845/how-to-display-file-name-for-custom-styled-input-file-using-jquery
+   */
+document.querySelector("#newImg").onchange = function () {
   document.querySelector("#newImgName").textContent = this.files[0].name;
 }
 

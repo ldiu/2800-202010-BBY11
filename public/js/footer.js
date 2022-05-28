@@ -1,5 +1,10 @@
 "use strict";
 
+
+/* Load Footer Function
+ * This loadFooter function was adapted from Instructor Carly Orr's
+ * COMP 1800 Projects coursework. It loads the footer to the page.
+ */
 function loadFooter(){
     $('#footer').load('text/footer.html');
 }

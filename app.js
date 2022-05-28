@@ -23,10 +23,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-//from arrons notes
+//------- Use of Multer -------//
+
 const multer = require("multer");
 
-//Resource retrieved from Instructor Arron's 2537 example "upload-app.js"
+/* Use of Multer
+ * This block of code was adapted from Instructor Arron Ferguson's
+ * "upload-app.js" example from 2537 course work. It uses multer
+ * to store images.
+ */
 const imageStore = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, "./public/img")
@@ -38,8 +43,14 @@ const imageStore = multer.diskStorage({
 
 const imageLoader = multer({ storage: imageStore });
 
+
+
 app.set("view engine", "html");
 app.use(express.static("public"));
+
+
+
+//------- Creating a session -------//
 
 app.use(session({
   secret: "password",
@@ -47,11 +58,18 @@ app.use(session({
   saveUninitialized: true
 }));
 
+
+
+//------- Connecting to mongoose -------//
+
 if (IS_HEROKU) {
   mongoose.connect(uri);
 } else {
   mongoose.connect(url, { useNewUrlParser: true });
 }
+
+
+//------- Creating user schema -------//
 
 const usersSchema = {
   email: {
@@ -63,12 +81,10 @@ const usersSchema = {
     required: [true, "enter your password"]
   },
   name: {
-    type: String,
-    required: [true, "enter your name"]
+    type: String
   },
   lastName: {
-    type: String,
-    required: [true, "enter your last name"]
+    type: String
   },
   imagePath: {
     type: String
@@ -98,16 +114,50 @@ const usersSchema = {
 
 const BBY_11_user = new mongoose.model("BBY_11_user", usersSchema);
 
-// BBY_11_user.insertMany("/data.json", function(err){
-// if(err){
-//   console.log(err);
-// } else {
-//   console.log("saved successfully");
-// }
-// });
 
 
-//------- app.get -------//
+//------- Creating admins to run on local host -------//
+
+const admin1 = new BBY_11_user({
+  email: "eliyahabibi@gmail.com",
+  password: 123,
+  admin: true
+});
+
+const admin2 = new BBY_11_user({
+  email: "michaela@gmail.com",
+  password: 123,
+  admin: true
+});
+
+const admin3 = new BBY_11_user({
+  email: "liana@gmail.com",
+  password: 123,
+  admin: true
+});
+const admin4 = new BBY_11_user({
+  email: "colin@gmail.com",
+  password: 123,
+  admin: true
+});
+
+
+//------- Inserting admins to database -------//
+
+
+/* NOTE: please run this once and then comment it out. It will continue
+         to insert into the database otherwise.
+*/ 
+BBY_11_user.insertMany([admin1, admin2, admin3, admin4], function(err){
+  if(err){
+    console.log(err);
+  } else {
+    console.log("saved successfully");
+  }
+  });
+
+
+//------- app.get all pages section -------//
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -164,72 +214,11 @@ app.get("/errorRedirect.html", function (req, res) {
   ews.sendFile(__dirname + "/errorRedirect.html");
 });
 
-// ---- app.post ----//
-
-//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
-app.post('/saveImage', imageLoader.array("files"), function (req, res) {
-  for (let i = 0; i < req.files.length; i++) {
-    req.files[i].filename = req.files[i].originalname;
-  }
-});
 
 
-app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) {
-  res.setHeader("Content-Type", "application/json");
+// ---- app.post section----//
 
-  let images = req.body.images;
-  console.log(req.body.images);
-  console.log("This is the text" + req.body.text);
-
-  for (let i = 0; i < images.length; i++) {
-    if (images === "") {
-      BBY_11_user.updateOne({ email: req.session.user.email }, {
-        $push: {
-          timeline: { text: req.body.text, date: req.body.date }
-        }
-      },
-        function (err, data) {
-          if (err) {
-            console.log("Error:\n" + err);
-            res.redirect("/errorRedirect.html");
-          } else {
-            req.session.save(function (err) { });
-            res.redirect("/userProfilePage.html");
-          }
-        });
-    } else if (req.body.text === "") {
-      BBY_11_user.updateOne({ email: req.session.user.email }, {
-        $push: {
-          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
-        }
-      },
-        function (err, data) {
-          if (err) {
-            console.log("Error " + err);
-            res.redirect("/errorRedirect.html");
-          } else {
-            req.session.save(function (err) { });
-            res.redirect("/userProfilePage.html");
-          }
-        });
-    } else {
-      BBY_11_user.updateOne({ email: req.session.user.email }, {
-        $push: {
-          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
-        }
-      },
-        function (err, data) {
-          if (err) {
-            console.log("Error:\n" + err);
-            res.redirect("/errorRedirect.html");
-          } else {
-            req.session.save(function (err) { });
-            res.redirect("/userProfilePage.html");
-          }
-        });
-    }
-  }
-});
+// ---- the following code is for ending the session ----//
 
 app.post("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -237,6 +226,10 @@ app.post("/", function (req, res) {
   console.log(req.session.loggedIn);
   req.session.destroy();
 });
+
+
+
+// ---- The following code is for admin to display all users ----//
 
 app.post("/adminDash.html", function (req, res) {
   if (req.session.loggedIn) {
@@ -264,7 +257,9 @@ app.post("/adminDash.html", function (req, res) {
   }
 });
 
-//---- searching ----//
+
+
+// ---- The following code is for admin to search a user ----//
 
 app.post("/search", function (req, res) {
   if (req.session.loggedIn) {
@@ -307,7 +302,9 @@ app.post("/search", function (req, res) {
   }
 });
 
-//---- updating ----//
+
+
+// ---- The following code is for admin to update any user ----//
 
 app.post("/update", function (req, res) {
   if (req.session.loggedIn) {
@@ -326,7 +323,9 @@ app.post("/update", function (req, res) {
   }
 });
 
-//---- deleting ---//
+
+
+// ---- The following code is for admin to delete a user ----//
 
 app.post("/delete", function (req, res) {
   if (req.session.loggedIn) {
@@ -344,7 +343,9 @@ app.post("/delete", function (req, res) {
   }
 });
 
-//---- adding ----//
+
+
+// ---- The following code is for admin to add a new user ----//
 
 app.post("/add", function (req, res) {
   if (req.session.loggedIn) {
@@ -375,7 +376,9 @@ app.post("/add", function (req, res) {
   }
 });
 
-// ---- Reset Pass ----//
+
+
+// ---- The following code is for reseting the user's password ----//
 
 app.post("/accountSearch", function (req, res) {
   BBY_11_user.findOne({ email: req.body.emailRecov }, function (err, user) {
@@ -420,7 +423,9 @@ app.post("/accountSearch", function (req, res) {
   });
 });
 
-// ---- SignUp ----//
+
+
+// ---- The following code is for User Sign Up ----//
 
 app.post("/signUp.html", function (req, res) {
   const newUser = new BBY_11_user({
@@ -442,7 +447,9 @@ app.post("/signUp.html", function (req, res) {
   });
 });
 
-// ---- LogIn ----//
+
+
+// ---- The following code is for Logging In ----//
 
 app.post("/login.html", function (req, res) {
   const username = req.body.emailBox;
@@ -506,6 +513,13 @@ app.post("/login.html", function (req, res) {
   });
 });
 
+
+
+// ---- The following code is for User Profile Information ----//
+
+
+// ---- Get user Information ----//
+
 app.get('/getUserInfo', function (req, res) {
   BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
     if (err) {
@@ -517,12 +531,22 @@ app.get('/getUserInfo', function (req, res) {
   })
 });
 
+
+// ---- Save Profile Images ----//
+
+/* Save Profile Image
+ * This saveProfileImage block of code was adapted from Instructor Arron Ferguson's
+ * "upload-app.js" example from 2537 course work for iterating through several images.
+ */
 app.post('/saveProfileImage', imageLoader.array("files"), function (req, res) {
 
   for (let index = 0; index < req.files.length; index++) {
     req.files[index].filename = req.files[index].originalname;
   }
 });
+
+
+// ---- Edit User Info ----//
 
 app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
@@ -562,6 +586,86 @@ app.post("/editUserInfo", imageLoader.single("imageToUpload"), function (req, re
 }
 );
 
+
+
+// ---- The following code is for User Profile Timeline ----//
+
+
+// ---- Save Image after creating post ----//
+
+/* Save Image
+ * This saveImage block of code was adapted from Instructor Arron Ferguson's
+ * "upload-app.js" example from 2537 course work for iterating through several images.
+ */
+app.post('/saveImage', imageLoader.array("files"), function (req, res) {
+  for (let i = 0; i < req.files.length; i++) {
+    req.files[i].filename = req.files[i].originalname;
+  }
+});
+
+
+// ---- Create new timeline post ----//
+
+app.post("/createNewPost", imageLoader.single("fileImage"), function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+
+  let images = req.body.images;
+  console.log(req.body.images);
+  console.log("This is the text" + req.body.text);
+
+  for (let i = 0; i < images.length; i++) {
+    if (images === "") {
+      BBY_11_user.updateOne({ email: req.session.user.email }, {
+        $push: {
+          timeline: { text: req.body.text, date: req.body.date }
+        }
+      },
+        function (err, data) {
+          if (err) {
+            console.log("Error:\n" + err);
+            res.redirect("/errorRedirect.html");
+          } else {
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+          }
+        });
+    } else if (req.body.text === "") {
+      BBY_11_user.updateOne({ email: req.session.user.email }, {
+        $push: {
+          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
+        }
+      },
+        function (err, data) {
+          if (err) {
+            console.log("Error " + err);
+            res.redirect("/errorRedirect.html");
+          } else {
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+          }
+        });
+    } else {
+      BBY_11_user.updateOne({ email: req.session.user.email }, {
+        $push: {
+          timeline: { text: req.body.text, date: req.body.date, images: [{ name: images[i].name, path: "img/" + images[i].path }] }
+        }
+      },
+        function (err, data) {
+          if (err) {
+            console.log("Error:\n" + err);
+            res.redirect("/errorRedirect.html");
+          } else {
+            req.session.save(function (err) { });
+            res.redirect("/userProfilePage.html");
+          }
+        });
+    }
+  }
+});
+
+
+// ---- Get timeline posts ----//
+
 app.get('/getTimelinePosts', function (req, res) {
   BBY_11_user.findOne({ email: req.session.email }, function (err, user) {
     if (err) {
@@ -574,13 +678,32 @@ app.get('/getTimelinePosts', function (req, res) {
 });
 
 
-//Code follows Instructor Arron's "upload-file" example from 2537 course work. 
+
+// ---- Save updated images to folder ----//
+
+/* Save Images Path
+ * This saveImagePath block of code was adapted from Instructor Arron Ferguson's
+ * "upload-app.js" example from 2537 course work for iterating through several images.
+ */
 app.post('/saveImagePath', imageLoader.array("files"), function (req, res) {
   for (let index = 0; index < req.files.length; index++) {
     req.files[index].filename = req.files[index].originalname;
   }
 });
 
+
+
+// ---- Update timeline Posts ----//
+
+
+/**
+   * Takes updated timeline data and saves to database. 
+   * This was adapted from MongoDb developer community post. 
+   * It helped indicate how to access an embedded array in mongodb.
+   *
+   * @author Maxime Beugnet, MongoDb Employee
+   * @see https://www.mongodb.com/community/forums/t/updating-an-object-in-an-array/16191/2
+   */
 app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   res.setHeader("Content-Type", "application/json");
 
@@ -631,6 +754,9 @@ app.post('/editOldPost', imageLoader.single("postImage"), function (req, res) {
   }
 });
 
+
+// ---- Delete timeline Posts ----//
+
 app.post('/deleteOldPost', function (req, res) {
   res.setHeader("Content-Type", "application/json");
   console.log("deleteOldPost called");
@@ -648,6 +774,9 @@ app.post('/deleteOldPost', function (req, res) {
       }
     })
 });
+
+
+// ---- The following code is for connecting to port 8000 ----//
 
 app.listen(port, function () {
   console.log("server started on port " + port);
